@@ -48,7 +48,7 @@ public class SanPhaminBanHang_Repository {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getFloat(8),
+                        rs.getInt(8),
                         rs.getInt(9)
                 ));
 
@@ -81,7 +81,7 @@ public class SanPhaminBanHang_Repository {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getFloat(8),
+                        rs.getInt(8),
                         rs.getInt(9)
                 ));
             }
@@ -113,7 +113,7 @@ public class SanPhaminBanHang_Repository {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getFloat(8),
+                        rs.getInt(8),
                         rs.getInt(9)
                 ));
             }

@@ -30,8 +30,9 @@ public class HoaDon_Respository {
     }
 
     public List<HoaDonViews> getAllFormHoaDon() {
-        String select = "select a.MaHD,a.MaKH,HoVaTen,a.NgayTao from HoaDon a \n"
-                + "join KhachHang on KhachHang.MaKH =a.MaKH";
+        String select = "Select MaHD,a.MaKH,HoVaTen,NgayTao From HoaDon \n"
+                + "join KhachHang a on a.MaKH = HoaDon.MaKH\n"
+                + "where TrangThai='Chua thanh toan'";
         list = new ArrayList<>();
         try {
             pst = conn.openDBConnection().prepareStatement(select);
