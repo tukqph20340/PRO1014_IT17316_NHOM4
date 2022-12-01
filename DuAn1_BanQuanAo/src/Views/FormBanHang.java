@@ -36,6 +36,7 @@ public class FormBanHang extends javax.swing.JFrame {
         modelSanPham.setColumnIdentifiers(hearch);
         listSanPham = SanPham_Service.getAllSanPham();
         fillDataSanPham(listSanPham);
+        loadTableGH();
 
     }
     DefaultTableModel modelSanPham = new DefaultTableModel();
@@ -80,7 +81,8 @@ public class FormBanHang extends javax.swing.JFrame {
         modelSanPham = (DefaultTableModel) tblGioHang.getModel();
         for (GioHang x : list) {
             x.setSoLuong(1);
-            modelSanPham.addRow(new Object[]{x.getMaSP(), x.getTenSP(), x.getSoLuong(), x.tinhTong()});
+            list.add(x);
+            modelSanPham.addRow(new Object[]{x.getMaSP(), x.getTenSP(), x.getSoLuong(), x.getDonGia()});
         }
     }
 
