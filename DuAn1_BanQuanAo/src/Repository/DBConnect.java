@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  * @author PC DUNG
  */
 public class DBConnect {
-     private static String hostName = "TUANCACA\\SQLEXPRESS01";
+     private static String hostName = "localhost";//"TUANCACA\\SQLEXPRESS01";
     private static String account = "sa";
     private static String pass = "123456";
     private static String dbName = "PRO1014_IT17316_NHOM4";
