@@ -30,10 +30,9 @@ public class FormBanHang extends javax.swing.JFrame {
         String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
         modelSanPham.setColumnIdentifiers(hearch);
         listSanPham = SanPham_Service.getAllSanPham();
-//        modelSanPham.setRowCount(0);
         fillDataSanPham(listSanPham);
-//        listHD = sercive_hd.getAllForm();
-//        fillDataHoaDon(listHD);
+        listHD = sercive_hd.getAllForm();
+        fillDataHoaDon(listHD);
     }
     DefaultTableModel modelSanPham = new DefaultTableModel();
     SanPhamInBanHang_Service SanPham_Service = new SanPhamInBanHang_Service();
@@ -42,12 +41,13 @@ public class FormBanHang extends javax.swing.JFrame {
     List<HoaDonViews> listHD = new ArrayList<>();
 
     public void fillDataSanPham(List<SanPhamViews> list) {
-        
+        modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
         modelSanPham.setRowCount(0);
-        
+        listSanPham = SanPham_Service.getAllSanPham();
         for (SanPhamViews sanPhamViews : listSanPham) {
             modelSanPham.addRow(sanPhamViews.data());
         }
+        tblbangSanPham.setModel(modelSanPham);
     }
 
     public void fillDataHoaDon(List<HoaDonViews> listt) {
@@ -523,6 +523,7 @@ public class FormBanHang extends javax.swing.JFrame {
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         String name = txtname.getText();
         List<SanPhamViews> seachList = SanPham_Service.seachname(name);
+        seachList = SanPham_Service.getAllSanPham();
         fillDataSanPham(seachList);
         JOptionPane.showMessageDialog(this,"Thành công");
     }//GEN-LAST:event_btnTimKiemActionPerformed
