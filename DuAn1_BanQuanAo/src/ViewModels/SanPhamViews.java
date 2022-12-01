@@ -17,13 +17,13 @@ public class SanPhamViews {
     private String size;
     private String chatLieu;
     private String kieuDang;
-    private float giaBan;
+    private int giaBan;
     private int soLuong;
 
     public SanPhamViews() {
     }
 
-    public SanPhamViews(String MaSP, String TenSP, String DanhMuc, String Mau, String size, String chatLieu, String kieuDang, float giaBan, int soLuong) {
+    public SanPhamViews(String MaSP, String TenSP, String DanhMuc, String Mau, String size, String chatLieu, String kieuDang, int giaBan, int soLuong) {
         this.MaSP = MaSP;
         this.TenSP = TenSP;
         this.DanhMuc = DanhMuc;
@@ -97,7 +97,7 @@ public class SanPhamViews {
         return giaBan;
     }
 
-    public void setGiaBan(float giaBan) {
+    public void setGiaBan(int giaBan) {
         this.giaBan = giaBan;
     }
 
