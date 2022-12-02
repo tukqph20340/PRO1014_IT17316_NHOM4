@@ -25,13 +25,13 @@ public class GioHangIplm implements GioHangITF{
     }
 
     @Override
-    public boolean tangHD(String ma) {
-        return repo.tangHD(ma);
+    public boolean tangHD(String ma,String maHD) {
+        return repo.tangHD(ma,maHD);
     }
 
     @Override
-    public boolean giamHD(String ma) {
-       return repo.giamHD(ma);
+    public boolean giamHD(String ma,String maHD) {
+       return repo.giamHD(ma,maHD);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class GioHangIplm implements GioHangITF{
     }
 
     @Override
-    public boolean xoa(String ma) {
-        return repo.xoa(ma);
+    public boolean xoa(String ma,String maHD) {
+        return repo.xoa(ma,maHD);
     }
 
     @Override
