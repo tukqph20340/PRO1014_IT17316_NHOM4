@@ -37,7 +37,7 @@ public class SanPhaminBanHang_Repository {
 
         list = new ArrayList<>();
         try {
-            pst = conn.openDBConnection().prepareStatement(select);
+            pst =DBConnect.getConnection().prepareStatement(select);
             rs = pst.executeQuery();
             while (rs.next()) {
                 list.add(new SanPhamViews(
@@ -70,7 +70,7 @@ public class SanPhaminBanHang_Repository {
 
 //        list = new ArrayList<>();
         try {
-            pst = conn.openDBConnection().prepareStatement(find);
+            pst = DBConnect.getConnection().prepareStatement(find);
 //            rs = pst.executeQuery();
             while (rs.next()) {
                 list.add(new SanPhamViews(
@@ -100,7 +100,7 @@ public class SanPhaminBanHang_Repository {
                 + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
                 + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
                 + "  where TenSP=?";
-        try (Connection con = conn.openDBConnection(); PreparedStatement ps = con.prepareStatement(find)) {
+        try (Connection con =DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(find)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);
             ResultSet rs = ps.executeQuery();

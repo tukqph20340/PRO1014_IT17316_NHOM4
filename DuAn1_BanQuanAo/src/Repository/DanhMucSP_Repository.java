@@ -27,7 +27,7 @@ public class DanhMucSP_Repository {
         String select = "Select MaDM,DanhMucSanPham from DanhMucSP";
         list = new ArrayList<>();
         try {
-            pst = conn.openDBConnection().prepareStatement(select);
+            pst = DBConnect.getConnection().prepareStatement(select);
             rs = pst.executeQuery();
             while (rs.next()) {                
                 list.add(new DanhMuc_model(rs.getString(1),rs.getString(2)));
@@ -41,7 +41,7 @@ public class DanhMucSP_Repository {
     public String addForm(DanhMuc_model model){
         String add="INSERT INTO DanhMucSP (MaDM,DanhMucSanPham) values(?,?)";
         try {
-            pst = conn.openDBConnection().prepareStatement(add);
+            pst = DBConnect.getConnection().prepareStatement(add);
             pst.setObject(1, model.getMaDM());
             pst.setObject(2, model.getTenDM());
             pst.executeUpdate();
@@ -54,7 +54,7 @@ public class DanhMucSP_Repository {
       public String DeleteForm(String ma){
         String delete="DELETE FROM DanhMucSP where MaDM=?";
         try {
-            pst = conn.openDBConnection().prepareStatement(delete);
+            pst = DBConnect.getConnection().prepareStatement(delete);
             pst.setObject(1, ma);
             pst.executeUpdate();
             return"Xóa thành công";
@@ -66,7 +66,7 @@ public class DanhMucSP_Repository {
         public String UpdateForm(DanhMuc_model model){
         String update="Update DanhMucSP set DanhMucSanPham=? where MaDM =?";
         try {
-            pst = conn.openDBConnection().prepareStatement(update);
+            pst = DBConnect.getConnection().prepareStatement(update);
             pst.setObject(1, model.getTenDM());
             pst.setObject(2, model.getMaDM());
             pst.executeUpdate();
