@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import jdk.jfr.Event;
 
 /**
  *
@@ -37,7 +38,6 @@ public class FormBanHang extends javax.swing.JFrame {
         listSanPham = SanPham_Service.getAllSanPham();
         fillDataSanPham(listSanPham);
         loadTableGH();
-
     }
     DefaultTableModel modelSanPham = new DefaultTableModel();
     SanPhamInBanHang_Service SanPham_Service = new SanPhamInBanHang_Service();
@@ -76,13 +76,12 @@ public class FormBanHang extends javax.swing.JFrame {
             modelSanPham.addRow(new Object[]{x.getMaSP(), x.getTenSP(), x.getSoLuong(), x.tinhTong()});
         }
     }
-    
+
     public void loadDataTableGH_SP(ArrayList<GioHang> list) {
         modelSanPham = (DefaultTableModel) tblGioHang.getModel();
         for (GioHang x : list) {
             x.setSoLuong(1);
-            list.add(x);
-            modelSanPham.addRow(new Object[]{x.getMaSP(), x.getTenSP(), x.getSoLuong(), x.getDonGia()});
+            modelSanPham.addRow(new Object[]{x.getMaSP(), x.getTenSP(), x.getSoLuong(), x.tinhTong()});
         }
     }
 
@@ -584,16 +583,23 @@ public class FormBanHang extends javax.swing.JFrame {
         ArrayList<GioHang> list = new ArrayList<>();
         int row = tblbangSanPham.getSelectedRow();
         String ma = tblbangSanPham.getValueAt(row, 0).toString();
-        String ten = tblbangSanPham.getValueAt(row, 1).toString();
-        //int gia = Integer.parseInt(tblbangSanPham.getValueAt(row, 7).toString());
-        /*GioHang x = new GioHang();
+        int so = Integer.parseInt(tblbangSanPham.getValueAt(row, 8).toString());
+        /*String ten = tblbangSanPham.getValueAt(row, 1).toString();
+        int gia = Integer.parseInt(tblbangSanPham.getValueAt(row, 7).toString());
+        GioHang x = new GioHang();
         x.setMaSP(ma);
         x.setTenSP(ten);
         x.setSoLuong(1);
-        x.setTongTien(gia); 
+        x.setDonGia(gia);
         list.add(x);*/
+        int i = 0;
+        //ArrayList<String> listMaSP = new ArrayList<>();
+        //String a = tblGioHang.getValueAt(0, 0).toString();
         try {
-            loadDataTableGH(ghService.getListGH_SP(ma));
+            loadDataTableGH_SP(ghService.getListGH_SP(ma));
+            modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
+            tblbangSanPham.setValueAt(so - 1, row, 8);
+            //loadDataTableGH(list);          
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -602,11 +608,22 @@ public class FormBanHang extends javax.swing.JFrame {
     private void btTangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTangActionPerformed
         // TODO add your handling code here:
         int row = tblGioHang.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Không thể sửa số lượng do bạn chưa chọn sản phẩm.");
+        }
         String ma = tblGioHang.getValueAt(row, 0).toString();
+        int rowHD = tblHoaDonCho.getSelectedRow();        
+        if (rowHD==-1) {
+            JOptionPane.showMessageDialog(this, "Sửa số lượng thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo");
+            return;
+        }
+        String maHD=tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        //String maHD = "HD01";
         try {
-            if (ghService.tangHD(ma)) {
+            if (ghService.tangHD(ma, maHD)) {
                 if (ghService.giamSP(ma)) {
-                    loadDataTableGH(ghService.getListGH(ma));
+                    loadTableGH();
+                    loadDataTableGH(ghService.getListGH(maHD));                    
                 }
             }
         } catch (Exception e) {
@@ -618,11 +635,22 @@ public class FormBanHang extends javax.swing.JFrame {
     private void btGiamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGiamActionPerformed
         // TODO add your handling code here:
         int row = tblGioHang.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Không thể sửa số lượng do bạn chưa chọn sản phẩm.");
+            return;
+        }
         String ma = tblGioHang.getValueAt(row, 0).toString();
-        String maHD = "HD01";
+        int rowHD = tblHoaDonCho.getSelectedRow();
+        if (rowHD == -1) {
+            JOptionPane.showMessageDialog(this, "Sửa số lượng thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo");
+            return;
+        }
+        String maHD=tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        //String maHD = "HD01";
         try {
-            if (ghService.giamHD(ma)) {
+            if (ghService.giamHD(ma, maHD)) {
                 if (ghService.tangSP(ma)) {
+                    loadTableGH();
                     loadDataTableGH(ghService.getListGH(maHD));
                 }
             }
@@ -634,27 +662,43 @@ public class FormBanHang extends javax.swing.JFrame {
     private void btXoaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaSPActionPerformed
         // TODO add your handling code here:
         int row = tblGioHang.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Không thể xóa sản phẩm do bạn chưa chọn sản phẩm.");
+            return;
+        }
         String ma = tblGioHang.getValueAt(row, 0).toString();
-        String maHD = "HD01";
-        SanPham sp = new SanPham();
-        GioHang gh = new GioHang();
-        int sl=Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
+        int rowHD = tblHoaDonCho.getSelectedRow();
+        if (rowHD == -1) {
+            JOptionPane.showMessageDialog(this, "Xóa thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo.");
+            return;
+        }
+        String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        //String maHD = "HD01";
+        int sl = Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
         try {
-            if (ghService.xoa(ma)) {
+            if (ghService.xoa(ma, maHD)) {
                 for (int i = 1; i <= sl; i++) {
                     ghService.tangSP(ma);
                 }
+                loadTableGH();
                 loadDataTableGH(ghService.getListGH(maHD));
-            }
+            }/*else{
+                JOptionPane.showMessageDialog(this, "Xóa thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo");
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
+
         }
     }//GEN-LAST:event_btXoaSPActionPerformed
 
     private void tblHoaDonChoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseClicked
         // TODO add your handling code here:
-        int row=tblHoaDonCho.getSelectedRow();
-        String ma=tblHoaDonCho.getValueAt(row, 0).toString();
+        int row = tblHoaDonCho.getSelectedRow();
+        /*if (row==-1) {
+            JOptionPane.showMessageDialog(this, "Hóa Đơn chưa được chọn");
+            return;
+        }*/
+        String ma = tblHoaDonCho.getValueAt(row, 0).toString();
         try {
             loadDataTableGH(ghService.getListGH(ma));
         } catch (Exception e) {
@@ -676,16 +720,24 @@ public class FormBanHang extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormBanHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormBanHang.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormBanHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormBanHang.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormBanHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormBanHang.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormBanHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormBanHang.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
