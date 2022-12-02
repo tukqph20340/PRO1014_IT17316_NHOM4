@@ -7,7 +7,8 @@ package ServiceIplm;
 import DomainModels.*;
 import Repository.KhachHangRepo;
 import Repository.MauRepository;
-import ServiceITF.KhachHang;
+import ServiceITF.KhachHangITF;
+import Views.KhachHang;
 import ViewModels.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
  *
  * @author DELL
  */
-public class KhachHangSevice implements KhachHang{
+public class KhachHangSevice implements KhachHangITF{
     private KhachHangRepo list = new KhachHangRepo();
 
     @Override

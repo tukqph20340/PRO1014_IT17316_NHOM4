@@ -47,6 +47,7 @@ public class HoaDon_Respository {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HoaDon_Respository.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return list;
     }

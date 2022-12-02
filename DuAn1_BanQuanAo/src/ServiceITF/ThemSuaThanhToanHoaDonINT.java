@@ -4,8 +4,6 @@
  */
 package ServiceITF;
 
-package Repository;
-
 import DomainModels.*;
 import java.sql.*;
 import java.util.ArrayList;
