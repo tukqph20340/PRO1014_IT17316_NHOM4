@@ -42,13 +42,14 @@ public class FormBanHang extends javax.swing.JFrame {
         initComponents();
 
         setLocationRelativeTo(this);
-        loadCbMau(service.getListMauSac());
-        loadCbSize(service.getListSize());
-        
         listSanPham = SanPham_Service.getAllSanPham();
         fillDataSanPham(listSanPham);
-        //listHD = sercive_hd.getAllForm();
-        //fillDataHoaDon(listHD);
+        String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
+        modelSanPham.setColumnIdentifiers(hearch);
+        loadCbMau(service.getListMauSac());
+        loadCbSize(service.getListSize());
+        listHD = sercive_hd.getAllForm();
+        fillDataHoaDon(listHD);
         loadTableGH();
 
         //fillDataHoaDon(listHD);
@@ -80,15 +81,14 @@ public class FormBanHang extends javax.swing.JFrame {
     }
 
     public void fillDataSanPham(List<SanPhamViews> list) {
-        tblbangSanPham.setModel(modelSanPham);
-        String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
-        modelSanPham.setColumnIdentifiers(hearch);
+//        tblbangSanPham.setModel(modelSanPham);
+//        modelSanPham.setRowCount(0);
         modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
         modelSanPham.setRowCount(0);
         for (SanPhamViews sanPhamViews : listSanPham) {
             modelSanPham.addRow(sanPhamViews.data());
         }
-        tblbangSanPham.setModel(modelSanPham);
+//        tblbangSanPham.setModel(modelSanPham);
     }
 
     public void fillDataHoaDon(List<HoaDonViews> listt) {
@@ -917,7 +917,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void CbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbLocMauActionPerformed
         //locMau
-        /*String mau = CbLocMau.getSelectedItem().toString();
+        String mau = (String) CbLocMau.getSelectedItem();
         try {
             if (mau.equalsIgnoreCase("Tất Cả")) {
                 listSanPham = SanPham_Service.getAllSanPham();
@@ -929,12 +929,12 @@ public class FormBanHang extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }//GEN-LAST:event_CbLocMauActionPerformed
 
     private void cbLocSizzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizzeActionPerformed
         //locsize
-        /*String size = cbLocSizze.getSelectedItem().toString();
+        String size = (String) cbLocSizze.getSelectedItem();
         try {
             if (size.equalsIgnoreCase("Tất Cả")) {
                 listSanPham = SanPham_Service.getAllSanPham();
@@ -946,7 +946,7 @@ public class FormBanHang extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }//GEN-LAST:event_cbLocSizzeActionPerformed
 
     /**

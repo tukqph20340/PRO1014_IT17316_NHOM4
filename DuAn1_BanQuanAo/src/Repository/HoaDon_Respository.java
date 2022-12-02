@@ -35,7 +35,7 @@ public class HoaDon_Respository {
                 + "where TrangThai='Chua thanh toan'";
         list = new ArrayList<>();
         try {
-            pst = DBConnect.getConnection().prepareStatement(select);
+            pst = conn.openDBConnection().prepareStatement(select);
             rs = pst.executeQuery();
             while (rs.next()) {
                 list.add(new HoaDonViews(

@@ -37,7 +37,7 @@ public class SanPhaminBanHang_Repository {
 
         list = new ArrayList<>();
         try {
-            pst =DBConnect.getConnection().prepareStatement(select);
+            pst =conn.openDBConnection().prepareStatement(select);
             rs = pst.executeQuery();
             while (rs.next()) {
                 list.add(new SanPhamViews(
@@ -70,7 +70,7 @@ public class SanPhaminBanHang_Repository {
 
 //        list = new ArrayList<>();
         try {
-            pst = DBConnect.getConnection().prepareStatement(find);
+            pst = conn.openDBConnection().prepareStatement(find);
 //            rs = pst.executeQuery();
             while (rs.next()) {
                 list.add(new SanPhamViews(
@@ -100,7 +100,7 @@ public class SanPhaminBanHang_Repository {
                 + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
                 + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
                 + "  where TenSP=?";
-        try (Connection con =DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(find)) {
+        try (Connection con =conn.openDBConnection(); PreparedStatement ps = con.prepareStatement(find)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);
             ResultSet rs = ps.executeQuery();
@@ -132,7 +132,7 @@ public class SanPhaminBanHang_Repository {
                 + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
                 + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
                 + "  where TenMau=?";
-        try (Connection con = conn.getConnection();
+        try (Connection con = conn.openDBConnection();
                 PreparedStatement ps = con.prepareStatement(find1)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);
@@ -165,7 +165,7 @@ public class SanPhaminBanHang_Repository {
                 + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
                 + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
                 + "  where Ten=?";
-        try (Connection con = conn.getConnection();
+        try (Connection con = conn.openDBConnection();
                 PreparedStatement ps = con.prepareStatement(find2)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);
