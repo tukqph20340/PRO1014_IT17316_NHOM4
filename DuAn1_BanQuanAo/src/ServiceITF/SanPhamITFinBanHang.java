@@ -16,4 +16,6 @@ public interface SanPhamITFinBanHang {
     public List<SanPhamViews> getAllSanPhamInBanHang();
     public List<SanPhamViews> getAllSanPham();
     public List<SanPhamViews> seachname(String name);
+     public List<SanPhamViews> LocMau(String name);
+     public List<SanPhamViews> LocSize(String name);
 }
