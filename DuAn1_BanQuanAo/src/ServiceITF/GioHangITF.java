@@ -19,13 +19,13 @@ public interface GioHangITF {
     
     public ArrayList<GioHang> getListGH_SP(String ma);
 
-    public boolean tangHD(String ma);
+    public boolean tangHD(String ma,String maHD);
 
-    public boolean giamHD(String ma);
+    public boolean giamHD(String ma,String maHD);
 
     public boolean tangSP(String ma);
 
     public boolean giamSP(String ma);
     
-    public boolean xoa(String ma);
+    public boolean xoa(String ma,String maHD);
 }

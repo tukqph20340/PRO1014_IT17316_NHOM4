@@ -66,4 +66,14 @@ public class SanPhamInBanHang_Service implements SanPhamITFinBanHang {
        return seachList;
     }
 
+    @Override
+    public List<SanPhamViews> LocMau(String name) {
+        return sp.LocMau(name);
+    }
+
+    @Override
+    public List<SanPhamViews> LocSize(String name) {
+        return sp.LocSize(name);
+    }
+
 }
