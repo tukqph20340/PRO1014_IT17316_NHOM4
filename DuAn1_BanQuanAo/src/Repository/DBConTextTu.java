@@ -14,7 +14,7 @@ public class DBConTextTu {
     
     private static final String USERNAME = "sa";
     private static final String PASSWORD = "123456";
-    private static final String SERVER = "LAPTOP-JFP9BPP3";
+    private static final String SERVER = "localhost";
     private static final String PORT = "1433";
     private static final String DATABASE_NAME = "PRO1014_IT17316_NHOM4";
     private static final boolean USING_SSL = true;

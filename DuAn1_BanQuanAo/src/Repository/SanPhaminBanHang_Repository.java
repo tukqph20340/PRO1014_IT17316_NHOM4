@@ -132,7 +132,7 @@ public class SanPhaminBanHang_Repository {
                 + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
                 + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
                 + "  where TenMau=?";
-        try (Connection con = conn.openDBConnection();
+        try (Connection con = conn.getConnection();
                 PreparedStatement ps = con.prepareStatement(find1)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);
@@ -165,7 +165,7 @@ public class SanPhaminBanHang_Repository {
                 + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
                 + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
                 + "  where Ten=?";
-        try (Connection con = conn.openDBConnection();
+        try (Connection con = conn.getConnection();
                 PreparedStatement ps = con.prepareStatement(find2)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);

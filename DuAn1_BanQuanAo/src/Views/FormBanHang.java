@@ -42,20 +42,16 @@ public class FormBanHang extends javax.swing.JFrame {
         initComponents();
 
         setLocationRelativeTo(this);
-         loadCbMau(service.getListMauSac());
+        loadCbMau(service.getListMauSac());
         loadCbSize(service.getListSize());
-        tblbangSanPham.setModel(modelSanPham);
-        String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
-        modelSanPham.setColumnIdentifiers(hearch);
+        
         listSanPham = SanPham_Service.getAllSanPham();
         fillDataSanPham(listSanPham);
-        listHD = sercive_hd.getAllForm();
-        fillDataHoaDon(listHD);
+        //listHD = sercive_hd.getAllForm();
+        //fillDataHoaDon(listHD);
         loadTableGH();
 
-        fillDataHoaDon(listHD);
-
-        
+        //fillDataHoaDon(listHD);
 
     }
     private SanPhamITF service = new SanPhamIplm();
@@ -66,10 +62,11 @@ public class FormBanHang extends javax.swing.JFrame {
     HoaDon_Service sercive_hd = new HoaDon_Service();
     List<HoaDonViews> listHD = new ArrayList<>();
     private GioHangITF ghService = new GioHangIplm();
-     public void loadCbMau(ArrayList<String> listMau) {
+
+    public void loadCbMau(ArrayList<String> listMau) {
         CbLocMau.removeAllItems();
         CbLocMau.addItem("Tất cả");
-        for (String x : listMau) {            
+        for (String x : listMau) {
             CbLocMau.addItem(x);
         }
     }
@@ -77,13 +74,15 @@ public class FormBanHang extends javax.swing.JFrame {
     public void loadCbSize(ArrayList<String> listSize) {
         cbLocSizze.removeAllItems();
         cbLocSizze.addItem("Tất cả");
-        for (String x : listSize) {           
+        for (String x : listSize) {
             cbLocSizze.addItem(x);
         }
     }
 
     public void fillDataSanPham(List<SanPhamViews> list) {
-
+        tblbangSanPham.setModel(modelSanPham);
+        String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
+        modelSanPham.setColumnIdentifiers(hearch);
         modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
         modelSanPham.setRowCount(0);
         for (SanPhamViews sanPhamViews : listSanPham) {
@@ -694,18 +693,18 @@ public class FormBanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không thể sửa số lượng do bạn chưa chọn sản phẩm.");
         }
         String ma = tblGioHang.getValueAt(row, 0).toString();
-        int rowHD = tblHoaDonCho.getSelectedRow();        
-        if (rowHD==-1) {
+        int rowHD = tblHoaDonCho.getSelectedRow();
+        if (rowHD == -1) {
             JOptionPane.showMessageDialog(this, "Sửa số lượng thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo");
             return;
         }
-        String maHD=tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
         //String maHD = "HD01";
         try {
             if (ghService.tangHD(ma, maHD)) {
                 if (ghService.giamSP(ma)) {
                     loadTableGH();
-                    loadDataTableGH(ghService.getListGH(maHD));                    
+                    loadDataTableGH(ghService.getListGH(maHD));
                 }
             }
         } catch (Exception e) {
@@ -727,7 +726,7 @@ public class FormBanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Sửa số lượng thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo");
             return;
         }
-        String maHD=tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
         //String maHD = "HD01";
         try {
             if (ghService.giamHD(ma, maHD)) {
@@ -759,7 +758,7 @@ public class FormBanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Xóa thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo.");
             return;
         }
-        String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        //String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
         //String maHD = "HD01";
 
         int sl = Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
@@ -788,7 +787,6 @@ public class FormBanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Hóa Đơn chưa được chọn");
             return;
         }*/
-
         String ma = tblHoaDonCho.getValueAt(row, 0).toString();
         try {
             loadDataTableGH(ghService.getListGH(ma));
@@ -834,9 +832,9 @@ public class FormBanHang extends javax.swing.JFrame {
                     Integer tongtien1 = Integer.parseInt(TongTien);
                     Integer TienKhachDua1 = Integer.parseInt(TienKhachDua);
                     txtTienThua.setText(String.valueOf(tongtien1 - TienKhachDua1));
-                    if (TienKhachDua1<0) {
-                       JOptionPane.showMessageDialog(null, "tiền phải lớn hơn 0");
-                    return; 
+                    if (TienKhachDua1 < 0) {
+                        JOptionPane.showMessageDialog(null, "tiền phải lớn hơn 0");
+                        return;
                     }
                 } catch (Exception e) {
                 }
@@ -902,7 +900,7 @@ public class FormBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         String Mat = txtMaTimkiem.getText();
         if (Mat.trim().isEmpty()) {
-             JOptionPane.showMessageDialog(null, "mã hóa đơn đang tìm để trống");
+            JOptionPane.showMessageDialog(null, "mã hóa đơn đang tìm để trống");
             return;
         }
         List<ThanhToan> hd = BanHang.select(Mat);
@@ -918,37 +916,37 @@ public class FormBanHang extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton34ActionPerformed
 
     private void CbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbLocMauActionPerformed
-       //locMau
-        String mau= (String) CbLocMau.getSelectedItem();
+        //locMau
+        /*String mau = CbLocMau.getSelectedItem().toString();
         try {
             if (mau.equalsIgnoreCase("Tất Cả")) {
-               listSanPham = SanPham_Service.getAllSanPham();
+                listSanPham = SanPham_Service.getAllSanPham();
                 fillDataSanPham(listSanPham);
                 return;
-            }else{
-            listSanPham = SanPham_Service.LocMau(mau);
-            fillDataSanPham(listSanPham);
+            } else {
+                listSanPham = SanPham_Service.LocMau(mau);
+                fillDataSanPham(listSanPham);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_CbLocMauActionPerformed
 
     private void cbLocSizzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizzeActionPerformed
-       //locsize
-       String size=(String) cbLocSizze.getSelectedItem();
-       try {
+        //locsize
+        /*String size = cbLocSizze.getSelectedItem().toString();
+        try {
             if (size.equalsIgnoreCase("Tất Cả")) {
-               listSanPham = SanPham_Service.getAllSanPham();
+                listSanPham = SanPham_Service.getAllSanPham();
                 fillDataSanPham(listSanPham);
                 return;
-            }else{
-            listSanPham = SanPham_Service.LocSize(size);
-            fillDataSanPham(listSanPham);
+            } else {
+                listSanPham = SanPham_Service.LocSize(size);
+                fillDataSanPham(listSanPham);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_cbLocSizzeActionPerformed
 
     /**
