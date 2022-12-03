@@ -62,7 +62,7 @@ public class FormSanPham extends javax.swing.JFrame {
             cbMauSac.addItem(x);
         }
         cbLocMau.addItem("Tất cả");
-        for (String x : listMau) {            
+        for (String x : listMau) {
             cbLocMau.addItem(x);
         }
     }
@@ -74,7 +74,7 @@ public class FormSanPham extends javax.swing.JFrame {
             cbSize.addItem(x);
         }
         cbLocSize.addItem("Tất cả");
-        for (String x : listSize) {           
+        for (String x : listSize) {
             cbLocSize.addItem(x);
         }
     }
@@ -92,6 +92,15 @@ public class FormSanPham extends javax.swing.JFrame {
             cbKieuDang.addItem(x);
         }
     }
+    
+    public boolean checkTrung(String ma){
+        for (SanPham a : service.getListSanPham()) {
+                if (ma.equals(a.getMaSP())) {                   
+                    return true;
+                }
+            }
+        return false;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,7 +115,7 @@ public class FormSanPham extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btBanHang = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -180,8 +189,13 @@ public class FormSanPham extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton1.setText("SẢN PHẨM");
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("BÁN HÀNG");
+        btBanHang.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btBanHang.setText("BÁN HÀNG");
+        btBanHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBanHangActionPerformed(evt);
+            }
+        });
 
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jButton5.setText("NHÂN VIÊN");
@@ -214,7 +228,7 @@ public class FormSanPham extends javax.swing.JFrame {
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btBanHang, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -228,7 +242,7 @@ public class FormSanPham extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btBanHang, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -598,9 +612,54 @@ public class FormSanPham extends javax.swing.JFrame {
         x.setGiaBan(Integer.parseInt(txtGiaBan.getText()));
         x.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
         x.setTrangThai(txtTrangThai.getText());
+
         try {
-            service.them(x);
-            loadTable(service.getListSanPham());
+            if (txtMaSP.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Sản Phẩm");
+                return;
+            }
+            for (SanPham a : service.getListSanPham()) {
+                if (txtMaSP.getText().equals(a.getMaSP())) {
+                    JOptionPane.showMessageDialog(this, "Thêm không thành công do mã sản phẩm đã tồn tại");
+                    return;
+                }
+            }
+            if (txtMaCH.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Cửa Hàng");
+                return;
+            }
+            if (txtMaNCC.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Nhà Cung Cấp");
+                return;
+            }
+            if (txtTenSP.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Tên Sản Phẩm");
+                return;
+            }
+            if (txtNgaySX.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Ngày Sản Xuất");
+                return;
+            }
+            if (txtGiaNhap.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Giá Nhập");
+                return;
+            }
+            if (txtGiaBan.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Giá Bán");
+                return;
+            }
+            if (txtSoLuong.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Số Lượng");
+                return;
+            }
+            if (txtTrangThai.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Trạng Thái");
+                return;
+            }
+            if (service.them(x)) {
+                loadTable(service.getListSanPham());
+                JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -623,9 +682,54 @@ public class FormSanPham extends javax.swing.JFrame {
         x.setGiaBan(Integer.parseInt(txtGiaBan.getText()));
         x.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
         x.setTrangThai(txtTrangThai.getText());
+
         try {
-            service.sua(x, ma);
-            loadTable(service.getListSanPham());
+            if (txtMaSP.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Sản Phẩm");
+                return;
+            }
+                if (checkTrung(txtMaSP.getText()) == false) {
+                    JOptionPane.showMessageDialog(this, "Sửa Thất Bại do bạn mã sản phẩm không tồn tại");
+                    return;
+                }
+
+            if (txtMaCH.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Cửa Hàng");
+                return;
+            }
+            if (txtMaNCC.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Nhà Cung Cấp");
+                return;
+            }
+            if (txtTenSP.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Tên Sản Phẩm");
+                return;
+            }
+            if (txtNgaySX.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Ngày Sản Xuất");
+                return;
+            }
+            if (txtGiaNhap.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Giá Nhập");
+                return;
+            }
+            if (txtGiaBan.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Giá Bán");
+                return;
+            }
+            if (txtSoLuong.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Số Lượng");
+                return;
+            }
+            if (txtTrangThai.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập Trạng Thái");
+                return;
+            }
+            if (service.sua(x, ma)) {
+                loadTable(service.getListSanPham());
+                JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -635,6 +739,14 @@ public class FormSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ma = txtMaSP.getText();
         try {
+            if (ma.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Xóa Thất Bại do bạn chưa nhập mã sản phẩm.");
+                return;
+            }
+                if (checkTrung(ma) == false) {
+                    JOptionPane.showMessageDialog(this, "Xóa Thất Bại do bạn mã sản phẩm không tồn tại");
+                    return;
+                }
             if (service.xoa(ma)) {
                 JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa Sản Phẩm này không?");
                 JOptionPane.showMessageDialog(this, "Xóa Thành Công");
@@ -683,9 +795,17 @@ public class FormSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_tbThongTinSanPhamMouseClicked
 
     private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
-        String ma=txtTimKiem.getText();
+        String ma = txtTimKiem.getText();
         try {
-            ArrayList<SanPham> list=service.tim(ma);
+            if (ma.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Bạn chưa nhập thông tin tìm kiếm");
+                return;
+            }
+            if (checkTrung(ma)==false) {
+                JOptionPane.showMessageDialog(this, "Sản Phẩm không tồn tại");
+                return;
+            }
+            ArrayList<SanPham> list = service.tim(ma);
             loadTable(list);
         } catch (Exception e) {
         }
@@ -693,13 +813,13 @@ public class FormSanPham extends javax.swing.JFrame {
 
     private void cbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocMauActionPerformed
         // TODO add your handling code here:
-        String mau=(String) cbLocMau.getSelectedItem();
+        String mau = (String) cbLocMau.getSelectedItem();
         try {
-            if (mau.equalsIgnoreCase("Tất Cả")) {
+            if (cbLocMau.getSelectedIndex()==0) {
                 loadTable(service.getListSanPham());
                 return;
             }
-            ArrayList<SanPham> list=service.locMau(mau);
+            ArrayList<SanPham> list = service.locMau(mau);
             loadTable(list);
         } catch (Exception e) {
             e.printStackTrace();
@@ -708,18 +828,25 @@ public class FormSanPham extends javax.swing.JFrame {
 
     private void cbLocSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizeActionPerformed
         // TODO add your handling code here:
-        String size=(String) cbLocSize.getSelectedItem();
+        String size = (String) cbLocSize.getSelectedItem();
         try {
-            if (size.equalsIgnoreCase("Tất Cả")) {
+            if (cbLocSize.getSelectedIndex()==0) {
                 loadTable(service.getListSanPham());
                 return;
             }
-            ArrayList<SanPham> list=service.locSize(size);
+            ArrayList<SanPham> list = service.locSize(size);
             loadTable(list);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_cbLocSizeActionPerformed
+
+    private void btBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBanHangActionPerformed
+        // TODO add your handling code here:
+        FormBanHang x=new FormBanHang();
+        x.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btBanHangActionPerformed
 
     /**
      * @param args the command line arguments
@@ -758,6 +885,7 @@ public class FormSanPham extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btBanHang;
     private javax.swing.JButton btLamMoi;
     private javax.swing.JButton btSua;
     private javax.swing.JButton btThem;
@@ -776,7 +904,6 @@ public class FormSanPham extends javax.swing.JFrame {
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
     private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
