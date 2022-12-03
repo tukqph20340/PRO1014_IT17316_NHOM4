@@ -32,7 +32,7 @@ public class KieuDang_Res {
         String select = "Select MaKD,TenKieuDang from KieuDang";
         list = new ArrayList<>();
         try {
-            pst = DBConnect.getConnection().prepareStatement(select);
+            pst = conn.openDBConnection().prepareStatement(select);
             rs = pst.executeQuery();
             while (rs.next()) {                
                 list.add(new KieuDang_Model(rs.getString(1),rs.getString(2)));
@@ -46,7 +46,7 @@ public class KieuDang_Res {
     public String addForm(KieuDang_Model model){
         String add="INSERT INTO KieuDang (MaKD,TenKieuDang) values(?,?)";
         try {
-            pst = DBConnect.getConnection().prepareStatement(add);
+            pst = DBConnect.openDBConnection().prepareStatement(add);
             pst.setObject(1, model.getMaKD());
             pst.setObject(2, model.getTenKD());
             pst.executeUpdate();
@@ -59,7 +59,7 @@ public class KieuDang_Res {
       public String DeleteForm(String ma){
         String delete="DELETE FROM KieuDang where MaKD=?";
         try {
-            pst = DBConnect.getConnection().prepareStatement(delete);
+            pst = conn.openDBConnection().prepareStatement(delete);
             pst.setObject(1, ma);
             pst.executeUpdate();
             return"Xóa thành công";
@@ -71,7 +71,7 @@ public class KieuDang_Res {
         public String UpdateForm(KieuDang_Model model){
         String update="Update KieuDang set TenKieuDang=? where MaKD =?";
         try {
-            pst =DBConnect.getConnection().prepareStatement(update);
+            pst =conn.openDBConnection().prepareStatement(update);
             pst.setObject(1, model.getTenKD());
             pst.setObject(2, model.getMaKD());
             pst.executeUpdate();
