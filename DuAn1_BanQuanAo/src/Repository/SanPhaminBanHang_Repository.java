@@ -103,6 +103,7 @@ public class SanPhaminBanHang_Repository {
         try (Connection con =conn.openDBConnection(); PreparedStatement ps = con.prepareStatement(find)) {
             List<SanPhamViews> listall = new ArrayList<>();
             ps.setObject(1, name);
+//            ps.setObject(2, Ma);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 listall.add(new SanPhamViews(
@@ -189,11 +190,111 @@ public class SanPhaminBanHang_Repository {
         }
         return null;
     }
+     public List<SanPhamViews> LocDanhMuc(String name) {
+        String find1 = "SELECT       dbo.SanPham.MaSP, dbo.SanPham.TenSP, dbo.DanhMucSP.DanhMucSanPham, dbo.Mau.TenMau, dbo.Size.Ten, dbo.ChatLieu.TenChatLieu, dbo.KieuDang.TenKieuDang, dbo.SanPham.GiaBan, dbo.SanPham.SoLuong\n"
+                + "FROM            dbo.SanPham INNER JOIN\n"
+                + "                         dbo.Size ON dbo.SanPham.MaSize = dbo.Size.Ma INNER JOIN\n"
+                + "                         dbo.KieuDang ON dbo.SanPham.MaKD = dbo.KieuDang.MaKD INNER JOIN\n"
+                + "                         dbo.DanhMucSP ON dbo.SanPham.MaDM = dbo.DanhMucSP.MaDM INNER JOIN\n"
+                + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
+                + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
+                + "  where DanhMucSanPham=?";
+        try (Connection con = conn.openDBConnection();
+                PreparedStatement ps = con.prepareStatement(find1)) {
+            List<SanPhamViews> listall = new ArrayList<>();
+            ps.setObject(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listall.add(new SanPhamViews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+            return listall;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+      public List<SanPhamViews> LocChatLieu(String name) {
+        String find1 = "SELECT       dbo.SanPham.MaSP, dbo.SanPham.TenSP, dbo.DanhMucSP.DanhMucSanPham, dbo.Mau.TenMau, dbo.Size.Ten, dbo.ChatLieu.TenChatLieu, dbo.KieuDang.TenKieuDang, dbo.SanPham.GiaBan, dbo.SanPham.SoLuong\n"
+                + "FROM            dbo.SanPham INNER JOIN\n"
+                + "                         dbo.Size ON dbo.SanPham.MaSize = dbo.Size.Ma INNER JOIN\n"
+                + "                         dbo.KieuDang ON dbo.SanPham.MaKD = dbo.KieuDang.MaKD INNER JOIN\n"
+                + "                         dbo.DanhMucSP ON dbo.SanPham.MaDM = dbo.DanhMucSP.MaDM INNER JOIN\n"
+                + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
+                + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
+                + "  where TenChatLieu=?";
+        try (Connection con = conn.openDBConnection();
+                PreparedStatement ps = con.prepareStatement(find1)) {
+            List<SanPhamViews> listall = new ArrayList<>();
+            ps.setObject(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listall.add(new SanPhamViews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+            return listall;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+       public List<SanPhamViews> LocKieuDang(String name) {
+        String find1 = "SELECT       dbo.SanPham.MaSP, dbo.SanPham.TenSP, dbo.DanhMucSP.DanhMucSanPham, dbo.Mau.TenMau, dbo.Size.Ten, dbo.ChatLieu.TenChatLieu, dbo.KieuDang.TenKieuDang, dbo.SanPham.GiaBan, dbo.SanPham.SoLuong\n"
+                + "FROM            dbo.SanPham INNER JOIN\n"
+                + "                         dbo.Size ON dbo.SanPham.MaSize = dbo.Size.Ma INNER JOIN\n"
+                + "                         dbo.KieuDang ON dbo.SanPham.MaKD = dbo.KieuDang.MaKD INNER JOIN\n"
+                + "                         dbo.DanhMucSP ON dbo.SanPham.MaDM = dbo.DanhMucSP.MaDM INNER JOIN\n"
+                + "                         dbo.Mau ON dbo.SanPham.MaMau = dbo.Mau.MaMau INNER JOIN\n"
+                + "                         dbo.ChatLieu ON dbo.SanPham.MaCL = dbo.ChatLieu.MaCL"
+                + "  where TenKieuDang=?";
+        try (Connection con = conn.openDBConnection();
+                PreparedStatement ps = con.prepareStatement(find1)) {
+            List<SanPhamViews> listall = new ArrayList<>();
+            ps.setObject(1, name);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listall.add(new SanPhamViews(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9)
+                ));
+            }
+            return listall;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
 //        new SanPhaminBanHang_Repository().getAllSanPhamInBanHang().forEach(s -> System.out.println(s.toString()));
 //        System.out.println(new SanPhaminBanHang_Repository().LocMau("Đỏ"));
-        System.out.println(new SanPhaminBanHang_Repository().LocSize("XL"));
+        System.out.println(new SanPhaminBanHang_Repository().seachname("Áo"));
+        
     }
 
 }

@@ -12,7 +12,9 @@ package DomainModels;
 public class DanhMuc_model {
     private String MaDM;
     private String TenDM;
+    String a;
 
+   
     public DanhMuc_model() {
     }
 
