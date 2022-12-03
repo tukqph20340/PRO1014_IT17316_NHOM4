@@ -5,6 +5,7 @@
 package Views;
 
 import DomainModels.GioHang;
+import DomainModels.KhachHangMode;
 import DomainModels.SanPham;
 import DomainModels.ThanhToan;
 import ServiceITF.GioHangITF;
@@ -12,6 +13,7 @@ import ServiceITF.SanPhamITF;
 import ServiceIplm.GioHangIplm;
 import ViewModels.HoaDonViews;
 import ServiceIplm.HoaDon_Service;
+import ServiceIplm.KhachHangSevice;
 import ServiceIplm.SanPhamInBanHang_Service;
 
 import ServiceIplm.ThemSuaThanhToanHoaDonImt;
@@ -34,6 +36,7 @@ import jdk.jfr.Event;
 public class FormBanHang extends javax.swing.JFrame {
 
     private ThemSuaThanhToanHoaDonImt BanHang = new ThemSuaThanhToanHoaDonImt();
+    private KhachHangSevice Kh = new KhachHangSevice();
 
     /**
      * Creates new form FormBanHang
@@ -53,7 +56,6 @@ public class FormBanHang extends javax.swing.JFrame {
         loadTableGH();
 
         //fillDataHoaDon(listHD);
-
     }
     private SanPhamITF service = new SanPhamIplm();
     DefaultTableModel modelSanPham = new DefaultTableModel();
@@ -368,6 +370,11 @@ public class FormBanHang extends javax.swing.JFrame {
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hóa Đơn", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jButton33.setText("Thêm Khách Hàng");
+        jButton33.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton33ActionPerformed(evt);
+            }
+        });
 
         jButton34.setText("Tìm Kiếm");
         jButton34.addActionListener(new java.awt.event.ActionListener() {
@@ -901,7 +908,6 @@ public class FormBanHang extends javax.swing.JFrame {
         String Mat = txtMaTimkiem.getText();
         if (Mat.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "mã hóa đơn đang tìm để trống");
-            return;
         }
         List<ThanhToan> hd = BanHang.select(Mat);
         for (ThanhToan hoaDonChiTiet : hd) {
@@ -913,6 +919,14 @@ public class FormBanHang extends javax.swing.JFrame {
             txtTiennKhachDua.setText(hoaDonChiTiet.getTienKhachDua());
             txtTienThua.setText(hoaDonChiTiet.getTienThua());
         }
+        String MaKh = txtMaKH.getText();
+        List<KhachHangMode> ListKh = Kh.select1(MaKh);
+        for (KhachHangMode khachHangMode : ListKh) {
+            txtTenKhachHang.setText(khachHangMode.getHoVaTen());
+            txtSdt.setText(khachHangMode.getSdt());
+        }
+        
+        
     }//GEN-LAST:event_jButton34ActionPerformed
 
     private void CbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbLocMauActionPerformed
@@ -948,6 +962,11 @@ public class FormBanHang extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_cbLocSizzeActionPerformed
+
+    private void jButton33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton33ActionPerformed
+        // TODO add your handling code here:
+        new KhachHang(this, true).setVisible(true);
+    }//GEN-LAST:event_jButton33ActionPerformed
 
     /**
      * @param args the command line arguments
