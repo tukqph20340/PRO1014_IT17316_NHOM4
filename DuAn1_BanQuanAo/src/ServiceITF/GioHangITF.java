@@ -29,7 +29,7 @@ public interface GioHangITF {
 
     public boolean soLuongHD(String ma, int so, String maHD);
 
-    public boolean soLuongSP(String ma, int so);
+    public boolean soLuongSP(int so, String ma);
 
     public boolean themGH(GioHang x, int so);
 }

@@ -149,6 +149,15 @@ public class FormBanHang extends javax.swing.JFrame {
         }
     }
 
+    public boolean checkMaHD(String ma) {
+        for (GioHang x : ghService.getListGH(ma)) {
+            if (ma.equals(x.getMaSP())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -748,24 +757,20 @@ public class FormBanHang extends javax.swing.JFrame {
         String ma = tblbangSanPham.getValueAt(row, 0).toString();
         int so = Integer.parseInt(JOptionPane.showInputDialog("Nhập Số Lượng bạn cần mua."));
         int rowHD = tblHoaDonCho.getSelectedRow();
-        if (rowHD==-1) {
+        if (rowHD == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn để thêm sản phẩm.");
         }
-        String maHD = tblHoaDonCho.getValueAt(0, 0).toString();
+        String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
         GioHang gh = new GioHang();
         gh.setMaHD(maHD);
         gh.setMaSP(ma);
         try {
-            for (GioHang x : ghService.getListGH(maHD)) {
-                if (ma.equals(x.getMaSP()) == false) {
-                    ghService.themGH(gh, so);
-                }
+            if (checkMaHD(maHD)==false) {
+                ghService.themGH(gh, so);
             }
-            ghService.soLuongSP(ma, so);
+            ghService.soLuongSP(so, ma);
             ghService.soLuongHD(ma, so, maHD);
             loadDataTableGH(ghService.getListGH(maHD));
-            modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
-            loadDataTableGH(list);
         } catch (Exception e) {
             e.printStackTrace();
         }

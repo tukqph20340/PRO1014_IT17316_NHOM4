@@ -29,7 +29,7 @@ public class GioHangRepository {
                 + "join SanPham on HoaDonChiTiet.MaSP=SanPham.MaSP \n"
                 + "join HoaDon on HoaDonChiTiet.MaHD=HoaDon.MaHD \n"
                 + "where HoaDon.MaHD=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -37,7 +37,6 @@ public class GioHangRepository {
                 x.setMaSP(rs.getString(1));
                 x.setTenSP(rs.getString(2));
                 x.setSoLuong(Integer.parseInt(rs.getString(3)));
-                x.setTongTien(Integer.parseInt(rs.getString(4)));
                 x.setDonGia(Integer.parseInt(rs.getString(5)));
                 list.add(x);
             }
@@ -49,7 +48,7 @@ public class GioHangRepository {
 
     public boolean tangHD(String ma, String maHD) {
         String sql = "update HoaDonChiTiet set SoLuong=SoLuong+1 where MaSP=? and MaHD=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, maHD);
             ps.executeUpdate();
@@ -62,7 +61,7 @@ public class GioHangRepository {
 
     public boolean giamHD(String ma, String maHD) {
         String sql = "update HoaDonChiTiet set SoLuong=SoLuong-1 where MaSP=? and MaHD=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, maHD);
             ps.executeUpdate();
@@ -75,7 +74,7 @@ public class GioHangRepository {
 
     public boolean tangSP(String ma) {
         String sql = "update SanPham set SoLuong=SoLuong+1 where MaSP=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.executeUpdate();
             return true;
@@ -87,7 +86,7 @@ public class GioHangRepository {
 
     public boolean giamSP(String ma) {
         String sql = "update SanPham set SoLuong=SoLuong-1 where MaSP=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.executeUpdate();
             return true;
@@ -99,7 +98,7 @@ public class GioHangRepository {
 
     public boolean xoa(String ma, String maHD) {
         String sql = "delete from HoaDonChiTiet where MaSP=? and MaHD=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, maHD);
             ps.executeUpdate();
@@ -110,11 +109,11 @@ public class GioHangRepository {
         return false;
     }
 
-    public boolean soluongSP(String ma, int so) {
+    public boolean soluongSP(int so, String ma) {
         String sql = "update SanPham set SoLuong=Soluong-? where MaSP=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, so);
-            ps.setObject(1, ma);
+            ps.setObject(2, ma);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -125,7 +124,7 @@ public class GioHangRepository {
 
     public boolean soluongGH(String ma, int so, String maHD) {
         String sql = "update HoaDonChiTiet set SoLuong=Soluong+? where MaSP=? and MaHD=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, so);
             ps.setObject(2, ma);
             ps.setObject(3, maHD);
@@ -137,9 +136,9 @@ public class GioHangRepository {
         return false;
     }
 
-    public boolean themGH(GioHang x,int so) {
+    public boolean themGH(GioHang x, int so) {
         String sql = "insert into HoaDonChiTiet (MaHD,MaSP,SoLuong) values (?,?,?)        ";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, x.getMaHD());
             ps.setObject(2, x.getMaSP());
             ps.setObject(3, so);
