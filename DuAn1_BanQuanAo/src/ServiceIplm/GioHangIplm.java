@@ -55,8 +55,8 @@ public class GioHangIplm implements GioHangITF{
     }
 
     @Override
-    public boolean soLuongSP(String ma, int so) {
-        return repo.soluongSP(ma, so);
+    public boolean soLuongSP(int so,String ma) {
+        return repo.soluongSP(so, ma);
     }
 
     @Override
