@@ -11,36 +11,44 @@ import java.util.logging.Logger;
  * @author PC DUNG
  */
 public class DBConnect {
-    private static String hostName = "TUANCACA\\SQLEXPRESS01";
-    private static String account = "sa";
-    private static String pass = "123456";
-    private static String dbName = "PRO1014_IT17316_NHOM4";
-    private static String connectionSQL = "jdbc:sqlserver://" + hostName + ":1433;databaseName=" + dbName;
-    private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    private static Connection cnn;
-
+   private static final String USERNAME = "sa";
+    private static final String PASSWORD = "123456";
+    private static final String SERVER = "localhost";
+    private static final String PORT = "1433";
+    private static final String DATABASE_NAME = "PRO1014_IT17316_NHOM4";
+    private static final boolean USING_SSL = true;
+    
+    private static String CONNECT_STRING;
+    
     static {
-
-      
         try {
-            Class.forName(driver);
+           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            
+            StringBuilder connectStringBuilder = new StringBuilder();
+            connectStringBuilder.append("jdbc:sqlserver://")
+                    .append(SERVER).append(":").append(PORT).append(";")
+                    .append("databaseName=").append(DATABASE_NAME).append(";")
+                    .append("user=").append(USERNAME).append(";")
+                    .append("password=").append(PASSWORD).append(";")
+                    ;
+            if (USING_SSL) {
+                connectStringBuilder.append("encrypt=true;trustServerCertificate=true;");
+            }
+            CONNECT_STRING = connectStringBuilder.toString();
+            System.out.println("Connect String có dạng: " + CONNECT_STRING);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConTextTu.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-
     }
-
-    static Connection openDBConnection() {
-
-        try {
-            return DriverManager.getConnection(connectionSQL, account, pass);
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
-        }
-     return null;
+    
+    public static Connection openDBConnection() throws SQLException {
+        return DriverManager.getConnection(CONNECT_STRING);
     }
-    public static void main(String[] args) {
+    
+    public static void main(String[] args) throws SQLException {
+        Connection conn = openDBConnection();
+        String dbpn = conn.getMetaData().getDatabaseProductName();
+        System.out.println(dbpn);
         openDBConnection().toString();
     }
 

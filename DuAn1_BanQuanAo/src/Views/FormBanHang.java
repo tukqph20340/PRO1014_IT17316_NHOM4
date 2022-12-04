@@ -45,15 +45,17 @@ public class FormBanHang extends javax.swing.JFrame {
         initComponents();
 
         setLocationRelativeTo(this);
-        listSanPham = SanPham_Service.getAllSanPham();
-        fillDataSanPham(listSanPham);
-        String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
-        modelSanPham.setColumnIdentifiers(hearch);
+        
         loadCbMau(service.getListMauSac());
         loadCbSize(service.getListSize());
-        listHD = sercive_hd.getAllForm();
-        fillDataHoaDon(listHD);
+        loadDanhMuc(service.getListDanhMuc());
+        loadChatLieu(service.getListChatLieu());
+        loadKieuDang(service.getListKieuDang());
         loadTableGH();
+        fillDataSanPham();
+        fillDataHoaDon();
+        fillSP(listSanPham);
+        
 
 
 
@@ -63,9 +65,9 @@ public class FormBanHang extends javax.swing.JFrame {
     private SanPhamITF service = new SanPhamIplm();
     DefaultTableModel modelSanPham = new DefaultTableModel();
     SanPhamInBanHang_Service SanPham_Service = new SanPhamInBanHang_Service();
-    List<SanPhamViews> listSanPham = new ArrayList<>();
+    ArrayList<SanPhamViews> listSanPham = new ArrayList<>();
     HoaDon_Service sercive_hd = new HoaDon_Service();
-    List<HoaDonViews> listHD = new ArrayList<>();
+    ArrayList<HoaDonViews> listHD = new ArrayList<>();
     private GioHangITF ghService = new GioHangIplm();
 
     public void loadCbMau(ArrayList<String> listMau) {
@@ -83,26 +85,58 @@ public class FormBanHang extends javax.swing.JFrame {
             cbLocSizze.addItem(x);
         }
     }
-
-    public void fillDataSanPham(List<SanPhamViews> list) {
-//        tblbangSanPham.setModel(modelSanPham);
-//        modelSanPham.setRowCount(0);
-        modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
-        modelSanPham.setRowCount(0);
-        for (SanPhamViews sanPhamViews : listSanPham) {
-            modelSanPham.addRow(sanPhamViews.data());
+     public void loadDanhMuc(ArrayList<String> listMau) {
+        cbDanhMuc.removeAllItems();
+        cbDanhMuc.addItem("Tất cả");
+        for (String x : listMau) {
+            cbDanhMuc.addItem(x);
         }
-//        tblbangSanPham.setModel(modelSanPham);
+    }
+      public void loadChatLieu(ArrayList<String> listMau) {
+        cbChatLieu.removeAllItems();
+        cbChatLieu.addItem("Tất cả");
+        for (String x : listMau) {
+            cbChatLieu.addItem(x);
+        }
+    }
+       public void loadKieuDang(ArrayList<String> listMau) {
+        cbKieuDang.removeAllItems();
+        cbKieuDang.addItem("Tất cả");
+        for(String x : listMau) {
+            cbKieuDang.addItem(x);
+        }
     }
 
-    public void fillDataHoaDon(List<HoaDonViews> listt) {
+    public void fillDataSanPham() {
+        modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
+        modelSanPham.setRowCount(0);
+        listSanPham=(ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+        String[] hearch = {"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"};
+        modelSanPham.setColumnIdentifiers(hearch);
+        for (SanPhamViews s : listSanPham) {
+            modelSanPham.addRow(new Object[]{s.getMaSP(),s.getTenSP(),s.getDanhMuc(),s.getMau(),s.getSize(),s.getChatLieu(),s.getKieuDang(),s.getGiaBan(),s.getSoLuong()});
+        }
+        tblbangSanPham.setModel(modelSanPham);
+    }
+
+    public void fillDataHoaDon() {
         modelSanPham = (DefaultTableModel) tblHoaDonCho.getModel();
         modelSanPham.setRowCount(0);
+        listHD = (ArrayList<HoaDonViews>) sercive_hd.getAllForm();
         modelSanPham.setColumnIdentifiers(new String[]{"Mã Hóa Đơn", "Mã Khách hàng", "Tên Khách Hàng", "Ngày Tạo"});
-        for (HoaDonViews hoaDonViews : listt) {
-            modelSanPham.addRow(hoaDonViews.data());
+        for (HoaDonViews sa : listHD) {
+            modelSanPham.addRow(new Object[]{sa.getMaHD(),sa.getMaKH(),sa.getTenKH(),sa.getNgayTao()});
         }
+        tblHoaDonCho.setModel(modelSanPham);
 
+    }
+    public void fillSP(ArrayList<SanPhamViews> list){
+        modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
+        modelSanPham.setRowCount(0);
+        listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+        for (SanPhamViews sanPhamViews : list) {
+            modelSanPham.addRow(sanPhamViews.data());
+        }
     }
 
     public void loadTableGH() {
@@ -187,6 +221,9 @@ public class FormBanHang extends javax.swing.JFrame {
         txtname = new javax.swing.JTextField();
         cbLocSizze = new javax.swing.JComboBox<>();
         CbLocMau = new javax.swing.JComboBox<>();
+        cbChatLieu = new javax.swing.JComboBox<>();
+        cbKieuDang = new javax.swing.JComboBox<>();
+        cbDanhMuc = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -602,17 +639,44 @@ public class FormBanHang extends javax.swing.JFrame {
             }
         });
 
+        cbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbChatLieuActionPerformed(evt);
+            }
+        });
+
+        cbKieuDang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbKieuDang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbKieuDangActionPerformed(evt);
+            }
+        });
+
+        cbDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbDanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbDanhMucActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 763, Short.MAX_VALUE)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(CbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addGap(29, 29, 29)
                 .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem))
@@ -621,10 +685,13 @@ public class FormBanHang extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTimKiem)
-                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -665,12 +732,24 @@ public class FormBanHang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean check_1(ArrayList<SanPhamViews> list,String ma){
+        for (SanPhamViews sanPhamViews : list) {
+            if(sanPhamViews.getMaSP().equalsIgnoreCase(ma)){
+                JOptionPane.showMessageDialog(this,"Mã không tồn tại");
+                return false;
+            }
+        }
+        return true;
+    }
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        String name = txtname.getText();
-        List<SanPhamViews> seachList = SanPham_Service.seachname(name);
-        seachList = SanPham_Service.getAllSanPham();
-        fillDataSanPham(seachList);
-        JOptionPane.showMessageDialog(this, "Thành công");
+       String ma = txtname.getText();
+
+        if(txtname.getText().trim().isEmpty()){
+           JOptionPane.showMessageDialog(this,"Không được để trống");
+           return;
+        listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.seachname(,ma);
+                fillSP(listSanPham);
+       }
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void tblbangSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangSanPhamMouseClicked
@@ -941,12 +1020,13 @@ public class FormBanHang extends javax.swing.JFrame {
         String mau = (String) CbLocMau.getSelectedItem();
         try {
             if (CbLocMau.getSelectedIndex()==0) {
-                listSanPham = SanPham_Service.getAllSanPham();
-                fillDataSanPham(listSanPham);
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+                fillSP(listSanPham);
+                
                 return;
             } else {
-                listSanPham = SanPham_Service.LocMau(mau);
-                fillDataSanPham(listSanPham);
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocMau(mau);
+                fillSP(listSanPham);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -958,12 +1038,12 @@ public class FormBanHang extends javax.swing.JFrame {
         String size = (String) cbLocSizze.getSelectedItem();
         try {
             if (cbLocSizze.getSelectedIndex()==0) {
-                listSanPham = SanPham_Service.getAllSanPham();
-                fillDataSanPham(listSanPham);
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+                 fillSP(listSanPham);
                 return;
             } else {
-                listSanPham = SanPham_Service.LocSize(size);
-                fillDataSanPham(listSanPham);
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocSize(size);
+                fillSP(listSanPham);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -983,6 +1063,54 @@ public class FormBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         new KhachHang(this, true).setVisible(true);
     }//GEN-LAST:event_jButton33ActionPerformed
+
+    private void cbChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChatLieuActionPerformed
+        //locMau
+        String cl= (String) cbChatLieu.getSelectedItem();
+        try {
+            if (cbChatLieu.getSelectedIndex()==0) {
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+                 fillSP(listSanPham);
+            } else {
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocChatLieu(cl);
+                 fillSP(listSanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbChatLieuActionPerformed
+
+    private void cbKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKieuDangActionPerformed
+        String cl= (String) cbKieuDang.getSelectedItem();
+        try {
+            if (cbKieuDang.getSelectedIndex()==0) {
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+                 fillSP(listSanPham);
+                return;
+            } else {
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocKieuDang(cl);
+                 fillSP(listSanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbKieuDangActionPerformed
+
+    private void cbDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDanhMucActionPerformed
+         String dm= (String) cbDanhMuc.getSelectedItem();
+        try {
+            if (cbDanhMuc.getSelectedIndex()==0) {
+               listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
+                 fillSP(listSanPham);
+                return;
+            } else {
+                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocDanhMuc(dm);
+                fillSP(listSanPham);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbDanhMucActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1041,6 +1169,9 @@ public class FormBanHang extends javax.swing.JFrame {
     private javax.swing.JButton btTang;
     private javax.swing.JButton btXoaSP;
     private javax.swing.JButton btnTimKiem;
+    private javax.swing.JComboBox<String> cbChatLieu;
+    private javax.swing.JComboBox<String> cbDanhMuc;
+    private javax.swing.JComboBox<String> cbKieuDang;
     private javax.swing.JComboBox<String> cbLocSizze;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

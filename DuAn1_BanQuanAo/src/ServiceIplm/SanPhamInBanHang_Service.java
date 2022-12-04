@@ -61,12 +61,6 @@ public class SanPhamInBanHang_Service implements SanPhamITFinBanHang {
     }
 
     @Override
-    public List<SanPhamViews> seachname(String name) {
-       List<SanPhamViews> seachList= sp.seachname(name);
-       return seachList;
-    }
-
-    @Override
     public List<SanPhamViews> LocMau(String name) {
         return sp.LocMau(name);
     }
@@ -74,6 +68,25 @@ public class SanPhamInBanHang_Service implements SanPhamITFinBanHang {
     @Override
     public List<SanPhamViews> LocSize(String name) {
         return sp.LocSize(name);
+    }
+
+    @Override
+    public List<SanPhamViews> LocChatLieu(String name) {
+  return sp.LocChatLieu(name);
+    }
+
+    @Override
+    public List<SanPhamViews> LocDanhMuc(String name) {
+        return sp.LocDanhMuc(name);
+    }
+    @Override
+    public List<SanPhamViews> LocKieuDang(String name) {
+        return sp.LocKieuDang(name);
+    }
+
+    @Override
+    public List<SanPhamViews> seachname(String name) {
+        return sp.seachname(name);
     }
 
 }
