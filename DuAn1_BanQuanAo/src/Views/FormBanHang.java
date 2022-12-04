@@ -56,8 +56,7 @@ public class FormBanHang extends javax.swing.JFrame {
         fillDataSanPham();
         fillDataHoaDon();
         fillSP(listSanPham);
-
-        //fillDataHoaDon(listHD);
+        //loadDataTableGH(ghService.getListGH("HD01"));
     }
     private SanPhamITF service = new SanPhamIplm();
     DefaultTableModel modelSanPham = new DefaultTableModel();
@@ -149,9 +148,11 @@ public class FormBanHang extends javax.swing.JFrame {
         }
     }
 
-    public boolean checkMaHD(String ma) {
-        for (GioHang x : ghService.getListGH(ma)) {
-            if (ma.equals(x.getMaSP())) {
+    public boolean checkMaSP(String maHD) {
+        int row = tblbangSanPham.getSelectedRow();
+        String maSP = tblbangSanPham.getValueAt(row, 0).toString();
+        for (GioHang x : ghService.getListGH(maHD)) {
+            if (maSP.equals(x.getMaSP())) {
                 return true;
             }
         }
@@ -759,18 +760,21 @@ public class FormBanHang extends javax.swing.JFrame {
         int rowHD = tblHoaDonCho.getSelectedRow();
         if (rowHD == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn để thêm sản phẩm.");
+            return;
         }
         String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
+        //String maHD = "HD01";
         GioHang gh = new GioHang();
         gh.setMaHD(maHD);
         gh.setMaSP(ma);
         try {
-            if (checkMaHD(maHD)==false) {
+            if (checkMaSP(maHD) == false) {
                 ghService.themGH(gh, so);
             }
             ghService.soLuongSP(so, ma);
             ghService.soLuongHD(ma, so, maHD);
             loadDataTableGH(ghService.getListGH(maHD));
+            fillDataSanPham();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -794,6 +798,7 @@ public class FormBanHang extends javax.swing.JFrame {
             if (ghService.tangHD(ma, maHD)) {
                 if (ghService.giamSP(ma)) {
                     loadDataTableGH(ghService.getListGH(maHD));
+                    fillDataSanPham();
                 }
             }
         } catch (Exception e) {
@@ -821,6 +826,7 @@ public class FormBanHang extends javax.swing.JFrame {
             if (ghService.giamHD(ma, maHD)) {
                 if (ghService.tangSP(ma)) {
                     loadDataTableGH(ghService.getListGH(maHD));
+                    fillDataSanPham();
                 }
             }
         } catch (Exception e) {

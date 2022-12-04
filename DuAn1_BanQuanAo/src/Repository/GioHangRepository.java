@@ -25,7 +25,7 @@ public class GioHangRepository {
 
     public ArrayList<GioHang> getListGH(String ma) {
         ArrayList<GioHang> list = new ArrayList<>();
-        String sql = "select HoaDonChiTiet.MaSP, TenSP, HoaDonChiTiet.SoLuong, TongTien, GiaBan from HoaDonChiTiet \n"
+        String sql = "select HoaDonChiTiet.MaSP, TenSP, HoaDonChiTiet.SoLuong, GiaBan from HoaDonChiTiet \n"
                 + "join SanPham on HoaDonChiTiet.MaSP=SanPham.MaSP \n"
                 + "join HoaDon on HoaDonChiTiet.MaHD=HoaDon.MaHD \n"
                 + "where HoaDon.MaHD=?";
@@ -36,8 +36,8 @@ public class GioHangRepository {
                 GioHang x = new GioHang();
                 x.setMaSP(rs.getString(1));
                 x.setTenSP(rs.getString(2));
-                x.setSoLuong(Integer.parseInt(rs.getString(3)));
-                x.setDonGia(Integer.parseInt(rs.getString(5)));
+                x.setSoLuong(rs.getInt(3));
+                x.setDonGia(rs.getInt(4));
                 list.add(x);
             }
         } catch (Exception e) {
