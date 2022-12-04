@@ -16,16 +16,20 @@ import java.util.List;
 public interface GioHangITF {
 
     public ArrayList<GioHang> getListGH(String ma);
-    
-    public ArrayList<GioHang> getListGH_SP(String ma);
 
-    public boolean tangHD(String ma,String maHD);
+    public boolean tangHD(String ma, String maHD);
 
-    public boolean giamHD(String ma,String maHD);
+    public boolean giamHD(String ma, String maHD);
 
     public boolean tangSP(String ma);
 
     public boolean giamSP(String ma);
-    
-    public boolean xoa(String ma,String maHD);
+
+    public boolean xoa(String ma, String maHD);
+
+    public boolean soLuongHD(String ma, int so, String maHD);
+
+    public boolean soLuongSP(String ma, int so);
+
+    public boolean themGH(GioHang x, int so);
 }

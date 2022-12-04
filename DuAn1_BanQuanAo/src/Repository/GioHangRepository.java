@@ -46,28 +46,9 @@ public class GioHangRepository {
         }
         return list;
     }
-    
-    public ArrayList<GioHang> getListGH_SP(String ma){
-        ArrayList<GioHang> list = new ArrayList<>();
-        String sql = "select MaSP, TenSP, GiaBan from SanPham where MaSP=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
-            ps.setObject(1, ma);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                GioHang x = new GioHang();
-                x.setMaSP(rs.getString(1));
-                x.setTenSP(rs.getString(2));
-                x.setDonGia(Integer.parseInt(rs.getString(3)));
-                list.add(x);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-    
-    public boolean tangHD(String ma,String maHD){
-        String sql="update HoaDonChiTiet set SoLuong=SoLuong+1 where MaSP=? and MaHD=?";
+
+    public boolean tangHD(String ma, String maHD) {
+        String sql = "update HoaDonChiTiet set SoLuong=SoLuong+1 where MaSP=? and MaHD=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, maHD);
@@ -78,9 +59,9 @@ public class GioHangRepository {
         }
         return false;
     }
-    
-    public boolean giamHD(String ma,String maHD){
-        String sql="update HoaDonChiTiet set SoLuong=SoLuong-1 where MaSP=? and MaHD=?";
+
+    public boolean giamHD(String ma, String maHD) {
+        String sql = "update HoaDonChiTiet set SoLuong=SoLuong-1 where MaSP=? and MaHD=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, maHD);
@@ -91,9 +72,9 @@ public class GioHangRepository {
         }
         return false;
     }
-    
-    public boolean tangSP(String ma){
-        String sql="update SanPham set SoLuong=SoLuong+1 where MaSP=?";
+
+    public boolean tangSP(String ma) {
+        String sql = "update SanPham set SoLuong=SoLuong+1 where MaSP=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.executeUpdate();
@@ -103,9 +84,9 @@ public class GioHangRepository {
         }
         return false;
     }
-    
-    public boolean giamSP(String ma){
-        String sql="update SanPham set SoLuong=SoLuong-1 where MaSP=?";
+
+    public boolean giamSP(String ma) {
+        String sql = "update SanPham set SoLuong=SoLuong-1 where MaSP=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.executeUpdate();
@@ -115,9 +96,9 @@ public class GioHangRepository {
         }
         return false;
     }
-    
-    public boolean xoa(String ma,String maHD){
-        String sql="delete from HoaDonChiTiet where MaSP=? and MaHD=?";
+
+    public boolean xoa(String ma, String maHD) {
+        String sql = "delete from HoaDonChiTiet where MaSP=? and MaHD=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, maHD);
@@ -127,5 +108,47 @@ public class GioHangRepository {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public boolean soluongSP(String ma, int so) {
+        String sql = "update SanPham set SoLuong=Soluong-? where MaSP=?";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, so);
+            ps.setObject(1, ma);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean soluongGH(String ma, int so, String maHD) {
+        String sql = "update HoaDonChiTiet set SoLuong=Soluong+? where MaSP=? and MaHD=?";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, so);
+            ps.setObject(2, ma);
+            ps.setObject(3, maHD);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean themGH(GioHang x,int so) {
+        String sql = "insert into HoaDonChiTiet (MaHD,MaSP,SoLuong) values (?,?,?)        ";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, x.getMaHD());
+            ps.setObject(2, x.getMaSP());
+            ps.setObject(3, so);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
     }
 }
