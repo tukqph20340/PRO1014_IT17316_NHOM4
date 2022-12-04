@@ -50,8 +50,18 @@ public class GioHangIplm implements GioHangITF{
     }
 
     @Override
-    public ArrayList<GioHang> getListGH_SP(String ma) {
-        return repo.getListGH_SP(ma);
+    public boolean soLuongHD(String ma, int so, String maHD) {
+        return repo.soluongGH(ma, so, maHD);
+    }
+
+    @Override
+    public boolean soLuongSP(String ma, int so) {
+        return repo.soluongSP(ma, so);
+    }
+
+    @Override
+    public boolean themGH(GioHang x, int so) {
+        return repo.themGH(x, so);
     }
     
 }
