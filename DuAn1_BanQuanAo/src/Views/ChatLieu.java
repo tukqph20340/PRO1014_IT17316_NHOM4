@@ -25,6 +25,7 @@ public class ChatLieu extends javax.swing.JDialog {
     public ChatLieu(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         mode = new DefaultTableModel();
         mode = (DefaultTableModel) JTChatLieu.getModel();
         mode.setColumnIdentifiers(new String[]{"Mã Chất Liệu", "Tên Chất liệu"});
@@ -40,6 +41,12 @@ public class ChatLieu extends javax.swing.JDialog {
                 chatLieuView.getTen(),});
         }
 
+    }
+    
+    public String getTen(){
+        ChatLieuView x=new ChatLieuView();
+        x.setTen(txtTen.getText());
+           return x.getTen();
     }
 
     /**

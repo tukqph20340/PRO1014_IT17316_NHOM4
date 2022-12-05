@@ -7,6 +7,9 @@ package Views;
 import DomainModels.SanPham;
 import ServiceITF.SanPhamITF;
 import ServiceIplm.SanPhamIplm;
+import ViewModels.ChatLieuView;
+import ViewModels.DanhMucViews;
+import ViewModels.MauView;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -92,13 +95,13 @@ public class FormSanPham extends javax.swing.JFrame {
             cbKieuDang.addItem(x);
         }
     }
-    
-    public boolean checkTrung(String ma){
+
+    public boolean checkTrung(String ma) {
         for (SanPham a : service.getListSanPham()) {
-                if (ma.equals(a.getMaSP())) {                   
-                    return true;
-                }
+            if (ma.equals(a.getMaSP())) {
+                return true;
             }
+        }
         return false;
     }
 
@@ -162,11 +165,11 @@ public class FormSanPham extends javax.swing.JFrame {
         cbChatLieu = new javax.swing.JComboBox<>();
         cbDanhMuc = new javax.swing.JComboBox<>();
         cbKieuDang = new javax.swing.JComboBox<>();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
+        btThemDanhMuc = new javax.swing.JButton();
+        btThemKieuDang = new javax.swing.JButton();
+        btThemMauSac = new javax.swing.JButton();
+        btThemSize = new javax.swing.JButton();
+        btThemChatLieu = new javax.swing.JButton();
         txtMaSP = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -421,15 +424,35 @@ public class FormSanPham extends javax.swing.JFrame {
 
         cbKieuDang.setMaximumRowCount(20);
 
-        jButton15.setText("+");
+        btThemDanhMuc.setText("+");
+        btThemDanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemDanhMucActionPerformed(evt);
+            }
+        });
 
-        jButton16.setText("+");
+        btThemKieuDang.setText("+");
 
-        jButton17.setText("+");
+        btThemMauSac.setText("+");
+        btThemMauSac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemMauSacActionPerformed(evt);
+            }
+        });
 
-        jButton18.setText("+");
+        btThemSize.setText("+");
+        btThemSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemSizeActionPerformed(evt);
+            }
+        });
 
-        jButton19.setText("+");
+        btThemChatLieu.setText("+");
+        btThemChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemChatLieuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -460,8 +483,8 @@ public class FormSanPham extends javax.swing.JFrame {
                                         .addComponent(cbDanhMuc, 0, 146, Short.MAX_VALUE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btThemDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btThemKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(28, 28, 28)))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -488,9 +511,9 @@ public class FormSanPham extends javax.swing.JFrame {
                                                 .addComponent(cbMauSac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jButton18, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jButton19, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addComponent(btThemMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btThemSize, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(btThemChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(btXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(59, 59, 59)
@@ -532,29 +555,29 @@ public class FormSanPham extends javax.swing.JFrame {
                             .addComponent(cbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMaNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
-                            .addComponent(jButton17))
+                            .addComponent(btThemMauSac))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cbSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel4)
-                                .addComponent(jButton18))
+                                .addComponent(btThemSize))
                             .addComponent(jLabel10)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton15))))
+                            .addComponent(btThemDanhMuc))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
                         .addComponent(jLabel5)
                         .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton16))
+                        .addComponent(btThemKieuDang))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton19)))
+                        .addComponent(btThemChatLieu)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -688,10 +711,10 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Sản Phẩm");
                 return;
             }
-                if (checkTrung(txtMaSP.getText()) == false) {
-                    JOptionPane.showMessageDialog(this, "Sửa Thất Bại do bạn mã sản phẩm không tồn tại");
-                    return;
-                }
+            if (checkTrung(txtMaSP.getText()) == false) {
+                JOptionPane.showMessageDialog(this, "Sửa Thất Bại do bạn mã sản phẩm không tồn tại");
+                return;
+            }
 
             if (txtMaCH.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Cửa Hàng");
@@ -743,10 +766,10 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Xóa Thất Bại do bạn chưa nhập mã sản phẩm.");
                 return;
             }
-                if (checkTrung(ma) == false) {
-                    JOptionPane.showMessageDialog(this, "Xóa Thất Bại do bạn mã sản phẩm không tồn tại");
-                    return;
-                }
+            if (checkTrung(ma) == false) {
+                JOptionPane.showMessageDialog(this, "Xóa Thất Bại do bạn mã sản phẩm không tồn tại");
+                return;
+            }
             if (service.xoa(ma)) {
                 JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa Sản Phẩm này không?");
                 JOptionPane.showMessageDialog(this, "Xóa Thành Công");
@@ -801,14 +824,14 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập thông tin tìm kiếm");
                 return;
             }
-            if (checkTrung(ma)==false) {
+            if (checkTrung(ma) == false) {
                 JOptionPane.showMessageDialog(this, "Sản Phẩm không tồn tại");
                 return;
             }
             ArrayList<SanPham> list = service.tim(ma);
             loadTable(list);
         } catch (Exception e) {
-           
+
         }
     }//GEN-LAST:event_btTimKiemActionPerformed
 
@@ -816,7 +839,7 @@ public class FormSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
         String mau = (String) cbLocMau.getSelectedItem();
         try {
-            if (cbLocMau.getSelectedIndex()==0) {
+            if (cbLocMau.getSelectedIndex() == 0) {
                 loadTable(service.getListSanPham());
                 return;
             }
@@ -831,7 +854,7 @@ public class FormSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
         String size = (String) cbLocSize.getSelectedItem();
         try {
-            if (cbLocSize.getSelectedIndex()==0) {
+            if (cbLocSize.getSelectedIndex() == 0) {
                 loadTable(service.getListSanPham());
                 return;
             }
@@ -844,10 +867,43 @@ public class FormSanPham extends javax.swing.JFrame {
 
     private void btBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBanHangActionPerformed
         // TODO add your handling code here:
-        FormBanHang x=new FormBanHang();
+        FormBanHang x = new FormBanHang();
         x.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btBanHangActionPerformed
+
+    private void btThemDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemDanhMucActionPerformed
+        // TODO add your handling code here:
+        DanhMuc x = new DanhMuc();
+        DanhMucViews a = new DanhMucViews();
+        x.setVisible(true);
+        loadCbDM(service.getListDanhMuc());
+        cbDanhMuc.setSelectedItem(a.getTenDM());
+    }//GEN-LAST:event_btThemDanhMucActionPerformed
+
+    private void btThemChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemChatLieuActionPerformed
+        // TODO add your handling code here:
+        ChatLieu x = new ChatLieu(this, true);
+        x.setVisible(true);      
+        loadCbCL(service.getListChatLieu());
+        cbChatLieu.setSelectedItem(x.getTen());
+    }//GEN-LAST:event_btThemChatLieuActionPerformed
+
+    private void btThemMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemMauSacActionPerformed
+        // TODO add your handling code here:
+        Mau x = new Mau(this, true);
+        x.setVisible(true);      
+        loadCbMau(service.getListMauSac());
+        cbMauSac.setSelectedItem(x.getTen());
+    }//GEN-LAST:event_btThemMauSacActionPerformed
+
+    private void btThemSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemSizeActionPerformed
+        // TODO add your handling code here:
+        Size x = new Size(this, true);
+        x.setVisible(true);      
+        loadCbMau(service.getListMauSac());
+        cbMauSac.setSelectedItem(x.getTen());
+    }//GEN-LAST:event_btThemSizeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -890,6 +946,11 @@ public class FormSanPham extends javax.swing.JFrame {
     private javax.swing.JButton btLamMoi;
     private javax.swing.JButton btSua;
     private javax.swing.JButton btThem;
+    private javax.swing.JButton btThemChatLieu;
+    private javax.swing.JButton btThemDanhMuc;
+    private javax.swing.JButton btThemKieuDang;
+    private javax.swing.JButton btThemMauSac;
+    private javax.swing.JButton btThemSize;
     private javax.swing.JButton btTimKiem;
     private javax.swing.JButton btXoa;
     private javax.swing.JComboBox<String> cbChatLieu;
@@ -900,11 +961,6 @@ public class FormSanPham extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbMauSac;
     private javax.swing.JComboBox<String> cbSize;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

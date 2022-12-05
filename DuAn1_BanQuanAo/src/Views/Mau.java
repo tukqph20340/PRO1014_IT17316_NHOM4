@@ -25,6 +25,7 @@ public class Mau extends javax.swing.JDialog {
     public Mau(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         mode = new DefaultTableModel();
         mode = (DefaultTableModel) JTMau.getModel();
         mode.setColumnIdentifiers(new String[]{"Mã Màu", "Tên Màu"});
@@ -40,6 +41,12 @@ public class Mau extends javax.swing.JDialog {
                 chatLieuView.getTen(),});
         }
 
+    }
+    
+    public String getTen(){
+        MauView x=new MauView();
+        x.setTen(txtten.getText());
+           return x.getTen();
     }
 
     /**
