@@ -808,6 +808,7 @@ public class FormSanPham extends javax.swing.JFrame {
             ArrayList<SanPham> list = service.tim(ma);
             loadTable(list);
         } catch (Exception e) {
+           
         }
     }//GEN-LAST:event_btTimKiemActionPerformed
 
