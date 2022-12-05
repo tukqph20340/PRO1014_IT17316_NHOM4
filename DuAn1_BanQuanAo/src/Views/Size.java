@@ -25,6 +25,7 @@ public class Size extends javax.swing.JDialog {
     public Size(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         mode = new DefaultTableModel();
         mode = (DefaultTableModel) JTSize.getModel();
         mode.setColumnIdentifiers(new String[]{"Mã Size", "Tên Size"});
@@ -39,6 +40,12 @@ public class Size extends javax.swing.JDialog {
                 chatLieuView.getMa(),
                 chatLieuView.getTen(),});
         }
+    }
+    
+    public String getTen(){
+        SizeView x=new SizeView();
+        x.setTen(txtTen.getText());
+           return x.getTen();
     }
 
     /**
