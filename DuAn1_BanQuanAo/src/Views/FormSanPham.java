@@ -53,8 +53,10 @@ public class FormSanPham extends javax.swing.JFrame {
 
     public void loadCbDM(ArrayList<String> listDM) {
         cbDanhMuc.removeAllItems();
+        cbLocDanhMuc.removeAllItems();
         for (String x : listDM) {
             cbDanhMuc.addItem(x);
+            cbLocDanhMuc.addItem(x);
         }
     }
 
@@ -63,9 +65,6 @@ public class FormSanPham extends javax.swing.JFrame {
         cbLocMau.removeAllItems();
         for (String x : listMau) {
             cbMauSac.addItem(x);
-        }
-        cbLocMau.addItem("Tất cả");
-        for (String x : listMau) {
             cbLocMau.addItem(x);
         }
     }
@@ -75,24 +74,25 @@ public class FormSanPham extends javax.swing.JFrame {
         cbLocSize.removeAllItems();
         for (String x : listSize) {
             cbSize.addItem(x);
-        }
-        cbLocSize.addItem("Tất cả");
-        for (String x : listSize) {
             cbLocSize.addItem(x);
         }
     }
 
     public void loadCbCL(ArrayList<String> listCL) {
         cbChatLieu.removeAllItems();
+        cbLocChatLieu.removeAllItems();
         for (String x : listCL) {
             cbChatLieu.addItem(x);
+            cbLocChatLieu.addItem(x);
         }
     }
 
     public void loadCbKD(ArrayList<String> listKD) {
         cbKieuDang.removeAllItems();
+        cbLocKieuDang.removeAllItems();
         for (String x : listKD) {
             cbKieuDang.addItem(x);
+            cbLocKieuDang.addItem(x);
         }
     }
 
@@ -135,6 +135,9 @@ public class FormSanPham extends javax.swing.JFrame {
         cbLocSize = new javax.swing.JComboBox<>();
         cbLocMau = new javax.swing.JComboBox<>();
         btTimKiem = new javax.swing.JButton();
+        cbLocDanhMuc = new javax.swing.JComboBox<>();
+        cbLocKieuDang = new javax.swing.JComboBox<>();
+        cbLocChatLieu = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         txtMaCH = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -309,12 +312,39 @@ public class FormSanPham extends javax.swing.JFrame {
             }
         });
 
+        cbLocDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLocDanhMuc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLocDanhMucActionPerformed(evt);
+            }
+        });
+
+        cbLocKieuDang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLocKieuDang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLocKieuDangActionPerformed(evt);
+            }
+        });
+
+        cbLocChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbLocChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbLocChatLieuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(308, 308, 308)
+                .addGap(32, 32, 32)
+                .addComponent(cbLocChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbLocKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbLocDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(cbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cbLocSize, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,9 +362,12 @@ public class FormSanPham extends javax.swing.JFrame {
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbLocSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btTimKiem))
+                    .addComponent(btTimKiem)
+                    .addComponent(cbLocDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbLocKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbLocChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -432,6 +465,11 @@ public class FormSanPham extends javax.swing.JFrame {
         });
 
         btThemKieuDang.setText("+");
+        btThemKieuDang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemKieuDangActionPerformed(evt);
+            }
+        });
 
         btThemMauSac.setText("+");
         btThemMauSac.addActionListener(new java.awt.event.ActionListener() {
@@ -796,6 +834,7 @@ public class FormSanPham extends javax.swing.JFrame {
         txtGiaBan.setText("");
         txtSoLuong.setText("");
         txtTrangThai.setText("");
+        loadTable(service.getListSanPham());
     }//GEN-LAST:event_btLamMoiActionPerformed
 
     private void tbThongTinSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbThongTinSanPhamMouseClicked
@@ -824,12 +863,11 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Bạn chưa nhập thông tin tìm kiếm");
                 return;
             }
-            if (checkTrung(ma) == false) {
+            /*if (checkTrung(ma) == false) {
                 JOptionPane.showMessageDialog(this, "Sản Phẩm không tồn tại");
                 return;
-            }
-            ArrayList<SanPham> list = service.tim(ma);
-            loadTable(list);
+            }*/
+            loadTable(service.tim(ma));
         } catch (Exception e) {
 
         }
@@ -838,13 +876,8 @@ public class FormSanPham extends javax.swing.JFrame {
     private void cbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocMauActionPerformed
         // TODO add your handling code here:
         String mau = (String) cbLocMau.getSelectedItem();
-        try {
-            if (cbLocMau.getSelectedIndex() == 0) {
-                loadTable(service.getListSanPham());
-                return;
-            }
-            ArrayList<SanPham> list = service.locMau(mau);
-            loadTable(list);
+        try {           
+            loadTable(service.locMau(mau));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -853,13 +886,8 @@ public class FormSanPham extends javax.swing.JFrame {
     private void cbLocSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizeActionPerformed
         // TODO add your handling code here:
         String size = (String) cbLocSize.getSelectedItem();
-        try {
-            if (cbLocSize.getSelectedIndex() == 0) {
-                loadTable(service.getListSanPham());
-                return;
-            }
-            ArrayList<SanPham> list = service.locSize(size);
-            loadTable(list);
+        try {            
+            loadTable(service.locSize(size));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -874,17 +902,16 @@ public class FormSanPham extends javax.swing.JFrame {
 
     private void btThemDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemDanhMucActionPerformed
         // TODO add your handling code here:
-        DanhMuc x = new DanhMuc();
-        DanhMucViews a = new DanhMucViews();
+        FormDanhMuc x = new FormDanhMuc(this, true);
         x.setVisible(true);
         loadCbDM(service.getListDanhMuc());
-        cbDanhMuc.setSelectedItem(a.getTenDM());
+        cbDanhMuc.setSelectedItem(x.getTen());
     }//GEN-LAST:event_btThemDanhMucActionPerformed
 
     private void btThemChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemChatLieuActionPerformed
         // TODO add your handling code here:
         ChatLieu x = new ChatLieu(this, true);
-        x.setVisible(true);      
+        x.setVisible(true);
         loadCbCL(service.getListChatLieu());
         cbChatLieu.setSelectedItem(x.getTen());
     }//GEN-LAST:event_btThemChatLieuActionPerformed
@@ -892,7 +919,7 @@ public class FormSanPham extends javax.swing.JFrame {
     private void btThemMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemMauSacActionPerformed
         // TODO add your handling code here:
         Mau x = new Mau(this, true);
-        x.setVisible(true);      
+        x.setVisible(true);
         loadCbMau(service.getListMauSac());
         cbMauSac.setSelectedItem(x.getTen());
     }//GEN-LAST:event_btThemMauSacActionPerformed
@@ -900,10 +927,48 @@ public class FormSanPham extends javax.swing.JFrame {
     private void btThemSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemSizeActionPerformed
         // TODO add your handling code here:
         Size x = new Size(this, true);
-        x.setVisible(true);      
-        loadCbMau(service.getListMauSac());
-        cbMauSac.setSelectedItem(x.getTen());
+        x.setVisible(true);
+        loadCbSize(service.getListSize());
+        cbSize.setSelectedItem(x.getTen());
     }//GEN-LAST:event_btThemSizeActionPerformed
+
+    private void btThemKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemKieuDangActionPerformed
+        // TODO add your handling code here:
+        FormKieuDang x = new FormKieuDang(this, true);
+        x.setVisible(true);
+        loadCbKD(service.getListKieuDang());
+        cbKieuDang.setSelectedItem(x.getTen());
+    }//GEN-LAST:event_btThemKieuDangActionPerformed
+
+    private void cbLocDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocDanhMucActionPerformed
+        // TODO add your handling code here:
+        String danhMuc = (String) cbLocDanhMuc.getSelectedItem();
+        try {
+            loadTable(service.locDanhMuc(danhMuc));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbLocDanhMucActionPerformed
+
+    private void cbLocKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocKieuDangActionPerformed
+        // TODO add your handling code here:
+        String kieuDang = (String) cbLocKieuDang.getSelectedItem();
+        try {
+            loadTable(service.locKieuDang(kieuDang));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbLocKieuDangActionPerformed
+
+    private void cbLocChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocChatLieuActionPerformed
+        // TODO add your handling code here:
+        String chatLieu = (String) cbLocChatLieu.getSelectedItem();
+        try {
+            loadTable(service.locChatLieu(chatLieu));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_cbLocChatLieuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -956,6 +1021,9 @@ public class FormSanPham extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbChatLieu;
     private javax.swing.JComboBox<String> cbDanhMuc;
     private javax.swing.JComboBox<String> cbKieuDang;
+    private javax.swing.JComboBox<String> cbLocChatLieu;
+    private javax.swing.JComboBox<String> cbLocDanhMuc;
+    private javax.swing.JComboBox<String> cbLocKieuDang;
     private javax.swing.JComboBox<String> cbLocMau;
     private javax.swing.JComboBox<String> cbLocSize;
     private javax.swing.JComboBox<String> cbMauSac;
