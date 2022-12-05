@@ -17,7 +17,7 @@ public class ThanhToan {
     private String NgayHuy;
     private String NgayThanhToan;
     private String TrangThai;
-      private String MaHDCT;
+    private String MaHDCT;
     private String MaSP;
     private String SoLuong;
     private String TongTien;

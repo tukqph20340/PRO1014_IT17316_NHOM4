@@ -22,12 +22,14 @@ public interface ThemSuaThanhToanHoaDonINT {
 
     public List<ThanhToan> Huy(String MaHD,String TrangThai);
 
-    public List<ThanhToan> HuyHoaDon(String MaHD,String TrangThai);
+    public List<ThanhToan> HuyHoaDon(String MaHD,String NgayHuy, String TrangThai);
 
     public List<ThanhToan> ThanhToanHoaDonChiTiet(String MaHD,String tong,String tienkhachdua,String Tienthua,String TrangThai);
 
-    public List<ThanhToan> ThanhToanHoa(String MaHD,String TrangThai);
+    public List<ThanhToan> ThanhToanHoa(String MaHD,String NgayHuy, String TrangThai);
 
     public List<ThanhToan> select(String ma2);
+    public List<ThanhToan> select();
+    
  
 }

@@ -45,7 +45,26 @@ public class GioHangRepository {
         }
         return list;
     }
-
+public ArrayList<GioHang> getListGH() {
+        ArrayList<GioHang> list = new ArrayList<>();
+        String sql = "select HoaDonChiTiet.MaSP, TenSP, HoaDonChiTiet.SoLuong, GiaBan from HoaDonChiTiet \n"
+                + "join SanPham on HoaDonChiTiet.MaSP=SanPham.MaSP \n"
+                + "join HoaDon on HoaDonChiTiet.MaHD=HoaDon.MaHD ";
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                GioHang x = new GioHang();
+                x.setMaSP(rs.getString(1));
+                x.setTenSP(rs.getString(2));
+                x.setSoLuong(rs.getInt(3));
+                x.setDonGia(rs.getInt(4));
+                list.add(x);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
     public boolean tangHD(String ma, String maHD) {
         String sql = "update HoaDonChiTiet set SoLuong=SoLuong+1 where MaSP=? and MaHD=?";
         try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {

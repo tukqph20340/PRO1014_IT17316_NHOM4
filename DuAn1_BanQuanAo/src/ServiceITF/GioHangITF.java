@@ -16,7 +16,7 @@ import java.util.List;
 public interface GioHangITF {
 
     public ArrayList<GioHang> getListGH(String ma);
-
+    public ArrayList<GioHang> getListGH();
     public boolean tangHD(String ma, String maHD);
 
     public boolean giamHD(String ma, String maHD);

@@ -42,7 +42,7 @@ public class ThemSuaThanhToanHoaDon {
             con.close();
             JOptionPane.showMessageDialog(null, "Thêm thành công");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Thêm thất bại");
+            JOptionPane.showMessageDialog(null, "Mã Đã Tồn Tại , Thất Bại");
         }
         return listcl;
     }
@@ -77,21 +77,24 @@ public class ThemSuaThanhToanHoaDon {
         return listcl;
     }
 
-    public List<ThanhToan> HuyHoaDon(String MaHD, String TrangThai) {
+    public List<ThanhToan> HuyHoaDon(String MaHD,String NgayHuy, String TrangThai) {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "UPDATE  HoaDon SET TrangThai=? where MaHD=?";
+            String sql = "UPDATE  HoaDon SET NgayHuy =? , TrangThai=? where MaHD=?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(2, MaHD);
-            st.setString(1, TrangThai);
+            st.setString(3, MaHD);
+            st.setString(1, NgayHuy);
+            st.setString(2, TrangThai);
             st.executeUpdate();
             ThanhToan cl = new ThanhToan();
             cl.setMaHD(MaHD);
+            cl.setNgayHuy(NgayHuy);
             cl.setTrangThai(TrangThai);
             listcl.add(cl);
             st.close();
             con.close();
+            JOptionPane.showMessageDialog(null, "Hủy Hóa Đơn Thành Công ");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Hủy Thất Bại ");
         }
@@ -148,24 +151,26 @@ public class ThemSuaThanhToanHoaDon {
         return listcl;
     }
 
-    public List<ThanhToan> ThanhToanHoaDon(String MaHD, String TrangThai) {
+    public List<ThanhToan> ThanhToanHoaDon(String MaHD,String NgayHuy, String TrangThai) {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "UPDATE  HoaDon SET TrangThai=? where MaHD=?";
+            String sql = "UPDATE  HoaDon SET NgayThanhToan =? , TrangThai=? where MaHD=?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(2, MaHD);
-            st.setString(1, TrangThai);
+            st.setString(3, MaHD);
+            st.setString(1, NgayHuy);
+            st.setString(2, TrangThai);
             st.executeUpdate();
             ThanhToan cl = new ThanhToan();
             cl.setMaHD(MaHD);
+            cl.setNgayHuy(NgayHuy);
             cl.setTrangThai(TrangThai);
             listcl.add(cl);
             st.close();
             con.close();
-            JOptionPane.showMessageDialog(null, "Hủy  thành công");
+            JOptionPane.showMessageDialog(null, "Thanh Toán  thành công");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Hủy Thất Bại Toán thất bại");
+            JOptionPane.showMessageDialog(null, "Thanh Toán  thất bại");
         }
         return listcl;
     }
@@ -203,5 +208,38 @@ public class ThemSuaThanhToanHoaDon {
         }
         return listcl;
     }
+ public List<ThanhToan> select() {
+        ArrayList<ThanhToan> listcl = new ArrayList<>();
+        try {
+            Connection con = DBConTextTu.getConnection();
+            String sql = "select HoaDonChiTiet.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDon.TrangThai,HoaDonChiTiet.TongTien ,HoaDonChiTiet.TienKhachDua ,HoaDonChiTiet.TienThua from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD  ";
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String ma = rs.getString("MaHD");
+                String MaKH = rs.getString("MaKH");
+                String MaND = rs.getString("MaND");
+                String NgayTao = rs.getString("NgayTao");
+                String TrangThai = rs.getString("TrangThai");
+                String TongTien = rs.getString("TongTien");
+                String TienKhachDua = rs.getString("TienKhachDua");
+                String TienThua = rs.getString("TienThua");
+                ThanhToan cl = new ThanhToan();
+                cl.setMaHDCT(ma);
+                cl.setMaKH(MaKH);
+                cl.setMaND(MaND);
+                cl.setNgayTao(NgayTao);
+                cl.setTrangThai(TrangThai);
+                cl.setTongTien(TongTien);
+                cl.setTienKhachDua(TienKhachDua);
+                cl.setTienThua(TienThua);
+                listcl.add(cl);
+               
+            }
 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, " ko tìm thấy thất bại");
+        }
+        return listcl;
+    }
 }
