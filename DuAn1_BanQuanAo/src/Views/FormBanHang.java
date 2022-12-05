@@ -56,6 +56,7 @@ public class FormBanHang extends javax.swing.JFrame {
         fillDataSanPham();
         fillDataHoaDon();
         fillSP(listSanPham);
+        loadGH();
         //loadDataTableGH(ghService.getListGH("HD01"));
     }
     private SanPhamITF service = new SanPhamIplm();
@@ -137,6 +138,11 @@ public class FormBanHang extends javax.swing.JFrame {
         for (SanPhamViews sanPhamViews : list) {
             modelSanPham.addRow(sanPhamViews.data());
         }
+    }
+
+    public void loadGH() {
+        modelSanPham = (DefaultTableModel) tblGioHang.getModel();
+        modelSanPham.setRowCount(0);
     }
 
     public void loadDataTableGH(ArrayList<GioHang> list) {
