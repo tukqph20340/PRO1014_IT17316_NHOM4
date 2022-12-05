@@ -63,5 +63,10 @@ public class GioHangIplm implements GioHangITF{
     public boolean themGH(GioHang x, int so) {
         return repo.themGH(x, so);
     }
+
+    @Override
+    public ArrayList<GioHang> getListGH() {
+        return repo.getListGH();
+    }
     
 }

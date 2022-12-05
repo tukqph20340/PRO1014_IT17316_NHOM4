@@ -46,7 +46,7 @@ public class KhachHangRepo {
         ArrayList<KhachHangMode> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "select * from KhachHang where";
+            String sql = "select * from KhachHang where MaKH=?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, ma1);
             ResultSet rs = st.executeQuery();
