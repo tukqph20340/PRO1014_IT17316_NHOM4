@@ -4,30 +4,29 @@
  * and open the template in the editor.
  */
 package Views;
-
 import DomainModels.DanhMuc_model;
 import ServiceIplm.DanhMucSp_Service;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author vitam
  */
-public class DanhMuc extends javax.swing.JFrame {
+public class FormDanhMuc extends javax.swing.JDialog {
 
     /**
-     * Creates new form DanhMuc
+     * Creates new form FormDanhMuc
      */
-    public DanhMuc() {
+    public FormDanhMuc(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        setLocationRelativeTo(this);
         list = ser.getAllform();
         fill(list);
+        setLocationRelativeTo(this);
     }
-    DefaultTableModel model = new DefaultTableModel();
+ DefaultTableModel model = new DefaultTableModel();
     DanhMucSp_Service ser = new DanhMucSp_Service();
     List<DanhMuc_model> list = new ArrayList<>();
 
@@ -63,8 +62,6 @@ public class DanhMuc extends javax.swing.JFrame {
             }
         return true;
         }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -75,9 +72,6 @@ public class DanhMuc extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
@@ -88,17 +82,13 @@ public class DanhMuc extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBang = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Danh Mục");
-
-        jLabel2.setText("Mã Danh Mục");
-
-        jLabel3.setText("Tên Danh Mục");
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -188,6 +178,13 @@ public class DanhMuc extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Danh Mục");
+
+        jLabel2.setText("Mã Danh Mục");
+
+        jLabel3.setText("Tên Danh Mục");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -241,11 +238,11 @@ public class DanhMuc extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -262,39 +259,39 @@ public class DanhMuc extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-         int index = tblBang.getSelectedRow();
-         String ma = txtMaDM.getText();
-        if (index == -1) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn Xóa");
-        } else {
-            JOptionPane.showMessageDialog(this,ser.DeleteForm(ma));
-                list = ser.getAllform();
-                fill(list);
-                clear();
-                        
-        }
-    }//GEN-LAST:event_btnXoaActionPerformed
-
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-         int index = tblBang.getSelectedRow();
+        int index = tblBang.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Sửa");
         } else {
             JOptionPane.showMessageDialog(this,ser.UpdateForm(dataFill()));
-                list = ser.getAllform();
-                fill(list);
-                clear();
+            list = ser.getAllform();
+            fill(list);
+            clear();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
- public void clear(){
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        int index = tblBang.getSelectedRow();
+        String ma = txtMaDM.getText();
+        if (index == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn Xóa");
+        } else {
+            JOptionPane.showMessageDialog(this,ser.DeleteForm(ma));
+            list = ser.getAllform();
+            fill(list);
+            clear();
+
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+public void clear(){
      txtMaDM.getText();
      txttenDm.getText();
- }
+}
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       clear();
+        clear();
     }//GEN-LAST:event_jButton4ActionPerformed
-    public void mouseclick(List<DanhMuc_model> list) {
+ public void mouseclick(List<DanhMuc_model> list) {
         int index = tblBang.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng");
@@ -305,7 +302,6 @@ public class DanhMuc extends javax.swing.JFrame {
     }
     private void tblBangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangMouseClicked
         mouseclick(list);
-
     }//GEN-LAST:event_tblBangMouseClicked
 
     /**
@@ -325,20 +321,27 @@ public class DanhMuc extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormDanhMuc.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DanhMuc().setVisible(true);
+                FormDanhMuc dialog = new FormDanhMuc(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
