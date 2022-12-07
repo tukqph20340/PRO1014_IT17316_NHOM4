@@ -774,30 +774,33 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void tblbangSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangSanPhamMouseClicked
         // TODO add your handling code here:
-        ArrayList<GioHang> list = new ArrayList<>();
         int row = tblbangSanPham.getSelectedRow();
         String ma = tblbangSanPham.getValueAt(row, 0).toString();
-        int so = Integer.parseInt(JOptionPane.showInputDialog("Nhập Số Lượng bạn cần mua."));
         int rowHD = tblHoaDonCho.getSelectedRow();
         if (rowHD == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn để thêm sản phẩm.");
             return;
         }
         String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
-        //String maHD = "HD01";
         GioHang gh = new GioHang();
         gh.setMaHD(maHD);
         gh.setMaSP(ma);
         try {
+            int so = Integer.valueOf(JOptionPane.showInputDialog("Nhập Số Lượng bạn cần mua."));
             if (checkMaSP(maHD) == false) {
-                ghService.themGH(gh, so);
+                ghService.themGH(gh, 0);
             }
-            ghService.soLuongSP(so, ma);
-            ghService.soLuongHD(ma, so, maHD);
+            ghService.tangSoLuongGH(ma, so, maHD);
+            ghService.giamSoLuongSP(so, ma);
             loadDataTableGH(ghService.getListGH(maHD));
             fillDataSanPham();
+            int i = 0;
+            for (GioHang gioHang : ghService.getListGH(maHD)) {
+                i = i + gioHang.tinhTong();
+            }
+            txtTongTien.setText(String.valueOf(i));
         } catch (Exception e) {
-            e.printStackTrace();
+            e.getMessage();
         }
     }//GEN-LAST:event_tblbangSanPhamMouseClicked
 
@@ -814,12 +817,16 @@ public class FormBanHang extends javax.swing.JFrame {
             return;
         }
         String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
-        //String maHD = "HD01";
         try {
             if (ghService.tangHD(ma, maHD)) {
                 if (ghService.giamSP(ma)) {
                     loadDataTableGH(ghService.getListGH(maHD));
                     fillDataSanPham();
+                    int i = 0;
+                    for (GioHang gioHang : ghService.getListGH(maHD)) {
+                        i = i + gioHang.tinhTong();
+                    }
+                    txtTongTien.setText(String.valueOf(i));
                 }
             }
         } catch (Exception e) {
@@ -848,6 +855,11 @@ public class FormBanHang extends javax.swing.JFrame {
                 if (ghService.tangSP(ma)) {
                     loadDataTableGH(ghService.getListGH(maHD));
                     fillDataSanPham();
+                    int i = 0;
+                    for (GioHang gioHang : ghService.getListGH(maHD)) {
+                        i = i + gioHang.tinhTong();
+                    }
+                    txtTongTien.setText(String.valueOf(i));
                 }
             }
         } catch (Exception e) {
@@ -863,32 +875,26 @@ public class FormBanHang extends javax.swing.JFrame {
             return;
         }
         String ma = tblGioHang.getValueAt(row, 0).toString();
-
-        String maHD = "HD01";
-        SanPham sp = new SanPham();
-        GioHang gh = new GioHang();
-
         int rowHD = tblHoaDonCho.getSelectedRow();
+        String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
         if (rowHD == -1) {
             JOptionPane.showMessageDialog(this, "Xóa thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo.");
             return;
         }
-        //String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
-        //String maHD = "HD01";
-
         int sl = Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
         try {
             if (ghService.xoa(ma, maHD)) {
-                for (int i = 1; i <= sl; i++) {
-                    ghService.tangSP(ma);
-                }
+                ghService.tangSoLuongSP(sl, ma);
                 loadDataTableGH(ghService.getListGH(maHD));
-            }/*else{
-                JOptionPane.showMessageDialog(this, "Xóa thất bại do Hóa Đơn của Giỏ Hàng này chưa được tạo");
-            }*/
+                fillDataSanPham();
+                int i = 0;
+                for (GioHang gioHang : ghService.getListGH(maHD)) {
+                    i = i + gioHang.tinhTong();
+                }
+                txtTongTien.setText(String.valueOf(i));
+            }
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }//GEN-LAST:event_btXoaSPActionPerformed
 
@@ -987,7 +993,7 @@ public class FormBanHang extends javax.swing.JFrame {
                     return;
                 }
                 if (thanhToan.getTrangThai().equalsIgnoreCase("Đã Thanh Toán")) {
-                     JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Thanh Toán Không Thể Hủy ");
+                    JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Thanh Toán Không Thể Hủy ");
                     return;
                 }
             }
@@ -1029,7 +1035,7 @@ public class FormBanHang extends javax.swing.JFrame {
                     return;
                 }
                 if (thanhToan.getTrangThai().equalsIgnoreCase("Đã Hủy")) {
-                     JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Hủy Không Thể Thanh Toán ");
+                    JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Hủy Không Thể Thanh Toán ");
                     return;
                 }
             }

@@ -27,9 +27,13 @@ public interface GioHangITF {
 
     public boolean xoa(String ma, String maHD);
 
-    public boolean soLuongHD(String ma, int so, String maHD);
+    public boolean tangSoLuongGH(String ma, int so, String maHD);
 
-    public boolean soLuongSP(int so, String ma);
+    public boolean tangSoLuongSP(int so, String ma);
 
     public boolean themGH(GioHang x, int so);
+    
+    public boolean giamSoLuongGH(String ma, int so, String maHD);
+
+    public boolean giamSoLuongSP(int so, String ma);
 }

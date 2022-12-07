@@ -50,13 +50,13 @@ public class GioHangIplm implements GioHangITF{
     }
 
     @Override
-    public boolean soLuongHD(String ma, int so, String maHD) {
-        return repo.soluongGH(ma, so, maHD);
+    public boolean tangSoLuongGH(String ma, int so, String maHD) {
+        return repo.tangSoLuongGH(ma, so, maHD);
     }
 
     @Override
-    public boolean soLuongSP(int so,String ma) {
-        return repo.soluongSP(so, ma);
+    public boolean tangSoLuongSP(int so,String ma) {
+        return repo.tangSoLuongSP(so, ma);
     }
 
     @Override
@@ -67,6 +67,16 @@ public class GioHangIplm implements GioHangITF{
     @Override
     public ArrayList<GioHang> getListGH() {
         return repo.getListGH();
+    }
+
+    @Override
+    public boolean giamSoLuongGH(String ma, int so, String maHD) {
+        return repo.giamSoLuongGH(ma, so, maHD);
+    }
+
+    @Override
+    public boolean giamSoLuongSP(int so, String ma) {
+        return repo.giamSoLuongSP(so, ma);
     }
     
 }

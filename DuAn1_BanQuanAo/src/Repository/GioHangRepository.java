@@ -128,7 +128,34 @@ public ArrayList<GioHang> getListGH() {
         return false;
     }
 
-    public boolean soluongSP(int so, String ma) {
+    public boolean tangSoLuongSP(int so, String ma) {
+        String sql = "update SanPham set SoLuong=Soluong+? where MaSP=?";
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, so);
+            ps.setObject(2, ma);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean tangSoLuongGH(String ma, int so, String maHD) {
+        String sql = "update HoaDonChiTiet set SoLuong=Soluong+? where MaSP=? and MaHD=?";
+        try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setObject(1, so);
+            ps.setObject(2, ma);
+            ps.setObject(3, maHD);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean giamSoLuongSP(int so, String ma) {
         String sql = "update SanPham set SoLuong=Soluong-? where MaSP=?";
         try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, so);
@@ -141,8 +168,8 @@ public ArrayList<GioHang> getListGH() {
         return false;
     }
 
-    public boolean soluongGH(String ma, int so, String maHD) {
-        String sql = "update HoaDonChiTiet set SoLuong=Soluong+? where MaSP=? and MaHD=?";
+    public boolean giamSoLuongGH(String ma, int so, String maHD) {
+        String sql = "update HoaDonChiTiet set SoLuong=Soluong-? where MaSP=? and MaHD=?";
         try (Connection con = db.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, so);
             ps.setObject(2, ma);
