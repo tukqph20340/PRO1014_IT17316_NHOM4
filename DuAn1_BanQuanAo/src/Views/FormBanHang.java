@@ -932,6 +932,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
         // TODO add your handling code here:
+         txtngayTao.setText("");
         try {
             String maHd = txtMa.getText();
             String makh = txtMaKH.getText();
@@ -939,7 +940,7 @@ public class FormBanHang extends javax.swing.JFrame {
             String MaND = txtMaNv.getText();
             String sdt = txtSdt.getText();
             String TrangThai = "Chưa Thanh Toán";
-            String NgayTao = txtngayTao.getText();
+//            String NgayTao = txtngayTao.getText();
             String TienKhachDua = txtTiennKhachDua.getText();
 
             String TienThua = txtTienThua.getText();
@@ -953,7 +954,7 @@ public class FormBanHang extends javax.swing.JFrame {
             }
             SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
             Date ht = new Date();
-            txtngayTao.setText(fm.format(ht));
+            String NgayTao = fm.format(ht);
             try {
 
                 BanHang.insert(maHd, makh, MaND, NgayTao, TrangThai);
