@@ -211,9 +211,10 @@ public class SanPhamRepository {
                 + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
-                + " where MaSP=?";
+                + " where MaSP=? or TenSP=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
             ps.setObject(1, ma);
+            ps.setObject(2, ma);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPham x = new SanPham();
@@ -314,4 +315,160 @@ public class SanPhamRepository {
         }
         return list;
     }
+    
+    public ArrayList<SanPham> getListLocKieuDang(String a) {
+        ArrayList<SanPham> list = new ArrayList<>();
+        String sql = "select MaSP,MaCH,MaNCC,TenSP,"
+                + "DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,"
+                + "NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai from SanPham"
+                + " join Mau on SanPham.MaMau=Mau.MaMau\n"
+                + " join Size on SanPham.MaSize=Size.Ma\n"
+                + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
+                + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
+                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
+                + " where TenKieuDang=?";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+            ps.setObject(1, a);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham x = new SanPham();
+                x.setMaSP(rs.getString(1));
+                x.setMaCH(rs.getString(2));
+                x.setMaNCC(rs.getString(3));
+                x.setTenSP(rs.getString(4));
+                x.setTenDanhMuc(rs.getString(5));
+                x.setTenMau(rs.getString(6));
+                x.setTenSize(rs.getString(7));
+                x.setTenChatLieu(rs.getString(8));
+                x.setTenKieuDang(rs.getString(9));
+                x.setNgaySX(rs.getString(10));
+                x.setGiaNhap(Integer.parseInt(rs.getString(11)));
+                x.setGiaBan(Integer.parseInt(rs.getString(12)));
+                x.setSoLuong(Integer.parseInt(rs.getString(13)));
+                x.setTrangThai(rs.getString(14));
+                list.add(x);
+            }           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public ArrayList<SanPham> getListLocChatLieu(String a) {
+        ArrayList<SanPham> list = new ArrayList<>();
+        String sql = "select MaSP,MaCH,MaNCC,TenSP,"
+                + "DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,"
+                + "NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai from SanPham"
+                + " join Mau on SanPham.MaMau=Mau.MaMau\n"
+                + " join Size on SanPham.MaSize=Size.Ma\n"
+                + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
+                + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
+                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
+                + " where TenChatLieu=?";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+            ps.setObject(1, a);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham x = new SanPham();
+                x.setMaSP(rs.getString(1));
+                x.setMaCH(rs.getString(2));
+                x.setMaNCC(rs.getString(3));
+                x.setTenSP(rs.getString(4));
+                x.setTenDanhMuc(rs.getString(5));
+                x.setTenMau(rs.getString(6));
+                x.setTenSize(rs.getString(7));
+                x.setTenChatLieu(rs.getString(8));
+                x.setTenKieuDang(rs.getString(9));
+                x.setNgaySX(rs.getString(10));
+                x.setGiaNhap(Integer.parseInt(rs.getString(11)));
+                x.setGiaBan(Integer.parseInt(rs.getString(12)));
+                x.setSoLuong(Integer.parseInt(rs.getString(13)));
+                x.setTrangThai(rs.getString(14));
+                list.add(x);
+            }           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public ArrayList<SanPham> getListLocDanhMuc(String dm) {
+        ArrayList<SanPham> list = new ArrayList<>();
+        String sql = "select MaSP,MaCH,MaNCC,TenSP,"
+                + "DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,"
+                + "NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai from SanPham"
+                + " join Mau on SanPham.MaMau=Mau.MaMau\n"
+                + " join Size on SanPham.MaSize=Size.Ma\n"
+                + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
+                + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
+                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
+                + " where DanhMucSanPham=?";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+            ps.setObject(1, dm);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham x = new SanPham();
+                x.setMaSP(rs.getString(1));
+                x.setMaCH(rs.getString(2));
+                x.setMaNCC(rs.getString(3));
+                x.setTenSP(rs.getString(4));
+                x.setTenDanhMuc(rs.getString(5));
+                x.setTenMau(rs.getString(6));
+                x.setTenSize(rs.getString(7));
+                x.setTenChatLieu(rs.getString(8));
+                x.setTenKieuDang(rs.getString(9));
+                x.setNgaySX(rs.getString(10));
+                x.setGiaNhap(Integer.parseInt(rs.getString(11)));
+                x.setGiaBan(Integer.parseInt(rs.getString(12)));
+                x.setSoLuong(Integer.parseInt(rs.getString(13)));
+                x.setTrangThai(rs.getString(14));
+                list.add(x);
+            }           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    /*public ArrayList<SanPham> getListLoc(String a,String b,String c,String d,String e) {
+        ArrayList<SanPham> list = new ArrayList<>();
+        String sql = "select MaSP,MaCH,MaNCC,TenSP,"
+                + "DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,"
+                + "NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai from SanPham"
+                + " join Mau on SanPham.MaMau=Mau.MaMau\n"
+                + " join Size on SanPham.MaSize=Size.Ma\n"
+                + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
+                + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
+                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
+                + " where TenMau=? and Ten=? and DanhMucSanPham=? and TenChatLieu=? and TenKieuDang=?";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+            ps.setObject(1, a);
+            ps.setObject(2, b);
+            ps.setObject(3, c);
+            ps.setObject(4, d);
+            ps.setObject(5, e);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                SanPham x = new SanPham();
+                x.setMaSP(rs.getString(1));
+                x.setMaCH(rs.getString(2));
+                x.setMaNCC(rs.getString(3));
+                x.setTenSP(rs.getString(4));
+                x.setTenDanhMuc(rs.getString(5));
+                x.setTenMau(rs.getString(6));
+                x.setTenSize(rs.getString(7));
+                x.setTenChatLieu(rs.getString(8));
+                x.setTenKieuDang(rs.getString(9));
+                x.setNgaySX(rs.getString(10));
+                x.setGiaNhap(Integer.parseInt(rs.getString(11)));
+                x.setGiaBan(Integer.parseInt(rs.getString(12)));
+                x.setSoLuong(Integer.parseInt(rs.getString(13)));
+                x.setTrangThai(rs.getString(14));
+                list.add(x);
+            }           
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
+    }*/   
 }

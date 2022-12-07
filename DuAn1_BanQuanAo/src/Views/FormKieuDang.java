@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package Views;
+
 import DomainModels.KieuDang_Model;
 import ServiceIplm.KieuDang_Sercive;
+import ViewModels.KieuDangViews;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author vitam
@@ -26,10 +29,10 @@ public class FormKieuDang extends javax.swing.JDialog {
         fill(list);
         setLocationRelativeTo(this);
     }
-     DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel();
     KieuDang_Sercive ser = new KieuDang_Sercive();
     List<KieuDang_Model> list = new ArrayList<>();
-    
+
     public void fill(List<KieuDang_Model> list) {
         model.setRowCount(0);
         model = (DefaultTableModel) tblBangKD.getModel();
@@ -68,9 +71,16 @@ public class FormKieuDang extends javax.swing.JDialog {
         }
         return true;
     }
-      public void clear() {
+
+    public void clear() {
         txtMa.setText("");
         txtTen.setText("");
+    }
+    
+    public String getTen(){
+        KieuDangViews x=new KieuDangViews();
+        x.setTenKD(txtTen.getText());
+           return x.getTenKD();
     }
 
     /**
@@ -271,7 +281,6 @@ public class FormKieuDang extends javax.swing.JDialog {
                 list = ser.getAllform();
                 fill(list);
                 JOptionPane.showMessageDialog(this, "Thêm Thành Công");
-                clear();
             }
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -286,7 +295,6 @@ public class FormKieuDang extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, ser.DeleteForm(ma));
         list = ser.getAllform();
         fill(list);
-        clear();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -302,7 +310,6 @@ public class FormKieuDang extends javax.swing.JDialog {
         list = ser.getAllform();
         fill(list);
         JOptionPane.showMessageDialog(this, "Sửa Thành Công");
-        clear();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package Views;
+
 import DomainModels.DanhMuc_model;
 import ServiceIplm.DanhMucSp_Service;
+import ViewModels.DanhMucViews;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author vitam
@@ -26,7 +29,7 @@ public class FormDanhMuc extends javax.swing.JDialog {
         fill(list);
         setLocationRelativeTo(this);
     }
- DefaultTableModel model = new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel();
     DanhMucSp_Service ser = new DanhMucSp_Service();
     List<DanhMuc_model> list = new ArrayList<>();
 
@@ -41,27 +44,35 @@ public class FormDanhMuc extends javax.swing.JDialog {
     DanhMuc_model dataFill() {
         return new DanhMuc_model(txtMaDM.getText(), txttenDm.getText());
     }
-    public boolean check(){
-        if(txtMaDM.getText().trim().isEmpty()){
+
+    public boolean check() {
+        if (txtMaDM.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không để mã trống");
             return false;
         }
-        if(txttenDm.getText().trim().isEmpty()){
+        if (txttenDm.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Không để tên trống");
             return false;
         }
         return true;
     }
-    
-    public boolean checkMa(List<DanhMuc_model> list,String Ma){
+
+    public boolean checkMa(List<DanhMuc_model> list, String Ma) {
         for (DanhMuc_model danhMuc_model : list) {
-            if(danhMuc_model.getMaDM().equalsIgnoreCase(Ma)){
-            JOptionPane.showMessageDialog(this, "Mã đã tồn tại");
-            return false;
-        }
+            if (danhMuc_model.getMaDM().equalsIgnoreCase(Ma)) {
+                JOptionPane.showMessageDialog(this, "Mã đã tồn tại");
+                return false;
             }
-        return true;
         }
+        return true;
+    }
+
+    public String getTen() {
+        DanhMucViews x = new DanhMucViews();
+        x.setTenDM(txttenDm.getText());
+        return x.getTenDM();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -249,12 +260,11 @@ public class FormDanhMuc extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if(check()){
-            if(checkMa(list, txtMaDM.getText())){
-                JOptionPane.showMessageDialog(this,ser.addForm(dataFill()));
+        if (check()) {
+            if (checkMa(list, txtMaDM.getText())) {
+                JOptionPane.showMessageDialog(this, ser.addForm(dataFill()));
                 list = ser.getAllform();
                 fill(list);
-                clear();
             }
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -264,10 +274,9 @@ public class FormDanhMuc extends javax.swing.JDialog {
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Sửa");
         } else {
-            JOptionPane.showMessageDialog(this,ser.UpdateForm(dataFill()));
+            JOptionPane.showMessageDialog(this, ser.UpdateForm(dataFill()));
             list = ser.getAllform();
             fill(list);
-            clear();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -277,21 +286,19 @@ public class FormDanhMuc extends javax.swing.JDialog {
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Xóa");
         } else {
-            JOptionPane.showMessageDialog(this,ser.DeleteForm(ma));
+            JOptionPane.showMessageDialog(this, ser.DeleteForm(ma));
             list = ser.getAllform();
             fill(list);
-            clear();
-
         }
     }//GEN-LAST:event_btnXoaActionPerformed
-public void clear(){
-     txtMaDM.getText();
-     txttenDm.getText();
-}
+    public void clear() {
+        txtMaDM.getText();
+        txttenDm.getText();
+    }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         clear();
     }//GEN-LAST:event_jButton4ActionPerformed
- public void mouseclick(List<DanhMuc_model> list) {
+    public void mouseclick(List<DanhMuc_model> list) {
         int index = tblBang.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng");

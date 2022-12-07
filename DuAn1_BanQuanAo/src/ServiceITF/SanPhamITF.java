@@ -35,4 +35,12 @@ public interface SanPhamITF {
     public ArrayList<SanPham> locMau(String ma);
     
     public ArrayList<SanPham> locSize(String size);
+    
+    public ArrayList<SanPham> locChatLieu(String x);
+    
+    public ArrayList<SanPham> locDanhMuc(String x);
+    
+    public ArrayList<SanPham> locKieuDang(String x);
+    
+    //public ArrayList<SanPham> getListLoc(String a,String b,String c,String d,String e);
 }
