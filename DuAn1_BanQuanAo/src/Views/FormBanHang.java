@@ -938,7 +938,7 @@ public class FormBanHang extends javax.swing.JFrame {
             String TenKhachHang = txtTenKhachHang.getText();
             String MaND = txtMaNv.getText();
             String sdt = txtSdt.getText();
-            String TrangThai = "Chờ Thanh Thoán";
+            String TrangThai = "Chưa Thanh Toán";
             String NgayTao = txtngayTao.getText();
             String TienKhachDua = txtTiennKhachDua.getText();
 
