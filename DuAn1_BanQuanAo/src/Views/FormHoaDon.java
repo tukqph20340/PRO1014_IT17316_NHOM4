@@ -4,8 +4,12 @@
  */
 package Views;
 
+import DomainModels.HoaDon;
 import DomainModels.HoaDonCT_Model;
+import Repository.HoaDonRepository;
+import ServiceITF.HoaDonITFa;
 import ServiceIplm.HoaDonCT_Service;
+import ServiceIplm.HoaDonIplm;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,8 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormHoaDon extends javax.swing.JFrame {
 
     DefaultTableModel model = new DefaultTableModel();
-    ArrayList<HoaDonCT_Model> listt = new ArrayList<>();
-    HoaDonCT_Service hdct = new HoaDonCT_Service();
+    HoaDonITFa service = new HoaDonIplm();
 
     /**
      * Creates new form FormBanHang
@@ -25,29 +28,17 @@ public class FormHoaDon extends javax.swing.JFrame {
     public FormHoaDon() {
         initComponents();
         setLocationRelativeTo(null);
-        fillfataHDCT();
-
+        loadTable(service.getListHD());
     }
 
-    public void fillfataHDCT() {
-        model = (DefaultTableModel) tblBangHoaDonCT.getModel();
+    public void loadTable(ArrayList<HoaDon> list) {
+        model = (DefaultTableModel) tblQLHD.getModel();
         model.setRowCount(0);
-        String[] hearch = {"Mã Hóa Đơn", "Mã Sản Phẩm", "Số Lượng", "Tổng Tiền", "Tiền Khách Đưa", "Tiền Thừa", "Trạng Thái"};
-        model.setColumnIdentifiers(hearch);
-        listt = (ArrayList<HoaDonCT_Model>) hdct.getAllFormHDCT();
-        for (HoaDonCT_Model h : listt) {
-            model.addRow(new Object[]{
-                h.getMaHD(),
-                h.getMaSP(),
-                h.getSoLuong(),
-                h.getTongTien(),
-                h.getTienkhachDua(),
-                h.getTienThua(),
-                h.getTrangThai()
-            });
-
+        model.setColumnIdentifiers(new String[]{"Mã Hóa Đơn", "Mã Khách Hàn", "Mã Người Dùng", "Tên Khách Hàng", "Ngày Tạo", "Ngày Hủy", "Ngày Thanh Toán", "Trạng Thái"});
+        for (HoaDon x : list) {
+            model.addRow(new Object[]{x.getMaHD(), x.getMaKH(), x.getMaND(), x.getTenND(),
+                x.getNgayTao(), x.getNgayHuy(), x.getNgayThanhToan(), x.getTrangThai()});
         }
-
     }
 
     /**
@@ -60,6 +51,7 @@ public class FormHoaDon extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         btSanPham = new javax.swing.JButton();
         btBanHang = new javax.swing.JButton();
@@ -72,13 +64,13 @@ public class FormHoaDon extends javax.swing.JFrame {
         btDangXuat = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblBangHoaDonCT = new javax.swing.JTable();
+        tblQLHD = new javax.swing.JTable();
         txtTimKiem = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         rdChuaThanhToan = new javax.swing.JRadioButton();
         rdDaThanhToan = new javax.swing.JRadioButton();
         rdDaHuy = new javax.swing.JRadioButton();
         rdTatCa = new javax.swing.JRadioButton();
+        btTimKiem = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,7 +143,7 @@ public class FormHoaDon extends javax.swing.JFrame {
             }
         });
 
-        tblBangHoaDonCT.setModel(new javax.swing.table.DefaultTableModel(
+        tblQLHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -162,15 +154,9 @@ public class FormHoaDon extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblBangHoaDonCT.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBangHoaDonCTMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(tblBangHoaDonCT);
+        jScrollPane2.setViewportView(tblQLHD);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Tìm Kiếm");
+        txtTimKiem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         buttonGroup1.add(rdChuaThanhToan);
         rdChuaThanhToan.setText("Chưa Thanh Toán");
@@ -204,6 +190,14 @@ public class FormHoaDon extends javax.swing.JFrame {
             }
         });
 
+        btTimKiem.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btTimKiem.setText("Tìm Kiếm");
+        btTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btTimKiemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -213,9 +207,8 @@ public class FormHoaDon extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btTimKiem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -241,8 +234,8 @@ public class FormHoaDon extends javax.swing.JFrame {
                     .addComponent(rdTatCa))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btTimKiem))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -307,72 +300,20 @@ public class FormHoaDon extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rdTatCaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdTatCaActionPerformed
-       model.setRowCount(0);
-        for (int i = 0; i < listt.size(); i++) {
-            if (listt.get(i).getTrangThai().equalsIgnoreCase("Tất Cả")) {
-                model.addRow(new Object[]{
-//                    i + 1,
-                    listt.get(i).getMaHD(), listt.get(i).getMaSP(),
-                    listt.get(i).getSoLuong(), listt.get(i).getTongTien(),
-                    listt.get(i).getTienkhachDua(),listt.get(i).getTienThua(),
-                    listt.get(i).getTrangThai()
-                });
-            }
-
-        }
+        loadTable(service.getListHD());
     }//GEN-LAST:event_rdTatCaActionPerformed
 
     private void rdChuaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdChuaThanhToanActionPerformed
-        model.setRowCount(0);
-        for (int i = 0; i < listt.size(); i++) {
-            if (listt.get(i).getTrangThai().equalsIgnoreCase("Chưa Thanh Toán")) {
-                model.addRow(new Object[]{
-                    i + 1,
-                    listt.get(i).getMaHD(), listt.get(i).getMaSP(),
-                    listt.get(i).getSoLuong(), listt.get(i).getTongTien(),
-                    listt.get(i).getTienkhachDua(),listt.get(i).getTienThua(),
-                    listt.get(i).getTrangThai()
-                });
-            }
-
-        }
+        loadTable(service.getListLocHD("Chưa Thanh Toán"));
     }//GEN-LAST:event_rdChuaThanhToanActionPerformed
 
     private void rdDaThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdDaThanhToanActionPerformed
-       model.setRowCount(0);
-        for (int i = 0; i < listt.size(); i++) {
-            if (listt.get(i).getTrangThai().equalsIgnoreCase("Đã Thanh Toán")) {
-                model.addRow(new Object[]{
-                    i + 1,
-                    listt.get(i).getMaHD(), listt.get(i).getMaSP(),
-                    listt.get(i).getSoLuong(), listt.get(i).getTongTien(),
-                    listt.get(i).getTienkhachDua(),listt.get(i).getTienThua(),
-                    listt.get(i).getTrangThai()
-                });
-            }
-
-        }
+        loadTable(service.getListLocHD("Đã Thanh Toán"));
     }//GEN-LAST:event_rdDaThanhToanActionPerformed
 
     private void rdDaHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdDaHuyActionPerformed
-        model.setRowCount(0);
-        for (int i = 0; i < listt.size(); i++) {
-            if (listt.get(i).getTrangThai().equalsIgnoreCase("Đã hủy")) {
-                model.addRow(new Object[]{
-                    i + 1,
-                    listt.get(i).getMaHD(), listt.get(i).getMaSP(),
-                    listt.get(i).getSoLuong(), listt.get(i).getTongTien(),
-                    listt.get(i).getTienkhachDua(),listt.get(i).getTienThua(),
-                    listt.get(i).getTrangThai()
-                });
-            }
-
-        }
+        loadTable(service.getListLocHD("Đã Hủy"));
     }//GEN-LAST:event_rdDaHuyActionPerformed
-
-    private void tblBangHoaDonCTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangHoaDonCTMouseClicked
-      
-    }//GEN-LAST:event_tblBangHoaDonCTMouseClicked
 
     private void btSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSanPhamActionPerformed
         // TODO add your handling code here:
@@ -430,6 +371,12 @@ public class FormHoaDon extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btDangXuatActionPerformed
 
+    private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
+        // TODO add your handling code here:
+        String tim=txtTimKiem.getText();
+        loadTable(service.getListTimHD(tim));
+    }//GEN-LAST:event_btTimKiemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -478,8 +425,9 @@ public class FormHoaDon extends javax.swing.JFrame {
     private javax.swing.JButton btNhaCungCap;
     private javax.swing.JButton btNhanVien;
     private javax.swing.JButton btSanPham;
+    private javax.swing.JButton btTimKiem;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -487,7 +435,7 @@ public class FormHoaDon extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdDaHuy;
     private javax.swing.JRadioButton rdDaThanhToan;
     private javax.swing.JRadioButton rdTatCa;
-    private javax.swing.JTable tblBangHoaDonCT;
+    private javax.swing.JTable tblQLHD;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }
