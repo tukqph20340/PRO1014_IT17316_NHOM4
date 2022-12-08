@@ -24,18 +24,17 @@ public class FormNhanVien extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         filldataNhanVien();
-        
+
     }
     DefaultTableModel model = new DefaultTableModel();
     ArrayList<NhanVien_Model> listNV = new ArrayList<NhanVien_Model>();
     NhanVien_Service nv = new NhanVien_Service();
-    
-    
-    public void filldataNhanVien(){
-        model=(DefaultTableModel) jTable1.getModel();
+
+    public void filldataNhanVien() {
+        model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         listNV = (ArrayList<NhanVien_Model>) nv.getallformNhanVien();
-        model.setColumnIdentifiers(new String[]{"Mã người dùng", "Mã Cửa Hàng", "Họ Và Tên", "Giới tính","Chức Vụ","Sdt","Địa Chỉ","Usename","Password","Ngày Sinh"});
+        model.setColumnIdentifiers(new String[]{"Mã người dùng", "Mã Cửa Hàng", "Họ Và Tên", "Giới tính", "Chức Vụ", "Sdt", "Địa Chỉ", "Usename", "Password", "Ngày Sinh"});
         for (NhanVien_Model nhanVien_Model : listNV) {
             model.addRow(new Object[]{
                 nhanVien_Model.getMaND(),
@@ -47,13 +46,12 @@ public class FormNhanVien extends javax.swing.JFrame {
                 nhanVien_Model.getDiaChi(),
                 nhanVien_Model.getUsename(),
                 nhanVien_Model.getPassword(),
-                nhanVien_Model.getNgaysinh(),
-                
-            });
+                nhanVien_Model.getNgaysinh(),});
         }
         jTable1.setModel(model);
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -493,15 +491,15 @@ public class FormNhanVien extends javax.swing.JFrame {
         x.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btDangXuatActionPerformed
-    public void mouseclcik(List<NhanVien_Model> list,int index){
+    public void mouseclcik(List<NhanVien_Model> list, int index) {
         index = jTable1.getSelectedRow();
         txtMaNhanVien.setText(list.get(index).getMaND());
         txtMaCuaHang.setText(list.get(index).getMaCH());
         txtHoVaTen.setText(list.get(index).getHoVaTen());
-        if(list.get(index).getGioiTinh().equals("Nam")){
+        if (list.get(index).getGioiTinh().equals("Nam")) {
             RdNam.setSelected(true);
         }
-        if(list.get(index).getGioiTinh().equals("Nu")){
+        if (list.get(index).getGioiTinh().equals("Nu")) {
             RdNu.setSelected(true);
         }
         txtChucVu.setText(list.get(index).getChucVu());
@@ -512,40 +510,118 @@ public class FormNhanVien extends javax.swing.JFrame {
         txtNgaySinh.setText(list.get(index).getNgaysinh());
     }
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-      int index = jTable1.getSelectedRow();
+        int index = jTable1.getSelectedRow();
         mouseclcik(listNV, index);
     }//GEN-LAST:event_jTable1MouseClicked
-    public NhanVien_Model fill(){
-        String t ="";
-        if(RdNam.isSelected()){
+    public NhanVien_Model fill() {
+        String t = "";
+        if (RdNam.isSelected()) {
             t = "Nam";
-        }else if(RdNu.isSelected()){
-            t ="Nu";
-        }else{
+        } else if (RdNu.isSelected()) {
+            t = "Nu";
+        } else {
             buttonGroup1.clearSelection();
         }
         return new NhanVien_Model(
-        txtMaNhanVien.getText(),txtMaCuaHang.getText(),txtHoVaTen.getText(),t,txtChucVu.getText(),txtSoDienThoai.getText(),txtDiaChi.getText(),txtTaiKhoanDangNhap.getText(),txtMatKhauDangNhap.getText(),
+                txtMaNhanVien.getText(), txtMaCuaHang.getText(), txtHoVaTen.getText(), t, txtChucVu.getText(), txtSoDienThoai.getText(), txtDiaChi.getText(), txtTaiKhoanDangNhap.getText(), txtMatKhauDangNhap.getText(),
                 txtNgaySinh.getText()
         );
     }
+
+    public boolean check() {
+        if (txtMaNhanVien.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã nhân viên không được để trống");
+            return false;
+        }
+        if (txtMaCuaHang.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Mã cửa hàng không được để trống");
+            return false;
+        }
+        if (txtHoVaTen.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Tên không được để trống");
+            return false;
+        }
+        if (txtChucVu.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Chức vụ không được để trống");
+            return false;
+        }
+        if (txtSoDienThoai.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "sdt không được để trống");
+            return false;
+        }
+        if (txtDiaChi.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
+            return false;
+        }
+        if (txtTaiKhoanDangNhap.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "username không được để trống");
+            return false;
+        }
+        if (txtMatKhauDangNhap.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password không được để trống");
+            return false;
+        }
+        if (txtNgaySinh.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Ngày Sinh không được để trống");
+            return false;
+        }
+        return true;
+    }
+    public boolean checkMa(List<NhanVien_Model> list,String ma){
+        for (NhanVien_Model nhanVien_Model : list) {
+            if(nhanVien_Model.getMaND().equalsIgnoreCase(ma)){
+                JOptionPane.showMessageDialog(this,"Mã nhân viên đã tồn tại");
+                return false;
+            }
+        }
+        return true;
+    }
+    public void clear(){
+        txtMaNhanVien.setText("");
+        txtMaCuaHang.setText("");
+        txtHoVaTen.setText("");
+        txtChucVu.setText("");
+        txtSoDienThoai.setText("");
+        txtDiaChi.setText("");
+        txtTaiKhoanDangNhap.setText("");
+        txtMatKhauDangNhap.setText("");
+        txtNgaySinh.setText("");
+    }
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-      //Add
+        //Add
+        if(check()){
+            if(checkMa(listNV,txtMaNhanVien.getText())){
         JOptionPane.showMessageDialog(this, nv.addNhanVien(fill()));
         filldataNhanVien();
+        clear();
+        }
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-      //Sua
-       JOptionPane.showMessageDialog(this, nv.SuaNhanVien(fill()));
+        //Sua
+        int index = jTable1.getSelectedRow();
+        if(index == -1){
+            JOptionPane.showMessageDialog(this,"Mời bạn chọn Sửa");
+            return;
+        }
+        JOptionPane.showMessageDialog(this, nv.SuaNhanVien(fill()));
         filldataNhanVien();
+        clear();
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-       //Xoa
-       String ma = txtMaNhanVien.getText();
+        //Xoa
+        //Sua
+        int index = jTable1.getSelectedRow();
+        if(index == -1){
+            JOptionPane.showMessageDialog(this,"Mời bạn chọn Xóa");
+            return;
+        }
+        String ma = txtMaNhanVien.getText();
         JOptionPane.showMessageDialog(this, nv.XoaNhanVien(ma));
         filldataNhanVien();
+        clear();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
