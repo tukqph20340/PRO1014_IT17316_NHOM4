@@ -4,6 +4,14 @@
  */
 package Views;
 
+import DomainModels.NhanVien_Model;
+import Repository.DoiMatKhauRepository;
+import ServiceITF.DoiMatKhauITF;
+import ServiceITF.NhanVien_ITF;
+import ServiceIplm.DoiMatKhauIplm;
+import ServiceIplm.NhanVien_Service;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author DELL
@@ -17,6 +25,10 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
     }
+
+    private NhanVien_ITF nvService = new NhanVien_Service();
+    private DoiMatKhauITF service = new DoiMatKhauIplm();
+    private DoiMatKhauRepository repo=new DoiMatKhauRepository();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,11 +53,13 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jPasswordField3 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        passCu = new javax.swing.JPasswordField();
+        passConfirm = new javax.swing.JPasswordField();
+        passMoi = new javax.swing.JPasswordField();
+        btXacNhan = new javax.swing.JButton();
+        btLamMoi = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtTaiKhoan = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +91,11 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
 
         btNhanVien.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btNhanVien.setText("NHÂN VIÊN");
+        btNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNhanVienActionPerformed(evt);
+            }
+        });
 
         btHoaDon.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btHoaDon.setText("HÓA ĐƠN");
@@ -167,17 +186,32 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Xác Nhận Mật Khẩu Mới:");
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        passCu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jPasswordField2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        passConfirm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jPasswordField3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        passMoi.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton1.setText("Xác Nhận");
+        btXacNhan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btXacNhan.setText("Xác Nhận");
+        btXacNhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXacNhanActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jButton2.setText("Làm Mới");
+        btLamMoi.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btLamMoi.setText("Làm Mới");
+        btLamMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLamMoiActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel5.setText("Tài Khoản:");
+
+        txtTaiKhoan.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,29 +220,30 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(290, 290, 290))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(112, 112, 112)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
                                 .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(passConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                    .addComponent(passMoi, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                    .addComponent(passCu, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                    .addComponent(txtTaiKhoan)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
+                                .addComponent(btXacNhan)
                                 .addGap(46, 46, 46)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(223, Short.MAX_VALUE))))
+                                .addComponent(btLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(290, 290, 290))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,23 +251,27 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passCu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btXacNhan)
+                    .addComponent(btLamMoi))
+                .addGap(90, 90, 90))
         );
 
         pack();
@@ -287,6 +326,70 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btNhaCungCapActionPerformed
 
+    private void btXacNhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXacNhanActionPerformed
+        // TODO add your handling code here:
+        String mkc = new String(passCu.getPassword());
+        String tk = txtTaiKhoan.getText();
+        String mkm = new String(passMoi.getPassword());
+        String cf = new String(passConfirm.getPassword());
+        if (tk.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Tài Khoản.");
+            return;
+        }
+        if (mkc.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Mật Khẩu Cũ.");
+            return;
+        }
+        if (mkm.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Mật Khẩu Mới.");
+            return;
+        }
+        if (cf.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Bạn chưa nhập lại Mật Khẩu Mới.");
+            return;
+        }
+        try {
+            for (NhanVien_Model x : nvService.getallformNhanVien()) {
+                if (txtTaiKhoan.getText().equals(x.getUsename())) {
+                    if (mkc.equals(x.getPassword())) {
+                        if (cf.equals(mkm)) {
+                            if (repo.dmk(mkm, tk, mkc)) {
+                                JOptionPane.showMessageDialog(this, "Đổi Mật Khẩu Thành Công");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Mật Khẩu Nhập Lại không trùng khớp.");
+                            return;
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Mật Khẩu không đúng.");
+                        return;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tên Tài Khoản không tồn tại.");
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btXacNhanActionPerformed
+
+    private void btLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLamMoiActionPerformed
+        // TODO add your handling code here:
+        txtTaiKhoan.setText("");
+        passCu.setText("");
+        passMoi.setText("");
+        passConfirm.setText("");
+    }//GEN-LAST:event_btLamMoiActionPerformed
+
+    private void btNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNhanVienActionPerformed
+        // TODO add your handling code here:
+        FormNhanVien x = new FormNhanVien();
+        x.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btNhanVienActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -329,18 +432,20 @@ public class FormDoiMatKhau extends javax.swing.JFrame {
     private javax.swing.JButton btDoiMatKhau;
     private javax.swing.JButton btHoaDon;
     private javax.swing.JButton btKhachHang;
+    private javax.swing.JButton btLamMoi;
     private javax.swing.JButton btNhaCungCap;
     private javax.swing.JButton btNhanVien;
     private javax.swing.JButton btSanPham;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
+    private javax.swing.JPasswordField passConfirm;
+    private javax.swing.JPasswordField passCu;
+    private javax.swing.JPasswordField passMoi;
+    private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }
