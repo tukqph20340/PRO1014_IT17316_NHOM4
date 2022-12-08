@@ -24,6 +24,7 @@ public class KhachHang extends javax.swing.JDialog {
     public KhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setVisible(true);
          mode = (DefaultTableModel) JbKhachHang.getModel();
         mode.setColumnIdentifiers(new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Ngày Sinh", "Thành Phố"});
         mode.setRowCount(0);
