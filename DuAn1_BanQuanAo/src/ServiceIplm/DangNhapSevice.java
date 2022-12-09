@@ -7,6 +7,7 @@ package ServiceIplm;
 import DomainModels.DangNhapMoDel;
 import Repository.DangNhapRepository;
 import ServiceITF.DangNhapITF;
+import java.util.List;
 
 /**
  *
@@ -22,5 +23,22 @@ private DangNhapRepository dn = new DangNhapRepository();
         }
         return false;
     }
-    
+
+    @Override
+    public List<DangNhapMoDel> Tk(String TaiKhoan) {
+        try {
+            return  dn.Select(TaiKhoan);
+        } catch (Exception e) {
+            return null;
+        }
+        }
+
+    @Override
+    public List<DangNhapMoDel> Loat() {
+      try {
+            return  dn.loatTen();
+        } catch (Exception e) {
+            return null;
+        }
+        }
 }

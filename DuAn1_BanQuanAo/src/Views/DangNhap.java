@@ -4,6 +4,7 @@
  */
 package Views;
 
+import Untility.Nv;
 import ServiceIplm.DangNhapSevice;
 import javax.swing.JOptionPane;
 
@@ -125,6 +126,8 @@ public class DangNhap extends javax.swing.JFrame {
         // TODO add your handling code here:
         String TaiKhoan = txtTaiKhoan.getText();
         String MatKhau = String.valueOf(txtMatKhau.getPassword());
+        Nv n = new Nv();
+        n.setTen(TaiKhoan);
         if (TaiKhoan.trim().isEmpty() || MatKhau.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "vui lòng nhập đầy đủ thông tin");
             return;

@@ -24,7 +24,6 @@ public class KhachHang extends javax.swing.JDialog {
     public KhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setVisible(true);
          mode = (DefaultTableModel) JbKhachHang.getModel();
         mode.setColumnIdentifiers(new String[]{"Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Ngày Sinh", "Thành Phố"});
         mode.setRowCount(0);
@@ -203,13 +202,12 @@ public class KhachHang extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
           // TODO add your handling code here:
-        String ma = txtMa.getText();
-        String ten = txtTen.getText();
+       String ten = txtTen.getText();
         String sdt = txtSdt.getText();
         String ngaysinh = txtNgaySinh.getText();
         String thanhpho = txtThanhPho.getText();
         try {
-            Kh.insert(ma, ten, sdt, ngaysinh, thanhpho);
+            Kh.insert(ten, sdt, ngaysinh, thanhpho);
             mode.setRowCount(0);
             loat();
         } catch (Exception e) {

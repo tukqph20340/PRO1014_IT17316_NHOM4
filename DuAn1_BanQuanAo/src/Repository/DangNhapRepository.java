@@ -50,5 +50,56 @@ public class DangNhapRepository {
 //         List<DangNhapMoDel> dn = DangNhap();
 //         System.out.println(dn);
 //    }
-    
+     public static List<DangNhapMoDel> Select(String username) {
+        ArrayList<DangNhapMoDel> dn = new ArrayList<>();
+        try {
+            Connection con = DBConTextTu.getConnection();
+            String sql = "select MaND,HoVaTen,username , pasword from NguoiDung where username=? ";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, username);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String maND = rs.getString("MaND");
+                String HoVaTen = rs.getString("HoVaTen");
+                String tk = rs.getString("username");
+                String mk = rs.getString("pasword");
+                DangNhapMoDel dn1 = new DangNhapMoDel();
+                dn1.setMaNv(maND);
+                dn1.setHoVaTen(HoVaTen);
+                dn1.setTaiKhoan(tk);
+                dn1.setMatKhau(mk);
+                dn.add(dn1);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "lỗi vui lòng nhập lại");
+        }
+        return dn;
+    }
+      public static List<DangNhapMoDel> loatTen() {
+        ArrayList<DangNhapMoDel> dn = new ArrayList<>();
+        try {
+            Connection con = DBConTextTu.getConnection();
+            String sql = "select MaND,HoVaTen,username , pasword from NguoiDung ";
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String maND = rs.getString("MaND");
+                String HoVaTen = rs.getString("HoVaTen");
+                String tk = rs.getString("username");
+                String mk = rs.getString("pasword");
+                DangNhapMoDel dn1 = new DangNhapMoDel();
+                dn1.setMaNv(maND);
+                dn1.setHoVaTen(HoVaTen);
+                dn1.setTaiKhoan(tk);
+                dn1.setMatKhau(mk);
+                dn.add(dn1);
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "lỗi vui lòng nhập lại");
+        }
+        return dn;
+    }
+     
 }

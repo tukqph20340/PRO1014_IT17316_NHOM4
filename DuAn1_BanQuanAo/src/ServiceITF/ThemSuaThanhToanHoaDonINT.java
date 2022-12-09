@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public interface ThemSuaThanhToanHoaDonINT {
 
-    public List<ThanhToan> insert(String MaHD, String MaKH, String MaND, String NgayTao,String TrangThai);
+    public List<ThanhToan> insert( String MaKH, String MaND, String NgayTao,String TrangThai);
 
     public List<ThanhToan> insertGH(String MaHD,String MaSP,String SoLuong,  String TongTien, String TienKhachDua, String TienThua,String TrangThai);
 

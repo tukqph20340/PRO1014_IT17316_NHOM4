@@ -20,20 +20,18 @@ public class ThemSuaThanhToanHoaDon {
      *
      * @author DELL
      */
-    public List<ThanhToan> insert(String MaHD, String MaKH, String MaND, String NgayTao, String TrangThai) {
+    public List<ThanhToan> insert( String MaKH, String MaND, String NgayTao, String TrangThai) {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "insert  HoaDon(MaHD,MaKH,MaND,NgayTao,TrangThai) values(?,?,?,?,?)";
+            String sql = "insert  HoaDon(MaKH,MaND,NgayTao,TrangThai) values(?,?,?,?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, MaHD);
-            st.setString(2, MaKH);
-            st.setString(3, MaND);
-            st.setString(4, NgayTao);
-            st.setString(5, TrangThai);
+            st.setString(1, MaKH);
+            st.setString(2, MaND);
+            st.setString(3, NgayTao);
+            st.setString(4, TrangThai);
             st.executeUpdate();
             ThanhToan cl = new ThanhToan();
-            cl.setMaHD(MaKH);
             cl.setMaKH(MaKH);
             cl.setMaND(MaND);
             cl.setNgayTao(NgayTao);
@@ -179,7 +177,7 @@ public class ThemSuaThanhToanHoaDon {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "select HoaDonChiTiet.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDonChiTiet.TongTien ,HoaDonChiTiet.TienKhachDua ,HoaDonChiTiet.TienThua from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD  where HoaDon.MaHD=? ";
+            String sql = "select HoaDon.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDonChiTiet.TongTien from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD  where HoaDon.MaHD=? ";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, ma2);
             ResultSet rs = st.executeQuery();
@@ -189,16 +187,12 @@ public class ThemSuaThanhToanHoaDon {
                 String MaND = rs.getString("MaND");
                 String NgayTao = rs.getString("NgayTao");
                 String TongTien = rs.getString("TongTien");
-                String TienKhachDua = rs.getString("TienKhachDua");
-                String TienThua = rs.getString("TienThua");
                 ThanhToan cl = new ThanhToan();
                 cl.setMaHDCT(ma);
                 cl.setMaKH(MaKH);
                 cl.setMaND(MaND);
                 cl.setNgayTao(NgayTao);
                 cl.setTongTien(TongTien);
-                cl.setTienKhachDua(TienKhachDua);
-                cl.setTienThua(TienThua);
                 listcl.add(cl);
                
             }
@@ -209,10 +203,10 @@ public class ThemSuaThanhToanHoaDon {
         return listcl;
     }
  public List<ThanhToan> select() {
-        ArrayList<ThanhToan> listcl = new ArrayList<>();
+     ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "select HoaDonChiTiet.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDon.TrangThai,HoaDonChiTiet.TongTien ,HoaDonChiTiet.TienKhachDua ,HoaDonChiTiet.TienThua from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD  ";
+            String sql = "select HoaDon.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDonChiTiet.TongTien ,HoaDon.TrangThai from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD   ";
             PreparedStatement st = con.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -220,19 +214,15 @@ public class ThemSuaThanhToanHoaDon {
                 String MaKH = rs.getString("MaKH");
                 String MaND = rs.getString("MaND");
                 String NgayTao = rs.getString("NgayTao");
-                String TrangThai = rs.getString("TrangThai");
                 String TongTien = rs.getString("TongTien");
-                String TienKhachDua = rs.getString("TienKhachDua");
-                String TienThua = rs.getString("TienThua");
+                 String TrangThai = rs.getString("TrangThai");
                 ThanhToan cl = new ThanhToan();
                 cl.setMaHDCT(ma);
                 cl.setMaKH(MaKH);
                 cl.setMaND(MaND);
                 cl.setNgayTao(NgayTao);
-                cl.setTrangThai(TrangThai);
                 cl.setTongTien(TongTien);
-                cl.setTienKhachDua(TienKhachDua);
-                cl.setTienThua(TienThua);
+                cl.setTrangThai(TrangThai);
                 listcl.add(cl);
                
             }
@@ -241,5 +231,6 @@ public class ThemSuaThanhToanHoaDon {
             JOptionPane.showMessageDialog(null, " ko tìm thấy thất bại");
         }
         return listcl;
+     
     }
 }

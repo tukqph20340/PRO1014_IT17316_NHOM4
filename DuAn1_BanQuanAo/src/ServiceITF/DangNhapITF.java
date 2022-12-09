@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface DangNhapITF {
      public boolean XacThucMatKhau(String TaiKhoan , String MatKhau);
+     public List<DangNhapMoDel> Tk(String TaiKhoan);
+     public List<DangNhapMoDel> Loat();
 }
