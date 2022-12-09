@@ -9,6 +9,7 @@ package DomainModels;
  * @author DELL
  */
 public class SanPham {
+
     String maSP;
     String maCH;
     String maNCC;
@@ -156,15 +157,18 @@ public class SanPham {
         this.trangThai = trangThai;
     }
 
-    public String htTrangThai(){
-        if(soLuong>0){
+    @Override
+    public String toString() {
+        return "SanPham{" + "maSP=" + maSP + ", maCH=" + maCH + ", maNCC=" + maNCC + ", tenMau=" + tenMau + ", tenSize=" + tenSize + ", tenDanhMuc=" + tenDanhMuc + ", tenChatLieu=" + tenChatLieu + ", tenKieuDang=" + tenKieuDang + ", tenSP=" + tenSP + ", ngaySX=" + ngaySX + ", giaNhap=" + giaNhap + ", giaBan=" + giaBan + ", soLuong=" + soLuong + ", trangThai=" + trangThai + '}';
+    }
+
+    public String htTrangThai() {
+        if (soLuong > 0) {
             setTrangThai("Còn Hàng");
-        }else{
-        setTrangThai("Hết Hàng");
+        } else {
+            setTrangThai("Hết Hàng");
         }
         return getTrangThai();
     }
 
-
-  
 }
