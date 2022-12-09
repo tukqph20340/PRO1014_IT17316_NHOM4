@@ -265,6 +265,7 @@ public class FormDanhMuc extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, ser.addForm(dataFill()));
                 list = ser.getAllform();
                 fill(list);
+                clear();
             }
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -273,10 +274,12 @@ public class FormDanhMuc extends javax.swing.JDialog {
         int index = tblBang.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Sửa");
+            return;
         } else {
             JOptionPane.showMessageDialog(this, ser.UpdateForm(dataFill()));
             list = ser.getAllform();
             fill(list);
+            clear();
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -285,15 +288,17 @@ public class FormDanhMuc extends javax.swing.JDialog {
         String ma = txtMaDM.getText();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Xóa");
+            return;
         } else {
             JOptionPane.showMessageDialog(this, ser.DeleteForm(ma));
             list = ser.getAllform();
             fill(list);
+            clear();
         }
     }//GEN-LAST:event_btnXoaActionPerformed
     public void clear() {
-        txtMaDM.getText();
-        txttenDm.getText();
+        txtMaDM.setText("");
+        txttenDm.setText("");
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         clear();
@@ -302,6 +307,7 @@ public class FormDanhMuc extends javax.swing.JDialog {
         int index = tblBang.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn 1 dòng");
+            return;
         } else {
             txtMaDM.setText(list.get(index).getMaDM());
             txttenDm.setText(list.get(index).getTenDM());

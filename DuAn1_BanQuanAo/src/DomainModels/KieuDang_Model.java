@@ -36,6 +36,12 @@ public class KieuDang_Model {
     public void setTenKD(String TenKD) {
         this.TenKD = TenKD;
     }
+
+    @Override
+    public String toString() {
+        return "KieuDang_Model{" + "MaKD=" + MaKD + ", TenKD=" + TenKD + '}';
+    }
+    
     public Object[] data(){
     return new Object[]{MaKD,TenKD};
 }

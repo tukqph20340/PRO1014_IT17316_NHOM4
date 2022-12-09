@@ -57,10 +57,10 @@ public class KieuDang_Res {
         return"Thất Bại";
     }
       public String DeleteForm(String ma){
-        String delete="DELETE FROM KieuDang where MaKD=?";
+        String delete="Delete from KieuDang where MaKD=?";
         try {
             pst = conn.openDBConnection().prepareStatement(delete);
-            pst.setObject(1, ma);
+            pst.setString(1, ma);
             pst.executeUpdate();
             return"Xóa thành công";
         } catch (SQLException ex) {
@@ -80,5 +80,8 @@ public class KieuDang_Res {
             Logger.getLogger(KieuDang_Res.class.getName()).log(Level.SEVERE, null, ex);
         }
         return"Thất Bại";
+    }
+        public static void main(String[] args) {
+            System.out.println(new KieuDang_Res().DeleteForm("KD4"));
     }
 }

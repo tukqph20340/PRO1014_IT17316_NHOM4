@@ -281,6 +281,7 @@ public class FormKieuDang extends javax.swing.JDialog {
                 list = ser.getAllform();
                 fill(list);
                 JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+                clear();
             }
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -292,24 +293,22 @@ public class FormKieuDang extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Xóa");
             return;
         }
-        JOptionPane.showMessageDialog(this, ser.DeleteForm(ma));
+        JOptionPane.showMessageDialog(this,ser.DeleteForm(ma));
         list = ser.getAllform();
         fill(list);
+        clear();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        int index = tblBangKD.getSelectedRow();
+       int index = tblBangKD.getSelectedRow();
         if (index == -1) {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn Sửa");
             return;
         }
-        KieuDang_Model kd = new KieuDang_Model();
-        kd.setTenKD(txtMa.getText());
-        kd.setTenKD(txtTen.getText());
-        ser.UpdateForm(kd);
+        JOptionPane.showMessageDialog(this,ser.UpdateForm(fildata()));
         list = ser.getAllform();
         fill(list);
-        JOptionPane.showMessageDialog(this, "Sửa Thành Công");
+        clear();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
