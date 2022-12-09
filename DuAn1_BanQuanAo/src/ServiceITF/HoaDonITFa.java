@@ -17,4 +17,6 @@ public interface HoaDonITFa {
     ArrayList<HoaDon> getListLocHD(String tt);
     
     ArrayList<HoaDon> getListTimHD(String ma);
+    
+    ArrayList<HoaDon> getListTimNgayHD(String min,String max);
 }
