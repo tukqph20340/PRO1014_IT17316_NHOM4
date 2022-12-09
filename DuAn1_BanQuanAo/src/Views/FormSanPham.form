@@ -227,8 +227,9 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
+              <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -239,7 +240,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="64" pref="64" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="txtMaCH" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
                                           <Component id="txtSoLuong" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
@@ -252,7 +253,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="cbKieuDang" max="32767" attributes="0"/>
-                                          <Component id="cbDanhMuc" pref="146" max="32767" attributes="0"/>
+                                          <Component id="cbDanhMuc" min="-2" pref="146" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -284,9 +285,9 @@
                                           <Component id="txtGiaNhap" max="32767" attributes="0"/>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Group type="103" groupAlignment="1" attributes="0">
-                                                  <Component id="cbChatLieu" alignment="0" pref="145" max="32767" attributes="0"/>
+                                                  <Component id="cbChatLieu" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="cbSize" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="cbMauSac" max="32767" attributes="0"/>
+                                                  <Component id="cbMauSac" min="-2" pref="145" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -297,7 +298,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="btXoa" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                                       <Component id="btLamMoi" min="-2" max="-2" attributes="0"/>
@@ -322,7 +323,6 @@
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
-              <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -435,39 +435,40 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="cbLocChatLieu" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbLocKieuDang" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="cbLocDanhMuc" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cbLocMau" min="-2" pref="74" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cbLocSize" min="-2" pref="68" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbLocDanhMuc" min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbLocChatLieu" min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="cbLocKieuDang" min="-2" pref="74" max="-2" attributes="0"/>
+                      <EmptySpace pref="41" max="32767" attributes="0"/>
                       <Component id="txtTimKiem" min="-2" pref="136" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btTimKiem" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbLocSize" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbLocMau" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbLocDanhMuc" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbLocKieuDang" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbLocChatLieu" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cbLocMau" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="cbLocSize" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbLocDanhMuc" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbLocChatLieu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbLocKieuDang" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane2" pref="134" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
