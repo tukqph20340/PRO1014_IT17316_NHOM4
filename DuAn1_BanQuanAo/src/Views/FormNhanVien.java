@@ -268,6 +268,12 @@ public class FormNhanVien extends javax.swing.JFrame {
         buttonGroup1.add(RdNu);
         RdNu.setText("NỮ");
 
+        txtSoDienThoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSoDienThoaiActionPerformed(evt);
+            }
+        });
+
         jButton10.setText("THÊM");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -545,6 +551,15 @@ public class FormNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Chức vụ không được để trống");
             return false;
         }
+        String sdt  = "^(0)+[0-9]+$";;
+        try {
+            if(!txtSoDienThoai.getText().matches(sdt)){
+                JOptionPane.showMessageDialog(this, "SDT k đúng phải đủ 10 số");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "SDT k được ghi chữ");
+        }
         if (txtSoDienThoai.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "sdt không được để trống");
             return false;
@@ -565,6 +580,7 @@ public class FormNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ngày Sinh không được để trống");
             return false;
         }
+        
         return true;
     }
     public boolean checkMa(List<NhanVien_Model> list,String ma){
@@ -623,6 +639,10 @@ public class FormNhanVien extends javax.swing.JFrame {
         filldataNhanVien();
         clear();
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void txtSoDienThoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoDienThoaiActionPerformed
+      
+    }//GEN-LAST:event_txtSoDienThoaiActionPerformed
 
     /**
      * @param args the command line arguments

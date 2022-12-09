@@ -490,6 +490,9 @@
             <Component class="javax.swing.JTextField" name="txtChucVu">
             </Component>
             <Component class="javax.swing.JTextField" name="txtSoDienThoai">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSoDienThoaiActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDiaChi">
             </Component>
