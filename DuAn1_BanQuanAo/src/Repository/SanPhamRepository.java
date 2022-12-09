@@ -126,8 +126,8 @@ public class SanPhamRepository {
     }
 
     public boolean them(SanPham x) {
-        String sql = "insert into SanPham (MaSP,MaCH,MaNCC,TenSP,MaDM,MaMau,MaSize,MaCL,MaKD,NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai) values\n"
-                + "(?,?,?,?,"
+        String sql = "insert into SanPham (MaCH,MaNCC,TenSP,MaDM,MaMau,MaSize,MaCL,MaKD,NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai) values\n"
+                + "(?,?,?,"
                 + "(select MaDM from DanhMucSP where DanhMucSanPham=?),\n"
                 + "(select MaMau from Mau where TenMau=?),\n"
                 + "(select Ma from Size where Ten=?),\n"
@@ -135,20 +135,19 @@ public class SanPhamRepository {
                 + "(select MaKD from KieuDang where TenKieuDang=?),\n"
                 + "?,?,?,?,?)";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, x.getMaSP());
-            ps.setObject(2, x.getMaCH());
-            ps.setObject(3, x.getMaNCC());
-            ps.setObject(4, x.getTenSP());
-            ps.setObject(5, x.getTenDanhMuc());
-            ps.setObject(6, x.getTenMau());
-            ps.setObject(7, x.getTenSize());
-            ps.setObject(8, x.getTenChatLieu());
-            ps.setObject(9, x.getTenKieuDang());
-            ps.setObject(10, x.getNgaySX());
-            ps.setObject(11, x.getGiaNhap());
-            ps.setObject(12, x.getGiaBan());
-            ps.setObject(13, x.getSoLuong());
-            ps.setObject(14, x.getTrangThai());
+            ps.setObject(1, x.getMaCH());
+            ps.setObject(2, x.getMaNCC());
+            ps.setObject(3, x.getTenSP());
+            ps.setObject(4, x.getTenDanhMuc());
+            ps.setObject(5, x.getTenMau());
+            ps.setObject(6, x.getTenSize());
+            ps.setObject(7, x.getTenChatLieu());
+            ps.setObject(8, x.getTenKieuDang());
+            ps.setObject(9, x.getNgaySX());
+            ps.setObject(10, x.getGiaNhap());
+            ps.setObject(11, x.getGiaBan());
+            ps.setObject(12, x.getSoLuong());
+            ps.setObject(13, x.getTrangThai());
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -444,38 +443,33 @@ public class SanPhamRepository {
             sql = sql + "Where ";
         }
         if (!a.equals("Tất Cả")) {
-            sql = sql + "TenMau=? ";
+            sql = sql + "TenMau=N'"+a+"' ";
             if (!b.equals("Tất Cả") || !c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!b.equals("Tất Cả")) {
-            sql = sql + "Ten=? ";
+            sql = sql + "Ten=N'"+b+"'";
             if (!c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!c.equals("Tất Cả")) {
-            sql = sql + "DanhMucSanPham=? ";
+            sql = sql + "DanhMucSanPham=N'"+c+"' ";
             if (!d.equals("Tất Cả") || !e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!d.equals("Tất Cả")) {
-            sql = sql + "TenChatLieu=? ";
+            sql = sql + "TenChatLieu=N'"+d+"' ";
             if (!e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!e.equals("Tất Cả")) {
-            sql = sql + "TenKieuDang=?";
+            sql = sql + "TenKieuDang=N'"+e+"'";
         }
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
-            ps.setObject(1, a);
-            ps.setObject(2, b);
-            ps.setObject(3, c);
-            ps.setObject(4, d);
-            ps.setObject(5, e);
 //            ps.setObject(1, a);
 //            ps.setObject(2, b);
 //            ps.setObject(3, c);
@@ -505,4 +499,7 @@ public class SanPhamRepository {
         }
         return list;
     }
+    
 }
+
+

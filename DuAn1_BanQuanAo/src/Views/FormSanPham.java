@@ -32,7 +32,7 @@ public class FormSanPham extends javax.swing.JFrame {
         loadCbSize(service.getListSize());
         loadCbDM(service.getListDanhMuc());
         loadCbCL(service.getListChatLieu());
-        loadCbKD(service.getListKieuDang());;      
+        loadCbKD(service.getListKieuDang());;
         loadTable(service.getListSanPham());
     }
     private DefaultComboBoxModel cbmodel;
@@ -485,6 +485,8 @@ public class FormSanPham extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Trạng Thái:");
 
+        txtTrangThai.setEditable(false);
+
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel14.setText("Giá Bán:");
 
@@ -532,6 +534,8 @@ public class FormSanPham extends javax.swing.JFrame {
                 btThemChatLieuActionPerformed(evt);
             }
         });
+
+        txtMaSP.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -700,7 +704,6 @@ public class FormSanPham extends javax.swing.JFrame {
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
         SanPham x = new SanPham();
-        x.setMaSP(txtMaSP.getText());
         x.setMaCH(txtMaCH.getText());
         x.setMaNCC(txtMaNCC.getText());
         x.setTenMau(cbMauSac.getSelectedItem().toString());
@@ -715,16 +718,6 @@ public class FormSanPham extends javax.swing.JFrame {
         x.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
 
         try {
-            if (txtMaSP.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Sản Phẩm");
-                return;
-            }
-            for (SanPham a : service.getListSanPham()) {
-                if (txtMaSP.getText().equals(a.getMaSP())) {
-                    JOptionPane.showMessageDialog(this, "Thêm không thành công do mã sản phẩm đã tồn tại");
-                    return;
-                }
-            }
             if (txtMaCH.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Mã Cửa Hàng");
                 return;
@@ -895,22 +888,22 @@ public class FormSanPham extends javax.swing.JFrame {
         String dm = cbLocDanhMuc.getSelectedItem().toString();
         String cl = cbLocChatLieu.getSelectedItem().toString();
         String kd = cbLocKieuDang.getSelectedItem().toString();
-        System.out.println("aaaaaaaaaaaaaa "+mau);
-        System.out.println("aaaaaaaaaaaaaa "+size);
-        System.out.println("aaaaaaaaaaaaaa "+dm);
-        System.out.println("aaaaaaaaaaaaaa "+cl);
-        System.out.println("aaaaaaaaaaaaaa "+kd);
-        SanPhamRepository x=new SanPhamRepository();
+        System.out.println("aaaaaaaaaaaaaa " + mau);
+        System.out.println("aaaaaaaaaaaaaa " + size);
+        System.out.println("aaaaaaaaaaaaaa " + dm);
+        System.out.println("aaaaaaaaaaaaaa " + cl); 
+        System.out.println("aaaaaaaaaaaaaa " + kd);
+        SanPhamRepository x = new SanPhamRepository();
         try {
-            if (ma.isEmpty()) {               
+            if (ma.isEmpty()) {
                 loadTable(x.getListLoc(mau, size, dm, cl, kd));
-                if (tbThongTinSanPham.getRowCount()==0) {
+                if (tbThongTinSanPham.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(this, "Không có Sản Phẩm phù hợp");
+                    return;
                 }
                 return;
             }
             loadTable(service.tim(ma));
-
         } catch (Exception e) {
             e.printStackTrace();
         }

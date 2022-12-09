@@ -9,7 +9,7 @@ package Untility;
  * @author fptshop
  */
 public class Nv {
-    private static String Ten = "";
+    static String Ten = "";
 
     public Nv() {
     }
