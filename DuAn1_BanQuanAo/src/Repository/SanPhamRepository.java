@@ -202,14 +202,14 @@ public class SanPhamRepository {
 
     public ArrayList<SanPham> getListTimKiem(String ma) {
         ArrayList<SanPham> list = new ArrayList<>();
-        String sql = "select MaSP,MaCH,MaNCC,TenSP,"
-                + "DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,"
-                + "NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai from SanPham"
+        String sql = "select MaSP,MaCH,MaNCC,TenSP,\n"
+                + " DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,\n"
+                + " NgaySanXuat,GiaNhap,GiaBan,SoLuong,TrangThai from SanPham\n"
                 + " join Mau on SanPham.MaMau=Mau.MaMau\n"
                 + " join Size on SanPham.MaSize=Size.Ma\n"
                 + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
-                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
+                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD\n"
                 + " where MaSP=? or TenSP=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
@@ -443,31 +443,31 @@ public class SanPhamRepository {
             sql = sql + "Where ";
         }
         if (!a.equals("Tất Cả")) {
-            sql = sql + "TenMau=N'"+a+"' ";
+            sql = sql + "TenMau=N'" + a + "' ";
             if (!b.equals("Tất Cả") || !c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!b.equals("Tất Cả")) {
-            sql = sql + "Ten=N'"+b+"'";
+            sql = sql + "Ten=N'" + b + "' ";
             if (!c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!c.equals("Tất Cả")) {
-            sql = sql + "DanhMucSanPham=N'"+c+"' ";
+            sql = sql + "DanhMucSanPham=N'" + c + "' ";
             if (!d.equals("Tất Cả") || !e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!d.equals("Tất Cả")) {
-            sql = sql + "TenChatLieu=N'"+d+"' ";
+            sql = sql + "TenChatLieu=N'" + d + "' ";
             if (!e.equals("Tất Cả")) {
                 sql = sql + "and ";
             }
         }
         if (!e.equals("Tất Cả")) {
-            sql = sql + "TenKieuDang=N'"+e+"'";
+            sql = sql + "TenKieuDang=N'" + e + "'";
         }
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
 //            ps.setObject(1, a);
@@ -499,6 +499,7 @@ public class SanPhamRepository {
         }
         return list;
     }
+
     public static void main(String[] args) {
         System.out.println(new SanPhamRepository().getListSanPham());
     }
@@ -506,3 +507,4 @@ public class SanPhamRepository {
 }
 
 
+}

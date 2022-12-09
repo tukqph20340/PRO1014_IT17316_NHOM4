@@ -434,11 +434,11 @@ public class FormHoaDon extends javax.swing.JFrame {
         String max = txtMax.getText();
 
         try {
-            if (validate(max)||validate(min)) {
-                JOptionPane.showMessageDialog(this, "Bạn đã nhập sai định dạng ngày tháng(dd/mm/yyyy)");
-                return;
-            }
             if (tim.isEmpty()) {
+                if (validate(max) || validate(min)) {
+                    JOptionPane.showMessageDialog(this, "Bạn đã nhập sai định dạng ngày tháng(dd/mm/yyyy)");
+                    return;
+                }
                 loadTable(service.getListTimNgayHD(min, max));
                 return;
             }

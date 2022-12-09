@@ -5,7 +5,9 @@
  */
 package ServiceITF;
 
+import DomainModels.SanPham;
 import ViewModels.SanPhamViews;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,4 +31,6 @@ public interface SanPhamITFinBanHang {
     public List<SanPhamViews> LocDanhMuc(String name);
 
     public List<SanPhamViews> LocKieuDang(String name);
+    
+    ArrayList<SanPham> getListTimKiem(String ma);
 }

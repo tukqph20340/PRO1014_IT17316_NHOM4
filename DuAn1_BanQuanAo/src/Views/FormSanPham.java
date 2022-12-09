@@ -11,6 +11,7 @@ import ServiceIplm.SanPhamIplm;
 import ViewModels.ChatLieuView;
 import ViewModels.DanhMucViews;
 import ViewModels.MauView;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -50,6 +51,7 @@ public class FormSanPham extends javax.swing.JFrame {
                 x.getTenMau(), x.getTenSize(), x.getTenChatLieu(), x.getTenKieuDang(),
                 x.getNgaySX(), x.getGiaNhap(), x.getGiaBan(), x.getSoLuong(), x.htTrangThai()});
         }
+        
     }
 
     public void loadCbDM(ArrayList<String> listDM) {
@@ -109,6 +111,18 @@ public class FormSanPham extends javax.swing.JFrame {
             }
         }
         return false;
+    }
+    
+    public boolean validate(String a) {
+        try {
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-mm-dd");
+            fm.parse(a);
+            return false;
+        } catch (Exception e) {
+            //e.printStackTrace();
+            e.getMessage();
+        }
+        return true;
     }
 
     /**
@@ -333,18 +347,8 @@ public class FormSanPham extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tbThongTinSanPham);
 
         cbLocSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLocSize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocSizeActionPerformed(evt);
-            }
-        });
 
         cbLocMau.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLocMau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocMauActionPerformed(evt);
-            }
-        });
 
         btTimKiem.setText("Tìm Kiếm");
         btTimKiem.addActionListener(new java.awt.event.ActionListener() {
@@ -354,25 +358,10 @@ public class FormSanPham extends javax.swing.JFrame {
         });
 
         cbLocDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLocDanhMuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocDanhMucActionPerformed(evt);
-            }
-        });
 
         cbLocKieuDang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLocKieuDang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocKieuDangActionPerformed(evt);
-            }
-        });
 
         cbLocChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLocChatLieu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocChatLieuActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -734,6 +723,10 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Ngày Sản Xuất");
                 return;
             }
+            if (validate(txtNgaySX.getText())) {
+                JOptionPane.showMessageDialog(this, "Bạn đã nhập sai định dạng ngày(yyyy-mm-dd).");
+                return;
+            }
             if (txtGiaNhap.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Giá Nhập");
                 return;
@@ -796,6 +789,10 @@ public class FormSanPham extends javax.swing.JFrame {
             }
             if (txtNgaySX.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Ngày Sản Xuất");
+                return;
+            }
+            if (validate(txtNgaySX.getText())) {
+                JOptionPane.showMessageDialog(this, "Bạn đã nhập sai định dạng ngày(yyyy-mm-dd).");
                 return;
             }
             if (txtGiaNhap.getText().isEmpty()) {
@@ -888,11 +885,6 @@ public class FormSanPham extends javax.swing.JFrame {
         String dm = cbLocDanhMuc.getSelectedItem().toString();
         String cl = cbLocChatLieu.getSelectedItem().toString();
         String kd = cbLocKieuDang.getSelectedItem().toString();
-        System.out.println("aaaaaaaaaaaaaa " + mau);
-        System.out.println("aaaaaaaaaaaaaa " + size);
-        System.out.println("aaaaaaaaaaaaaa " + dm);
-        System.out.println("aaaaaaaaaaaaaa " + cl); 
-        System.out.println("aaaaaaaaaaaaaa " + kd);
         SanPhamRepository x = new SanPhamRepository();
         try {
             if (ma.isEmpty()) {
@@ -908,34 +900,6 @@ public class FormSanPham extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btTimKiemActionPerformed
-
-    private void cbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocMauActionPerformed
-        // TODO add your handling code here:
-        /*String mau = (String) cbLocMau.getSelectedItem();
-        String size = (String) cbLocSize.getSelectedItem();
-        String dm = (String) cbDanhMuc.getSelectedItem();
-        String cl = (String) cbLocChatLieu.getSelectedItem();
-        String kd = (String) cbKieuDang.getSelectedItem();
-        try {
-            loadTable(service.getListLoc(mau, size, dm, cl, kd));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }//GEN-LAST:event_cbLocMauActionPerformed
-
-    private void cbLocSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizeActionPerformed
-        // TODO add your handling code here:
-        /*String mau = (String) cbLocMau.getSelectedItem();
-        String size = (String) cbLocSize.getSelectedItem();
-        String dm = (String) cbDanhMuc.getSelectedItem();
-        String cl = (String) cbLocChatLieu.getSelectedItem();
-        String kd = (String) cbKieuDang.getSelectedItem();
-        try {
-            loadTable(service.getListLoc(mau, size, dm, cl, kd));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }//GEN-LAST:event_cbLocSizeActionPerformed
 
     private void btBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBanHangActionPerformed
         // TODO add your handling code here:
@@ -983,48 +947,6 @@ public class FormSanPham extends javax.swing.JFrame {
         loadCbKD(service.getListKieuDang());
         cbKieuDang.setSelectedItem(x.getTen());
     }//GEN-LAST:event_btThemKieuDangActionPerformed
-
-    private void cbLocDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocDanhMucActionPerformed
-        // TODO add your handling code here:
-        /*String mau = (String) cbLocMau.getSelectedItem();
-        String size = (String) cbLocSize.getSelectedItem();
-        String dm = (String) cbDanhMuc.getSelectedItem();
-        String cl = (String) cbLocChatLieu.getSelectedItem();
-        String kd = (String) cbKieuDang.getSelectedItem();
-        try {
-            loadTable(service.getListLoc(mau, size, dm, cl, kd));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }//GEN-LAST:event_cbLocDanhMucActionPerformed
-
-    private void cbLocKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocKieuDangActionPerformed
-        // TODO add your handling code here:
-        /*String mau = (String) cbLocMau.getSelectedItem();
-        String size = (String) cbLocSize.getSelectedItem();
-        String dm = (String) cbDanhMuc.getSelectedItem();
-        String cl = (String) cbLocChatLieu.getSelectedItem();
-        String kd = (String) cbKieuDang.getSelectedItem();
-        try {
-            loadTable(service.getListLoc(mau, size, dm, cl, kd));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }//GEN-LAST:event_cbLocKieuDangActionPerformed
-
-    private void cbLocChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocChatLieuActionPerformed
-        // TODO add your handling code here:
-        /*String mau = (String) cbLocMau.getSelectedItem();
-        String size = (String) cbLocSize.getSelectedItem();
-        String dm = (String) cbDanhMuc.getSelectedItem();
-        String cl = (String) cbLocChatLieu.getSelectedItem();
-        String kd = (String) cbKieuDang.getSelectedItem();
-        try {
-            loadTable(service.getListLoc(mau, size, dm, cl, kd));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-    }//GEN-LAST:event_cbLocChatLieuActionPerformed
 
     private void btHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHoaDonActionPerformed
         // TODO add your handling code here:
