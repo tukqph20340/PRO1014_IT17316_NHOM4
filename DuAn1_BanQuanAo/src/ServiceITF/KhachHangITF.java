@@ -16,9 +16,11 @@ public interface KhachHangITF {
 
     public List<KhachHangMode> select1(String ma);
 
+    public List<KhachHangMode> selectTen(String ma);
+
     public List<KhachHangView> select();
 
-    public List<KhachHangMode> insert(String ma, String ten, String sdt, String ngaysinh, String thanhpho);
+    public List<KhachHangMode> insert(String ten, String sdt, String ngaysinh, String thanhpho);
 
     public List<KhachHangMode> update(String ma, String ten, String sdt, String ngaysinh, String thanhpho);
 

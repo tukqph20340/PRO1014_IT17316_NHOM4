@@ -69,21 +69,45 @@ public class KhachHangRepo {
         }
         return listcl;
     }
-
-    public List<KhachHangMode> insert(String ma, String ten, String sdt, String ngaysinh, String thanhpho) {
+ public List<KhachHangMode> selectTen(String ma1) {
         ArrayList<KhachHangMode> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "insert KhachHang values (?,?,?,?,?)";
+            String sql = "select * from KhachHang where HoVaTen=?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, ma);
-            st.setString(2, ten);
-            st.setString(3, sdt);
-            st.setString(4, ngaysinh);
-            st.setString(5, thanhpho);
+            st.setString(1, ma1);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String ma = rs.getString("MaKH");
+                String ten = rs.getString("HoVaTen");
+                String sdt = rs.getString("Sdt");
+                String ngaysinh = rs.getString("NgaySinh");
+                String thanhpho = rs.getString("ThanhPho");
+                KhachHangMode cl = new KhachHangMode();
+                cl.setMaKH(ma);
+                cl.setHoVaTen(ten);
+                cl.setSdt(sdt);
+                cl.setNgaySinh(ngaysinh);
+                cl.setThanhPho(thanhpho);
+                listcl.add(cl);
+            }
+        } catch (Exception e) {
+
+        }
+        return listcl;
+    }
+    public List<KhachHangMode> insert( String ten, String sdt, String ngaysinh, String thanhpho) {
+        ArrayList<KhachHangMode> listcl = new ArrayList<>();
+        try {
+            Connection con = DBConTextTu.getConnection();
+            String sql = "insert KhachHang(HoVaTen,Sdt,NgaySinh,ThanhPho) values (?,?,?,?)";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, ten);
+            st.setString(2, sdt);
+            st.setString(3, ngaysinh);
+            st.setString(4, thanhpho);
             st.executeUpdate();
             KhachHangMode cl = new KhachHangMode();
-            cl.setMaKH(ma);
             cl.setHoVaTen(ten);
             cl.setSdt(sdt);
             cl.setNgaySinh(ngaysinh);

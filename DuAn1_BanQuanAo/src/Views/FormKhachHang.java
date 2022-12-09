@@ -213,6 +213,8 @@ public class FormKhachHang extends javax.swing.JFrame {
 
         jLabel6.setText("THÀNH PHỐ");
 
+        txtMa.setEditable(false);
+
         JbKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -373,13 +375,12 @@ public class FormKhachHang extends javax.swing.JFrame {
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
         // TODO add your handling code here:
-        String ma = txtMa.getText();
         String ten = txtTen.getText();
         String sdt = txtSdt.getText();
         String ngaysinh = txtNgaySinh.getText();
         String thanhpho = txtThanhPho.getText();
         try {
-            Kh.insert(ma, ten, sdt, ngaysinh, thanhpho);
+            Kh.insert(ten, sdt, ngaysinh, thanhpho);
             mode.setRowCount(0);
             loat();
         } catch (Exception e) {

@@ -45,9 +45,9 @@ public class KhachHangSevice implements KhachHangITF{
     }
 
     @Override
-    public List<KhachHangMode> insert(String ma, String ten, String sdt, String ngaysinh, String thanhpho) {
+    public List<KhachHangMode> insert( String ten, String sdt, String ngaysinh, String thanhpho) {
         try {
-            return list.insert(ma, ten, sdt, ngaysinh, thanhpho);
+            return list.insert( ten, sdt, ngaysinh, thanhpho);
         } catch (Exception e) {
             return null;
         }
@@ -66,6 +66,15 @@ public class KhachHangSevice implements KhachHangITF{
     public List<KhachHangMode> delete(String ma) {
          try {
             return list.delete(ma);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public List<KhachHangMode> selectTen(String ma) {
+        try {
+            return list.selectTen(ma);
         } catch (Exception e) {
             return null;
         }

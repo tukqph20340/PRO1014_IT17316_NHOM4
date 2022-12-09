@@ -19,9 +19,9 @@ public class ThemSuaThanhToanHoaDonImt implements ThemSuaThanhToanHoaDonINT {
     private ThemSuaThanhToanHoaDon list = new ThemSuaThanhToanHoaDon();
 
     @Override
-    public List<ThanhToan> insert(String MaHD, String MaKH, String MaND, String NgayTao, String TrangThai) {
+    public List<ThanhToan> insert(String MaKH, String MaND, String NgayTao, String TrangThai) {
         try {
-            return list.insert(MaHD, MaKH, MaND, NgayTao, TrangThai);
+            return list.insert(MaKH, MaND, NgayTao, TrangThai);
         } catch (Exception e) {
             return null;
         }

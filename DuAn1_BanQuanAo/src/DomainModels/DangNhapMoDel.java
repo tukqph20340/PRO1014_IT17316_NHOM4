@@ -4,6 +4,8 @@
  */
 package DomainModels;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author fptshop
@@ -11,13 +13,16 @@ package DomainModels;
 public class DangNhapMoDel {
     private String TaiKhoan;
     private String MatKhau;
-
+    private String MaNv;
+    private String HoVaTen;
     public DangNhapMoDel() {
     }
 
-    public DangNhapMoDel(String TaiKhoan, String MatKhau) {
+    public DangNhapMoDel(String TaiKhoan, String MatKhau, String MaNv, String HoVaTen) {
         this.TaiKhoan = TaiKhoan;
         this.MatKhau = MatKhau;
+        this.MaNv = MaNv;
+        this.HoVaTen = HoVaTen;
     }
 
     public String getTaiKhoan() {
@@ -36,10 +41,28 @@ public class DangNhapMoDel {
         this.MatKhau = MatKhau;
     }
 
+    public String getMaNv() {
+        return MaNv;
+    }
+
+    public void setMaNv(String MaNv) {
+        this.MaNv = MaNv;
+    }
+
+    public String getHoVaTen() {
+        return HoVaTen;
+    }
+
+    public void setHoVaTen(String HoVaTen) {
+        this.HoVaTen = HoVaTen;
+    }
+
     @Override
     public String toString() {
-        return "DangNhap{" + "TaiKhoan=" + TaiKhoan + ", MatKhau=" + MatKhau + '}';
+        return "DangNhapMoDel{" + "TaiKhoan=" + TaiKhoan + ", MatKhau=" + MatKhau + ", MaNv=" + MaNv + ", HoVaTen=" + HoVaTen + '}';
     }
-    
-    
+  
+   
+
+   
 }

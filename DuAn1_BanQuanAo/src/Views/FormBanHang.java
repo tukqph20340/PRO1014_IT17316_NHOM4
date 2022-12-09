@@ -4,22 +4,24 @@
  */
 package Views;
 
+import DomainModels.DangNhapMoDel;
+import Untility.Nv;
 import DomainModels.GioHang;
 import DomainModels.KhachHangMode;
+import DomainModels.NhanVien_Model;
 import DomainModels.SanPham;
 import DomainModels.ThanhToan;
 import ServiceITF.GioHangITF;
 import ServiceITF.SanPhamITF;
+import ServiceIplm.DangNhapSevice;
 import ServiceIplm.GioHangIplm;
 import ViewModels.HoaDonViews;
 import ServiceIplm.HoaDon_Service;
 import ServiceIplm.KhachHangSevice;
+import ServiceIplm.NhanVien_Service;
 import ServiceIplm.SanPhamInBanHang_Service;
-
 import ServiceIplm.ThemSuaThanhToanHoaDonImt;
-
 import ServiceIplm.SanPhamIplm;
-
 import ViewModels.SanPhamViews;
 import java.awt.datatransfer.DataFlavor;
 import java.io.Console;
@@ -41,15 +43,15 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private ThemSuaThanhToanHoaDonImt BanHang = new ThemSuaThanhToanHoaDonImt();
     private KhachHangSevice Kh = new KhachHangSevice();
-
+    private DangNhapSevice dn = new DangNhapSevice();
     /**
      * Creates new form FormBanHang
      */
+    Nv n = new Nv();
+
     public FormBanHang() {
         initComponents();
-
         setLocationRelativeTo(this);
-
         loadCbMau(service.getListMauSac());
         loadCbSize(service.getListSize());
         loadDanhMuc(service.getListDanhMuc());
@@ -59,6 +61,7 @@ public class FormBanHang extends javax.swing.JFrame {
         fillDataHoaDon();
         fillSP(listSanPham);
         loadGH();
+        LoatNV();
         //loadDataTableGH(ghService.getListGH("HD01"));
     }
     private SanPhamITF service = new SanPhamIplm();
@@ -365,6 +368,9 @@ public class FormBanHang extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHoaDonChoMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblHoaDonChoMouseEntered(evt);
+            }
         });
         jScrollPane1.setViewportView(tblHoaDonCho);
 
@@ -498,6 +504,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
         txtSdt.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        txtMaNv.setEditable(false);
         txtMaNv.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         txtngayTao.setEditable(false);
@@ -559,6 +566,7 @@ public class FormBanHang extends javax.swing.JFrame {
         jLabel46.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel46.setText("Tên Nhân Viên:");
 
+        txtMaNv1.setEditable(false);
         txtMaNv1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         btTimKiemHoaDon.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -870,9 +878,9 @@ public class FormBanHang extends javax.swing.JFrame {
         gh.setMaSP(ma);
         try {
             int so = Integer.valueOf(JOptionPane.showInputDialog("Nhập Số Lượng bạn cần mua."));
-            if (so<=0) {
-                    JOptionPane.showMessageDialog(this, "Bạn phải nhập số lớn hơn 0");
-                    return;
+            if (so <= 0) {
+                JOptionPane.showMessageDialog(this, "Bạn phải nhập số lớn hơn 0");
+                return;
             }
             if (checkMaSP(maHD) == false) {
                 ghService.themGH(gh, 0);
@@ -936,9 +944,9 @@ public class FormBanHang extends javax.swing.JFrame {
             return;
         }
         String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
-        int so=Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
+        int so = Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
         try {
-            if (so==1) {
+            if (so == 1) {
                 ghService.xoa(ma, maHD);
             }
             if (ghService.giamHD(ma, maHD)) {
@@ -1022,15 +1030,20 @@ public class FormBanHang extends javax.swing.JFrame {
             txtTenKhachHang.setText(khachHangMode.getHoVaTen());
             txtSdt.setText(khachHangMode.getSdt());
         }
+        String MaNV = txtMaNv.getText();
+        List<DangNhapMoDel> NV = dn.Loat();
+        for (DangNhapMoDel DangNhapMoDel : NV) {
+            txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
+        }
 
     }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
 
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
-         txtngayTao.setText("");
+        txtngayTao.setText("");
         try {
-            String maHd = txtMa.getText();
+
             String makh = txtMaKH.getText();
             String TenKhachHang = txtTenKhachHang.getText();
             String MaND = txtMaNv.getText();
@@ -1041,8 +1054,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
             String TienThua = txtTienThua.getText();
 
-            if (maHd.trim().isEmpty()
-                    || makh.trim().isEmpty()
+            if (makh.trim().isEmpty()
                     || sdt.trim().isEmpty()
                     || MaND.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "có trường trống vui lòng nhập lại");
@@ -1053,7 +1065,7 @@ public class FormBanHang extends javax.swing.JFrame {
             String NgayTao = fm.format(ht);
             try {
 
-                BanHang.insert(maHd, makh, MaND, NgayTao, TrangThai);
+                BanHang.insert(makh, MaND, NgayTao, TrangThai);
                 fillDataHoaDon();
             } catch (Exception e) {
             }
@@ -1078,7 +1090,7 @@ public class FormBanHang extends javax.swing.JFrame {
         try {
             List<ThanhToan> list = BanHang.select();
             for (ThanhToan thanhToan : list) {
-                if (thanhToan.getTrangThai().equalsIgnoreCase(trangthai)) {
+                if (thanhToan.getTrangThai()== trangthai) {
                     JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Đc Hủy ");
                     return;
                 }
@@ -1147,6 +1159,16 @@ public class FormBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         modelSanPham = (DefaultTableModel) tblGioHang.getModel();
         modelSanPham.setRowCount(0);
+        fillDataHoaDon();
+        fillDataSanPham();
+        txtMa.setText("");
+        txtMaKH.setText("");
+        txtTenKhachHang.setText("");
+        txtSdt.setText("");
+        txtngayTao.setText("");
+        txtTongTien.setText("");
+        txtTiennKhachDua.setText("");
+        txtTienThua.setText("");
     }//GEN-LAST:event_jButton39ActionPerformed
 
     private void CbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbLocMauActionPerformed
@@ -1313,15 +1335,58 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void btTimKiemHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemHoaDonActionPerformed
         // TODO add your handling code here:
+        List<ThanhToan> hd = BanHang.select(txtMa.getText());
+        for (ThanhToan hoaDonChiTiet : hd) {
+            txtMaKH.setText(hoaDonChiTiet.getMaKH());
+            txtMaNv.setText(hoaDonChiTiet.getMaND());
+            txtngayTao.setText(hoaDonChiTiet.getNgayTao());
+
+        }
+        String MaKh = txtMaKH.getText();
+        List<KhachHangMode> ListKh = Kh.select1(MaKh);
+        for (KhachHangMode khachHangMode : ListKh) {
+            txtTenKhachHang.setText(khachHangMode.getHoVaTen());
+            txtSdt.setText(khachHangMode.getSdt());
+        }
+        String MaNV = txtMaNv.getText();
+        List<DangNhapMoDel> NV = dn.Loat();
+        for (DangNhapMoDel DangNhapMoDel : NV) {
+            txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
+        }
     }//GEN-LAST:event_btTimKiemHoaDonActionPerformed
 
     private void btTimKiemMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemMaKHActionPerformed
         // TODO add your handling code here:
+        String MaKh = txtMaKH.getText();
+        List<KhachHangMode> ListKh = Kh.select1(MaKh);
+        for (KhachHangMode khachHangMode : ListKh) {
+            txtTenKhachHang.setText(khachHangMode.getHoVaTen());
+            txtSdt.setText(khachHangMode.getSdt());
+        }
+
     }//GEN-LAST:event_btTimKiemMaKHActionPerformed
 
     private void btTimKiemTenKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemTenKHActionPerformed
         // TODO add your handling code here:
+        String ten = txtTenKhachHang.getText();
+        List<KhachHangMode> ListKh = Kh.selectTen(ten);
+        for (KhachHangMode khachHangMode : ListKh) {
+            txtMaKH.setText(khachHangMode.getMaKH());
+            txtSdt.setText(khachHangMode.getSdt());
+        }
     }//GEN-LAST:event_btTimKiemTenKHActionPerformed
+
+    private void tblHoaDonChoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonChoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblHoaDonChoMouseEntered
+    void LoatNV() {
+        String a = n.getTen();
+        List<DangNhapMoDel> dm = dn.Tk(a);
+        for (DangNhapMoDel dangNhapMoDel : dm) {
+            txtMaNv.setText(dangNhapMoDel.getMaNv());
+            txtMaNv1.setText(dangNhapMoDel.getHoVaTen());
+        }
+    }
 
     /**
      * @param args the command line arguments
