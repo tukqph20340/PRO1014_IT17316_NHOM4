@@ -88,5 +88,10 @@ public class SanPhamInBanHang_Service implements SanPhamITFinBanHang {
     public List<SanPhamViews> seachname(String name) {
         return sp.seachname(name);
     }
+    
+    @Override
+    public ArrayList<SanPham> getListTimKiem(String ma) {
+        return sp.getListTimKiem(ma);
+    }
 
 }

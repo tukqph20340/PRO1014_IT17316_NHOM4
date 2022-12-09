@@ -11,8 +11,10 @@ import DomainModels.KhachHangMode;
 import DomainModels.NhanVien_Model;
 import DomainModels.SanPham;
 import DomainModels.ThanhToan;
+import Repository.SanPhaminBanHang_Repository;
 import ServiceITF.GioHangITF;
 import ServiceITF.SanPhamITF;
+import ServiceITF.SanPhamITFinBanHang;
 import ServiceIplm.DangNhapSevice;
 import ServiceIplm.GioHangIplm;
 import ViewModels.HoaDonViews;
@@ -62,7 +64,6 @@ public class FormBanHang extends javax.swing.JFrame {
         fillSP(listSanPham);
         loadGH();
         LoatNV();
-        //loadDataTableGH(ghService.getListGH("HD01"));
     }
     private SanPhamITF service = new SanPhamIplm();
     DefaultTableModel modelSanPham = new DefaultTableModel();
@@ -71,10 +72,11 @@ public class FormBanHang extends javax.swing.JFrame {
     HoaDon_Service sercive_hd = new HoaDon_Service();
     ArrayList<HoaDonViews> listHD = new ArrayList<>();
     private GioHangITF ghService = new GioHangIplm();
+    private SanPhamITFinBanHang sv=new SanPhamInBanHang_Service();
 
     public void loadCbMau(ArrayList<String> listMau) {
         CbLocMau.removeAllItems();
-        CbLocMau.addItem("Tất cả");
+        CbLocMau.addItem("Tất Cả");
         for (String x : listMau) {
             CbLocMau.addItem(x);
         }
@@ -82,7 +84,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
     public void loadCbSize(ArrayList<String> listSize) {
         cbLocSizze.removeAllItems();
-        cbLocSizze.addItem("Tất cả");
+        cbLocSizze.addItem("Tất Cả");
         for (String x : listSize) {
             cbLocSizze.addItem(x);
         }
@@ -90,7 +92,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
     public void loadDanhMuc(ArrayList<String> listMau) {
         cbDanhMuc.removeAllItems();
-        cbDanhMuc.addItem("Tất cả");
+        cbDanhMuc.addItem("Tất Cả");
         for (String x : listMau) {
             cbDanhMuc.addItem(x);
         }
@@ -98,7 +100,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
     public void loadChatLieu(ArrayList<String> listMau) {
         cbChatLieu.removeAllItems();
-        cbChatLieu.addItem("Tất cả");
+        cbChatLieu.addItem("Tất Cả");
         for (String x : listMau) {
             cbChatLieu.addItem(x);
         }
@@ -106,7 +108,7 @@ public class FormBanHang extends javax.swing.JFrame {
 
     public void loadKieuDang(ArrayList<String> listMau) {
         cbKieuDang.removeAllItems();
-        cbKieuDang.addItem("Tất cả");
+        cbKieuDang.addItem("Tất Cả");
         for (String x : listMau) {
             cbKieuDang.addItem(x);
         }
@@ -134,6 +136,15 @@ public class FormBanHang extends javax.swing.JFrame {
         }
         tblHoaDonCho.setModel(modelSanPham);
 
+    }
+    
+    public void loadSP(ArrayList<SanPham> list) {
+        modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
+        modelSanPham.setRowCount(0);
+        modelSanPham.setColumnIdentifiers(new String[]{"Mã Sản Phẩm", "Tên Sản Phẩm", "Danh Mục", "Màu", "Size", "Chất Liệu", "Kiểu Dáng", "Giá", "Số lượng"});
+        for (SanPham s : list) {
+            modelSanPham.addRow(new Object[]{s.getMaSP(), s.getTenSP(), s.getTenDanhMuc(), s.getTenMau(), s.getTenSize(), s.getTenChatLieu(), s.getTenKieuDang(), s.getGiaBan(), s.getSoLuong()});
+        }
     }
 
     public void fillSP(ArrayList<SanPhamViews> list) {
@@ -231,7 +242,7 @@ public class FormBanHang extends javax.swing.JFrame {
         btnTimKiem = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblbangSanPham = new javax.swing.JTable();
-        txtname = new javax.swing.JTextField();
+        txtTimKiemSP = new javax.swing.JTextField();
         cbLocSizze = new javax.swing.JComboBox<>();
         CbLocMau = new javax.swing.JComboBox<>();
         cbChatLieu = new javax.swing.JComboBox<>();
@@ -729,47 +740,22 @@ public class FormBanHang extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tblbangSanPham);
 
-        txtname.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
+        txtTimKiemSP.setFont(new java.awt.Font("Tahoma", 0, 9)); // NOI18N
 
-        cbLocSizze.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        cbLocSizze.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         cbLocSizze.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbLocSizze.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbLocSizzeActionPerformed(evt);
-            }
-        });
 
-        CbLocMau.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        CbLocMau.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         CbLocMau.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        CbLocMau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CbLocMauActionPerformed(evt);
-            }
-        });
 
-        cbChatLieu.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        cbChatLieu.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbChatLieu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbChatLieuActionPerformed(evt);
-            }
-        });
 
-        cbKieuDang.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        cbKieuDang.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbKieuDang.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbKieuDang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbKieuDangActionPerformed(evt);
-            }
-        });
 
-        cbDanhMuc.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        cbDanhMuc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cbDanhMuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbDanhMuc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDanhMucActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -785,10 +771,10 @@ public class FormBanHang extends javax.swing.JFrame {
                 .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(txtTimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTimKiem))
         );
@@ -797,13 +783,13 @@ public class FormBanHang extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtname, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CbLocMau, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -853,14 +839,26 @@ public class FormBanHang extends javax.swing.JFrame {
         return true;
     }
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-        String ma = txtname.getText();
-
-        if (txtname.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Không được để trống");
-            return;
+        String ma = txtTimKiemSP.getText();
+        String mau = CbLocMau.getSelectedItem().toString();
+        String size = cbLocSizze.getSelectedItem().toString();
+        String dm = cbDanhMuc.getSelectedItem().toString();
+        String cl = cbChatLieu.getSelectedItem().toString();
+        String kd = cbKieuDang.getSelectedItem().toString();
+        SanPhaminBanHang_Repository x=new SanPhaminBanHang_Repository();
+        try {
+            if (ma.isEmpty()) {
+                loadSP(x.getListLoc(mau, size, dm, cl, kd));
+                if (tblbangSanPham.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(this, "Không có Sản Phẩm phù hợp");
+                    return;
+                }
+                return;
+            }
+            loadSP(sv.getListTimKiem(ma));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.seachname(ma);
-        fillSP(listSanPham);
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void tblbangSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblbangSanPhamMouseClicked
@@ -1172,41 +1170,6 @@ public class FormBanHang extends javax.swing.JFrame {
         txtTienThua.setText("");
     }//GEN-LAST:event_jButton39ActionPerformed
 
-    private void CbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbLocMauActionPerformed
-        //locMau
-        String mau = (String) CbLocMau.getSelectedItem();
-        try {
-            if (CbLocMau.getSelectedIndex() == 0) {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
-                fillSP(listSanPham);
-
-                return;
-            } else {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocMau(mau);
-                fillSP(listSanPham);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_CbLocMauActionPerformed
-
-    private void cbLocSizzeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizzeActionPerformed
-        //locsize
-        String size = (String) cbLocSizze.getSelectedItem();
-        try {
-            if (cbLocSizze.getSelectedIndex() == 0) {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
-                fillSP(listSanPham);
-                return;
-            } else {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocSize(size);
-                fillSP(listSanPham);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_cbLocSizzeActionPerformed
-
 
     private void btSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSanPhamActionPerformed
         // TODO add your handling code here:
@@ -1220,54 +1183,6 @@ public class FormBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         new KhachHang(this, true).setVisible(true);
     }//GEN-LAST:event_jButton33ActionPerformed
-
-    private void cbChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChatLieuActionPerformed
-        //locMau
-        String cl = (String) cbChatLieu.getSelectedItem();
-        try {
-            if (cbChatLieu.getSelectedIndex() == 0) {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
-                fillSP(listSanPham);
-            } else {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocChatLieu(cl);
-                fillSP(listSanPham);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_cbChatLieuActionPerformed
-
-    private void cbKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKieuDangActionPerformed
-        String cl = (String) cbKieuDang.getSelectedItem();
-        try {
-            if (cbKieuDang.getSelectedIndex() == 0) {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
-                fillSP(listSanPham);
-                return;
-            } else {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocKieuDang(cl);
-                fillSP(listSanPham);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_cbKieuDangActionPerformed
-
-    private void cbDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDanhMucActionPerformed
-        String dm = (String) cbDanhMuc.getSelectedItem();
-        try {
-            if (cbDanhMuc.getSelectedIndex() == 0) {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.getAllSanPham();
-                fillSP(listSanPham);
-                return;
-            } else {
-                listSanPham = (ArrayList<SanPhamViews>) SanPham_Service.LocDanhMuc(dm);
-                fillSP(listSanPham);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_cbDanhMucActionPerformed
 
     private void txtTongTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTongTienActionPerformed
         // TODO add your handling code here:
@@ -1512,8 +1427,8 @@ public class FormBanHang extends javax.swing.JFrame {
     private javax.swing.JTextField txtTenKhachHang;
     private javax.swing.JTextField txtTienThua;
     private javax.swing.JTextField txtTiennKhachDua;
+    private javax.swing.JTextField txtTimKiemSP;
     private javax.swing.JTextField txtTongTien;
-    private javax.swing.JTextField txtname;
     private javax.swing.JTextField txtngayTao;
     // End of variables declaration//GEN-END:variables
 }

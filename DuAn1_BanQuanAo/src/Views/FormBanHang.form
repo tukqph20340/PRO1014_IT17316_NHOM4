@@ -797,10 +797,10 @@
                   <Component id="cbChatLieu" min="-2" pref="99" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="CbLocMau" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="cbLocSizze" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="txtname" min="-2" pref="131" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <Component id="txtTimKiemSP" min="-2" pref="131" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btnTimKiem" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -811,14 +811,14 @@
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnTimKiem" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="txtname" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="cbLocSizze" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="CbLocMau" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="cbChatLieu" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbKieuDang" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbDanhMuc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTimKiemSP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                      <Component id="cbChatLieu" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="cbKieuDang" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="cbDanhMuc" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="CbLocMau" alignment="0" pref="24" max="32767" attributes="0"/>
+                      <Component id="cbLocSizze" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane4" min="-2" pref="113" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -861,7 +861,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="txtname">
+        <Component class="javax.swing.JTextField" name="txtTimKiemSP">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="9" style="0"/>
@@ -871,7 +871,7 @@
         <Component class="javax.swing.JComboBox" name="cbLocSizze">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="0"/>
+              <Font name="Arial" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -882,9 +882,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbLocSizzeActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -892,7 +889,7 @@
         <Component class="javax.swing.JComboBox" name="CbLocMau">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="0"/>
+              <Font name="Arial" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -903,9 +900,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CbLocMauActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -913,7 +907,7 @@
         <Component class="javax.swing.JComboBox" name="cbChatLieu">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="0"/>
+              <Font name="Arial" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -924,9 +918,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbChatLieuActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -934,7 +925,7 @@
         <Component class="javax.swing.JComboBox" name="cbKieuDang">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="0"/>
+              <Font name="Arial" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -945,9 +936,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbKieuDangActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -955,7 +943,7 @@
         <Component class="javax.swing.JComboBox" name="cbDanhMuc">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="0"/>
+              <Font name="Arial" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="4">
@@ -966,9 +954,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbDanhMucActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
