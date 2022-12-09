@@ -37,17 +37,15 @@ public class ChatLieuRepository {
         return listcl;
     }
 
-    public List<ChatLieu> insert(String ma, String ten) {
+    public List<ChatLieu> insert(String ten) {
         ArrayList<ChatLieu> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "insert ChatLieu values (?,?)";
+            String sql = "insert ChatLieu(TenChatLieu) values (?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, ma);
-            st.setString(2, ten);
+            st.setString(1, ten);
             st.executeUpdate();
             ChatLieu cl = new ChatLieu();
-            cl.setMa(ma);
             cl.setTen(ten);
             listcl.add(cl);
             st.close();

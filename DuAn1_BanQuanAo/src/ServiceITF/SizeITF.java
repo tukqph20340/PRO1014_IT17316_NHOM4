@@ -16,7 +16,7 @@ public interface SizeITF {
 
     public List<SizeView> select();
 
-    public List<Size> insert(String ma, String ten);
+    public List<Size> insert(String ten);
 
     public List<Size> update(String ma, String ten);
 

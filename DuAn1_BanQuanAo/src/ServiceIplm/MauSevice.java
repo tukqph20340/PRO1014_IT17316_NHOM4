@@ -30,9 +30,9 @@ public class MauSevice {
         return listcl;
     }
 
-    public List<Mau> insert(String ma, String ten) {
+    public List<Mau> insert(String ten) {
         try {
-            return list.insert(ma, ten);
+            return list.insert(ten);
         } catch (Exception e) {
             return null;
         }

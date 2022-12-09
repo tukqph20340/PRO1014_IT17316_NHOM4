@@ -37,17 +37,15 @@ public class SizeRepository {
         return listcl;
     }
 
-    public List<Size> insert(String ma, String ten) {
+    public List<Size> insert( String ten) {
         ArrayList<Size> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "insert Size values (?,?)";
+            String sql = "insert Size(Ten) values (?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, ma);
-            st.setString(2, ten);
+            st.setString(1, ten);
             st.executeUpdate();
             Size cl = new Size();
-            cl.setMa(ma);
             cl.setTen(ten);
             listcl.add(cl);
             st.close();

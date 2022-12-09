@@ -16,7 +16,7 @@ public interface MauITF {
 
     public List<Mau> select();
 
-    public List<Mau> insert(String ma, String ten);
+    public List<Mau> insert( String ten);
 
     public List<Mau> update(String ma, String ten);
 
