@@ -870,6 +870,10 @@ public class FormBanHang extends javax.swing.JFrame {
         gh.setMaSP(ma);
         try {
             int so = Integer.valueOf(JOptionPane.showInputDialog("Nhập Số Lượng bạn cần mua."));
+            if (so<=0) {
+                    JOptionPane.showMessageDialog(this, "Bạn phải nhập số lớn hơn 0");
+                    return;
+            }
             if (checkMaSP(maHD) == false) {
                 ghService.themGH(gh, 0);
             }
@@ -932,8 +936,11 @@ public class FormBanHang extends javax.swing.JFrame {
             return;
         }
         String maHD = tblHoaDonCho.getValueAt(rowHD, 0).toString();
-        //String maHD = "HD01";
+        int so=Integer.parseInt(tblGioHang.getValueAt(row, 2).toString());
         try {
+            if (so==1) {
+                ghService.xoa(ma, maHD);
+            }
             if (ghService.giamHD(ma, maHD)) {
                 if (ghService.tangSP(ma)) {
                     loadDataTableGH(ghService.getListGH(maHD));

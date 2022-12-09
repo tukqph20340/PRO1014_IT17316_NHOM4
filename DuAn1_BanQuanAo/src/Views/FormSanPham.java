@@ -5,6 +5,7 @@
 package Views;
 
 import DomainModels.SanPham;
+import Repository.SanPhamRepository;
 import ServiceITF.SanPhamITF;
 import ServiceIplm.SanPhamIplm;
 import ViewModels.ChatLieuView;
@@ -27,12 +28,12 @@ public class FormSanPham extends javax.swing.JFrame {
     public FormSanPham() {
         initComponents();
         setLocationRelativeTo(null);
-        loadTable(service.getListSanPham());
-        loadCbDM(service.getListDanhMuc());
-        loadCbCL(service.getListChatLieu());
-        loadCbKD(service.getListKieuDang());;
         loadCbMau(service.getListMauSac());
         loadCbSize(service.getListSize());
+        loadCbDM(service.getListDanhMuc());
+        loadCbCL(service.getListChatLieu());
+        loadCbKD(service.getListKieuDang());;      
+        loadTable(service.getListSanPham());
     }
     private DefaultComboBoxModel cbmodel;
     private DefaultTableModel tbmodel;
@@ -54,6 +55,7 @@ public class FormSanPham extends javax.swing.JFrame {
     public void loadCbDM(ArrayList<String> listDM) {
         cbDanhMuc.removeAllItems();
         cbLocDanhMuc.removeAllItems();
+        cbLocDanhMuc.addItem("Tất Cả");
         for (String x : listDM) {
             cbDanhMuc.addItem(x);
             cbLocDanhMuc.addItem(x);
@@ -63,6 +65,7 @@ public class FormSanPham extends javax.swing.JFrame {
     public void loadCbMau(ArrayList<String> listMau) {
         cbMauSac.removeAllItems();
         cbLocMau.removeAllItems();
+        cbLocMau.addItem("Tất Cả");
         for (String x : listMau) {
             cbMauSac.addItem(x);
             cbLocMau.addItem(x);
@@ -72,6 +75,7 @@ public class FormSanPham extends javax.swing.JFrame {
     public void loadCbSize(ArrayList<String> listSize) {
         cbSize.removeAllItems();
         cbLocSize.removeAllItems();
+        cbLocSize.addItem("Tất Cả");
         for (String x : listSize) {
             cbSize.addItem(x);
             cbLocSize.addItem(x);
@@ -81,6 +85,7 @@ public class FormSanPham extends javax.swing.JFrame {
     public void loadCbCL(ArrayList<String> listCL) {
         cbChatLieu.removeAllItems();
         cbLocChatLieu.removeAllItems();
+        cbLocChatLieu.addItem("Tất Cả");
         for (String x : listCL) {
             cbChatLieu.addItem(x);
             cbLocChatLieu.addItem(x);
@@ -90,6 +95,7 @@ public class FormSanPham extends javax.swing.JFrame {
     public void loadCbKD(ArrayList<String> listKD) {
         cbKieuDang.removeAllItems();
         cbLocKieuDang.removeAllItems();
+        cbLocKieuDang.addItem("Tất Cả");
         for (String x : listKD) {
             cbKieuDang.addItem(x);
             cbLocKieuDang.addItem(x);
@@ -374,36 +380,36 @@ public class FormSanPham extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(cbLocChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbLocKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(cbLocDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(cbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cbLocSize, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
+                .addComponent(cbLocDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbLocChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbLocKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btTimKiem)
-                .addContainerGap(18, Short.MAX_VALUE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap())
+            .addComponent(jScrollPane2)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLocSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbLocMau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btTimKiem)
-                    .addComponent(cbLocDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLocKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbLocChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbLocSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbLocDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbLocChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbLocKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btTimKiem)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -531,8 +537,9 @@ public class FormSanPham extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -553,7 +560,7 @@ public class FormSanPham extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(cbKieuDang, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbDanhMuc, 0, 146, Short.MAX_VALUE))
+                                        .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(btThemDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -579,9 +586,9 @@ public class FormSanPham extends javax.swing.JFrame {
                                         .addComponent(txtGiaNhap)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(cbChatLieu, javax.swing.GroupLayout.Alignment.LEADING, 0, 145, Short.MAX_VALUE)
+                                                .addComponent(cbChatLieu, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(cbSize, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(cbMauSac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addComponent(cbMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(btThemMauSac, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -603,7 +610,6 @@ public class FormSanPham extends javax.swing.JFrame {
                                 .addComponent(jLabel13)))
                         .addGap(564, 564, 564)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -707,7 +713,6 @@ public class FormSanPham extends javax.swing.JFrame {
         x.setGiaNhap(Integer.parseInt(txtGiaNhap.getText()));
         x.setGiaBan(Integer.parseInt(txtGiaBan.getText()));
         x.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        x.setTrangThai(txtTrangThai.getText());
 
         try {
             if (txtMaSP.getText().isEmpty()) {
@@ -748,10 +753,6 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Số Lượng");
                 return;
             }
-            if (txtTrangThai.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Bạn phải nhập Trạng Thái");
-                return;
-            }
             if (service.them(x)) {
                 loadTable(service.getListSanPham());
                 JOptionPane.showMessageDialog(this, "Thêm Thành Công");
@@ -777,7 +778,6 @@ public class FormSanPham extends javax.swing.JFrame {
         x.setGiaNhap(Integer.parseInt(txtGiaNhap.getText()));
         x.setGiaBan(Integer.parseInt(txtGiaBan.getText()));
         x.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        x.setTrangThai(txtTrangThai.getText());
 
         try {
             if (txtMaSP.getText().isEmpty()) {
@@ -817,10 +817,6 @@ public class FormSanPham extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập Số Lượng");
                 return;
             }
-            if (txtTrangThai.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Bạn phải nhập Trạng Thái");
-                return;
-            }
             if (service.sua(x, ma)) {
                 loadTable(service.getListSanPham());
                 JOptionPane.showMessageDialog(this, "Sửa Thành Công");
@@ -846,6 +842,7 @@ public class FormSanPham extends javax.swing.JFrame {
             if (service.xoa(ma)) {
                 JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa Sản Phẩm này không?");
                 JOptionPane.showMessageDialog(this, "Xóa Thành Công");
+                loadTable(service.getListSanPham());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Xóa không thành công");
@@ -893,39 +890,58 @@ public class FormSanPham extends javax.swing.JFrame {
 
     private void btTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemActionPerformed
         String ma = txtTimKiem.getText();
+        String mau = cbLocMau.getSelectedItem().toString();
+        String size = cbLocSize.getSelectedItem().toString();
+        String dm = cbLocDanhMuc.getSelectedItem().toString();
+        String cl = cbLocChatLieu.getSelectedItem().toString();
+        String kd = cbLocKieuDang.getSelectedItem().toString();
+        System.out.println("aaaaaaaaaaaaaa "+mau);
+        System.out.println("aaaaaaaaaaaaaa "+size);
+        System.out.println("aaaaaaaaaaaaaa "+dm);
+        System.out.println("aaaaaaaaaaaaaa "+cl);
+        System.out.println("aaaaaaaaaaaaaa "+kd);
+        SanPhamRepository x=new SanPhamRepository();
         try {
-            if (ma.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Bạn chưa nhập thông tin tìm kiếm");
+            if (ma.isEmpty()) {               
+                loadTable(x.getListLoc(mau, size, dm, cl, kd));
+                if (tbThongTinSanPham.getRowCount()==0) {
+                    JOptionPane.showMessageDialog(this, "Không có Sản Phẩm phù hợp");
+                }
                 return;
             }
-            /*if (checkTrung(ma) == false) {
-                JOptionPane.showMessageDialog(this, "Sản Phẩm không tồn tại");
-                return;
-            }*/
             loadTable(service.tim(ma));
-        } catch (Exception e) {
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btTimKiemActionPerformed
 
     private void cbLocMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocMauActionPerformed
         // TODO add your handling code here:
-        String mau = (String) cbLocMau.getSelectedItem();
-        try {           
-            loadTable(service.locMau(mau));
+        /*String mau = (String) cbLocMau.getSelectedItem();
+        String size = (String) cbLocSize.getSelectedItem();
+        String dm = (String) cbDanhMuc.getSelectedItem();
+        String cl = (String) cbLocChatLieu.getSelectedItem();
+        String kd = (String) cbKieuDang.getSelectedItem();
+        try {
+            loadTable(service.getListLoc(mau, size, dm, cl, kd));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_cbLocMauActionPerformed
 
     private void cbLocSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocSizeActionPerformed
         // TODO add your handling code here:
+        /*String mau = (String) cbLocMau.getSelectedItem();
         String size = (String) cbLocSize.getSelectedItem();
-        try {            
-            loadTable(service.locSize(size));
+        String dm = (String) cbDanhMuc.getSelectedItem();
+        String cl = (String) cbLocChatLieu.getSelectedItem();
+        String kd = (String) cbKieuDang.getSelectedItem();
+        try {
+            loadTable(service.getListLoc(mau, size, dm, cl, kd));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_cbLocSizeActionPerformed
 
     private void btBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBanHangActionPerformed
@@ -977,32 +993,44 @@ public class FormSanPham extends javax.swing.JFrame {
 
     private void cbLocDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocDanhMucActionPerformed
         // TODO add your handling code here:
-        String danhMuc = (String) cbLocDanhMuc.getSelectedItem();
+        /*String mau = (String) cbLocMau.getSelectedItem();
+        String size = (String) cbLocSize.getSelectedItem();
+        String dm = (String) cbDanhMuc.getSelectedItem();
+        String cl = (String) cbLocChatLieu.getSelectedItem();
+        String kd = (String) cbKieuDang.getSelectedItem();
         try {
-            loadTable(service.locDanhMuc(danhMuc));
+            loadTable(service.getListLoc(mau, size, dm, cl, kd));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_cbLocDanhMucActionPerformed
 
     private void cbLocKieuDangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocKieuDangActionPerformed
         // TODO add your handling code here:
-        String kieuDang = (String) cbLocKieuDang.getSelectedItem();
+        /*String mau = (String) cbLocMau.getSelectedItem();
+        String size = (String) cbLocSize.getSelectedItem();
+        String dm = (String) cbDanhMuc.getSelectedItem();
+        String cl = (String) cbLocChatLieu.getSelectedItem();
+        String kd = (String) cbKieuDang.getSelectedItem();
         try {
-            loadTable(service.locKieuDang(kieuDang));
+            loadTable(service.getListLoc(mau, size, dm, cl, kd));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_cbLocKieuDangActionPerformed
 
     private void cbLocChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbLocChatLieuActionPerformed
         // TODO add your handling code here:
-        String chatLieu = (String) cbLocChatLieu.getSelectedItem();
+        /*String mau = (String) cbLocMau.getSelectedItem();
+        String size = (String) cbLocSize.getSelectedItem();
+        String dm = (String) cbDanhMuc.getSelectedItem();
+        String cl = (String) cbLocChatLieu.getSelectedItem();
+        String kd = (String) cbKieuDang.getSelectedItem();
         try {
-            loadTable(service.locChatLieu(chatLieu));
+            loadTable(service.getListLoc(mau, size, dm, cl, kd));
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }//GEN-LAST:event_cbLocChatLieuActionPerformed
 
     private void btHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHoaDonActionPerformed

@@ -6,6 +6,7 @@ package Repository;
 
 import DomainModels.*;
 import Untility.DBConnection;
+import com.sun.source.doctree.ThrowsTree;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +68,7 @@ public class SanPhamRepository {
         }
         return list;
     }
-    
+
     public ArrayList<String> getListMauSac() {
         ArrayList<String> list = new ArrayList<>();
         String sql = "select TenMau from Mau";
@@ -81,7 +82,7 @@ public class SanPhamRepository {
         }
         return list;
     }
-    
+
     public ArrayList<String> getListSize() {
         ArrayList<String> list = new ArrayList<>();
         String sql = "select Ten from Size";
@@ -95,7 +96,7 @@ public class SanPhamRepository {
         }
         return list;
     }
-    
+
     public ArrayList<String> getListChatLieu() {
         ArrayList<String> list = new ArrayList<>();
         String sql = "select TenChatLieu from ChatLieu";
@@ -109,7 +110,7 @@ public class SanPhamRepository {
         }
         return list;
     }
-    
+
     public ArrayList<String> getListKieuDang() {
         ArrayList<String> list = new ArrayList<>();
         String sql = "select TenKieuDang from KieuDang";
@@ -163,7 +164,7 @@ public class SanPhamRepository {
                 + "MaSize=(select Ma from Size where Ten=?),\n"
                 + "MaCL=(select MaCL from ChatLieu where TenChatLieu=?),\n"
                 + "MaKD=(select MaKD from KieuDang where TenKieuDang=?),\n"
-                + "NgaySanXuat=?, GiaNhap=?, GiaBan=?, SoLuong=?, TrangThai=?\n"
+                + "NgaySanXuat=?, GiaNhap=?, GiaBan=?, SoLuong=?\n"
                 + "where MaSP=?";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -179,8 +180,7 @@ public class SanPhamRepository {
             ps.setObject(10, x.getGiaNhap());
             ps.setObject(11, x.getGiaBan());
             ps.setObject(12, x.getSoLuong());
-            ps.setObject(13, x.getTrangThai());
-            ps.setObject(14, maSP);
+            ps.setObject(13, maSP);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -212,7 +212,7 @@ public class SanPhamRepository {
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
                 + " where MaSP=? or TenSP=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, ma);
             ps.setObject(2, ma);
             ResultSet rs = ps.executeQuery();
@@ -233,13 +233,13 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public ArrayList<SanPham> getListLocMau(String mau) {
         ArrayList<SanPham> list = new ArrayList<>();
         String sql = "select MaSP,MaCH,MaNCC,TenSP,"
@@ -251,7 +251,7 @@ public class SanPhamRepository {
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
                 + " where TenMau=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, mau);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -271,13 +271,13 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public ArrayList<SanPham> getListLocSize(String size) {
         ArrayList<SanPham> list = new ArrayList<>();
         String sql = "select MaSP,MaCH,MaNCC,TenSP,"
@@ -289,7 +289,7 @@ public class SanPhamRepository {
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
                 + " where Ten=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, size);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -309,13 +309,13 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public ArrayList<SanPham> getListLocKieuDang(String a) {
         ArrayList<SanPham> list = new ArrayList<>();
         String sql = "select MaSP,MaCH,MaNCC,TenSP,"
@@ -327,7 +327,7 @@ public class SanPhamRepository {
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
                 + " where TenKieuDang=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, a);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -347,13 +347,13 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public ArrayList<SanPham> getListLocChatLieu(String a) {
         ArrayList<SanPham> list = new ArrayList<>();
         String sql = "select MaSP,MaCH,MaNCC,TenSP,"
@@ -365,7 +365,7 @@ public class SanPhamRepository {
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
                 + " where TenChatLieu=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, a);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -385,13 +385,13 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public ArrayList<SanPham> getListLocDanhMuc(String dm) {
         ArrayList<SanPham> list = new ArrayList<>();
         String sql = "select MaSP,MaCH,MaNCC,TenSP,"
@@ -403,7 +403,7 @@ public class SanPhamRepository {
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
                 + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
                 + " where DanhMucSanPham=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, dm);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -423,14 +423,14 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
-    /*public ArrayList<SanPham> getListLoc(String a,String b,String c,String d,String e) {
+
+    public ArrayList<SanPham> getListLoc(String a, String b, String c, String d, String e) {
         ArrayList<SanPham> list = new ArrayList<>();
         String sql = "select MaSP,MaCH,MaNCC,TenSP,"
                 + "DanhMucSanPham,TenMau,Ten,TenChatLieu,TenKieuDang,"
@@ -439,14 +439,48 @@ public class SanPhamRepository {
                 + " join Size on SanPham.MaSize=Size.Ma\n"
                 + " join DanhMucSP on SanPham.MaDM=DanhMucSP.MaDM\n"
                 + " join ChatLieu on SanPham.MaCL=ChatLieu.MaCL\n"
-                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD"
-                + " where TenMau=? and Ten=? and DanhMucSanPham=? and TenChatLieu=? and TenKieuDang=?";
-        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);  ) {
+                + " join KieuDang on SanPham.MaKD=KieuDang.MaKD\n";
+        if (!a.equals("Tất Cả") || !b.equals("Tất Cả") || !c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
+            sql = sql + "Where ";
+        }
+        if (!a.equals("Tất Cả")) {
+            sql = sql + "TenMau=? ";
+            if (!b.equals("Tất Cả") || !c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
+                sql = sql + "and ";
+            }
+        }
+        if (!b.equals("Tất Cả")) {
+            sql = sql + "Ten=? ";
+            if (!c.equals("Tất Cả") || !d.equals("Tất Cả") || !e.equals("Tất Cả")) {
+                sql = sql + "and ";
+            }
+        }
+        if (!c.equals("Tất Cả")) {
+            sql = sql + "DanhMucSanPham=? ";
+            if (!d.equals("Tất Cả") || !e.equals("Tất Cả")) {
+                sql = sql + "and ";
+            }
+        }
+        if (!d.equals("Tất Cả")) {
+            sql = sql + "TenChatLieu=? ";
+            if (!e.equals("Tất Cả")) {
+                sql = sql + "and ";
+            }
+        }
+        if (!e.equals("Tất Cả")) {
+            sql = sql + "TenKieuDang=?";
+        }
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setObject(1, a);
             ps.setObject(2, b);
             ps.setObject(3, c);
             ps.setObject(4, d);
             ps.setObject(5, e);
+//            ps.setObject(1, a);
+//            ps.setObject(2, b);
+//            ps.setObject(3, c);
+//            ps.setObject(4, d);
+//            ps.setObject(5, e);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 SanPham x = new SanPham();
@@ -465,10 +499,10 @@ public class SanPhamRepository {
                 x.setSoLuong(Integer.parseInt(rs.getString(13)));
                 x.setTrangThai(rs.getString(14));
                 list.add(x);
-            }           
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return list;
-    }*/   
+    }
 }

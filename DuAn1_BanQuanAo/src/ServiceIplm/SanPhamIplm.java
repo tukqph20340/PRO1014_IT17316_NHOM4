@@ -80,10 +80,10 @@ public class SanPhamIplm implements SanPhamITF {
         return repo.getListLocSize(size);
     }
 
-    /*@Override
+    @Override
     public ArrayList<SanPham> getListLoc(String a, String b, String c, String d, String e) {
         return repo.getListLoc(a, b, c, d, e);
-    }*/
+    }
 
     @Override
     public ArrayList<SanPham> locChatLieu(String x) {

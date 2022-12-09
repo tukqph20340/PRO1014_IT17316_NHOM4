@@ -42,5 +42,5 @@ public interface SanPhamITF {
     
     public ArrayList<SanPham> locKieuDang(String x);
     
-    //public ArrayList<SanPham> getListLoc(String a,String b,String c,String d,String e);
+    public ArrayList<SanPham> getListLoc(String a,String b,String c,String d,String e);
 }
