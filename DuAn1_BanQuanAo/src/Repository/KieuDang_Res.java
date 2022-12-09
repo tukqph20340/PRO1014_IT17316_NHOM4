@@ -44,11 +44,11 @@ public class KieuDang_Res {
         return list;
     }
     public String addForm(KieuDang_Model model){
-        String add="INSERT INTO KieuDang (MaKD,TenKieuDang) values(?,?)";
+        String add="INSERT INTO KieuDang (TenKieuDang) values(?)";
         try {
             pst = DBConnect.openDBConnection().prepareStatement(add);
-            pst.setObject(1, model.getMaKD());
-            pst.setObject(2, model.getTenKD());
+//            pst.setObject(1, model.getMaKD());
+            pst.setObject(1, model.getTenKD());
             pst.executeUpdate();
             return"Add thành công";
         } catch (SQLException ex) {
@@ -82,6 +82,6 @@ public class KieuDang_Res {
         return"Thất Bại";
     }
         public static void main(String[] args) {
-            System.out.println(new KieuDang_Res().DeleteForm("KD4"));
+//            System.out.println(new KieuDang_Res());
     }
 }

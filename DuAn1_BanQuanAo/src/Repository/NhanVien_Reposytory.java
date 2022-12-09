@@ -65,19 +65,19 @@ public class NhanVien_Reposytory {
         return list;
     }
     public String addNhanVien(NhanVien_Model nv){
-        String add="INSERT INTO NguoiDung (MaND,MaCH,HoVaTen,GioiTinh,ChucVu,Sdt,DiaChi,username,pasword,NgaySinh) values(?,?,?,?,?,?,?,?,?,?)";
+        String add="INSERT INTO NguoiDung (MaCH,HoVaTen,GioiTinh,ChucVu,Sdt,DiaChi,username,pasword,NgaySinh) values(?,?,?,?,?,?,?,?,?)";
         try {
             pst = conn.openDBConnection().prepareStatement(add);
-            pst.setString(1, nv.getMaND());
-            pst.setString(2, nv.getMaCH());
-            pst.setString(3, nv.getHoVaTen());
-            pst.setString(4, nv.getGioiTinh());
-            pst.setString(5, nv.getChucVu());
-            pst.setString(6, nv.getSdt());
-            pst.setString(7, nv.getDiaChi());
-            pst.setString(8, nv.getUsename());
-            pst.setString(9, nv.getPassword());
-            pst.setString(10, nv.getNgaysinh());
+//            pst.setString(1, nv.getMaND());
+            pst.setString(1, nv.getMaCH());
+            pst.setString(2, nv.getHoVaTen());
+            pst.setString(3, nv.getGioiTinh());
+            pst.setString(4, nv.getChucVu());
+            pst.setString(5, nv.getSdt());
+            pst.setString(6, nv.getDiaChi());
+            pst.setString(7, nv.getUsename());
+            pst.setString(8, nv.getPassword());
+            pst.setString(9, nv.getNgaysinh());
             pst.executeUpdate();
             return "Add thành công";
         } catch (SQLException ex) {
@@ -119,6 +119,6 @@ public class NhanVien_Reposytory {
         return "Thất Bại";
     }
     public static void main(String[] args) {
-        System.out.println(new NhanVien_Reposytory().getallformNhanVien());
+        System.out.println(new NhanVien_Reposytory());
     }
 }

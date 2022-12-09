@@ -39,11 +39,11 @@ public class DanhMucSP_Repository {
         return list;
     }
     public String addForm(DanhMuc_model model){
-        String add="INSERT INTO DanhMucSP (MaDM,DanhMucSanPham) values(?,?)";
+        String add="INSERT INTO DanhMucSP (DanhMucSanPham) values(?)";
         try {
             pst = conn.openDBConnection().prepareStatement(add);
-            pst.setObject(1, model.getMaDM());
-            pst.setObject(2, model.getTenDM());
+//            pst.setObject(1, model.getMaDM());
+            pst.setObject(1, model.getTenDM());
             pst.executeUpdate();
             return"Add thành công";
         } catch (SQLException ex) {
@@ -76,5 +76,7 @@ public class DanhMucSP_Repository {
         }
         return"Thất Bại";
     }
-    
+    public static void main(String[] args) {
+        System.out.println(new DanhMucSP_Repository());
+    }
 }
