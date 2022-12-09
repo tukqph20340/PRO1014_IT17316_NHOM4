@@ -31,9 +31,9 @@ public class ChatLieuSevice {
         return listcl;
     }
 
-    public List<ChatLieu> insert(String ma, String ten) {
+    public List<ChatLieu> insert( String ten) {
         try {
-            return list.insert(ma, ten);
+            return list.insert( ten);
         } catch (Exception e) {
             return null;
         }

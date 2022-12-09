@@ -15,7 +15,7 @@ public interface ChatLieuITF {
 
     public List<ChatLieu> select();
 
-    public List<ChatLieu> insert(String ma, String ten);
+    public List<ChatLieu> insert( String ten);
 
     public List<ChatLieu> update(String ma, String ten);
 

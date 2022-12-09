@@ -70,6 +70,8 @@ public class Size extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        txtMa.setEditable(false);
+
         jLabel1.setText("Mã Size");
 
         jLabel2.setText("Tên ");
@@ -170,12 +172,8 @@ public class Size extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-          String ma = txtMa.getText();
+
         String Ten = txtTen.getText();
-        if (ma.isEmpty() || Ten.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Mã hoặc Tên đang để trống");
-            return;
-        }
         int check = 0;
         for (int i = 0; i < Ten.length(); i++) {
             if (Ten.charAt(i) > '0' && Ten.charAt(i) < '9') {
@@ -186,7 +184,7 @@ public class Size extends javax.swing.JDialog {
 
         }
         try {
-            list.insert(ma, Ten);
+            list.insert(Ten);
             mode.setRowCount(0);
             loat();
         } catch (Exception e) {

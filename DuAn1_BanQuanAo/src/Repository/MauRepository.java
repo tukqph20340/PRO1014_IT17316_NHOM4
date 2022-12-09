@@ -37,17 +37,15 @@ public class MauRepository {
         return listcl;
     }
 
-    public List<Mau> insert(String ma, String ten) {
+    public List<Mau> insert(String ten) {
         ArrayList<Mau> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "insert Mau values (?,?)";
+            String sql = "insert Mau(TenMau) values (?)";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, ma);
-            st.setString(2, ten);
+            st.setString(1, ten);
             st.executeUpdate();
             Mau cl = new Mau();
-            cl.setMa(ma);
             cl.setTen(ten);
             listcl.add(cl);
             st.close();

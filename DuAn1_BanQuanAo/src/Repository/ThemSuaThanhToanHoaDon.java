@@ -20,7 +20,7 @@ public class ThemSuaThanhToanHoaDon {
      *
      * @author DELL
      */
-    public List<ThanhToan> insert( String MaKH, String MaND, String NgayTao, String TrangThai) {
+    public List<ThanhToan> insert(String MaKH, String MaND, String NgayTao, String TrangThai) {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
@@ -75,7 +75,7 @@ public class ThemSuaThanhToanHoaDon {
         return listcl;
     }
 
-    public List<ThanhToan> HuyHoaDon(String MaHD,String NgayHuy, String TrangThai) {
+    public List<ThanhToan> HuyHoaDon(String MaHD, String NgayHuy, String TrangThai) {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
@@ -149,7 +149,7 @@ public class ThemSuaThanhToanHoaDon {
         return listcl;
     }
 
-    public List<ThanhToan> ThanhToanHoaDon(String MaHD,String NgayHuy, String TrangThai) {
+    public List<ThanhToan> ThanhToanHoaDon(String MaHD, String NgayHuy, String TrangThai) {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
@@ -177,7 +177,7 @@ public class ThemSuaThanhToanHoaDon {
         ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
-            String sql = "select HoaDon.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDonChiTiet.TongTien from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD  where HoaDon.MaHD=? ";
+            String sql = "select MaHD ,MaKH, MaND,NgayTao , TrangThai from  HoaDon WHERE MaHD=?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, ma2);
             ResultSet rs = st.executeQuery();
@@ -185,16 +185,16 @@ public class ThemSuaThanhToanHoaDon {
                 String ma = rs.getString("MaHD");
                 String MaKH = rs.getString("MaKH");
                 String MaND = rs.getString("MaND");
-                String NgayTao = rs.getString("NgayTao");
-                String TongTien = rs.getString("TongTien");
+                String NgayTao = rs.getString("NgayTao");   
+                String TrangThai = rs.getString("TrangThai");
                 ThanhToan cl = new ThanhToan();
                 cl.setMaHDCT(ma);
                 cl.setMaKH(MaKH);
                 cl.setMaND(MaND);
                 cl.setNgayTao(NgayTao);
-                cl.setTongTien(TongTien);
+                  cl.setTrangThai(TrangThai);
                 listcl.add(cl);
-               
+
             }
 
         } catch (Exception e) {
@@ -202,8 +202,9 @@ public class ThemSuaThanhToanHoaDon {
         }
         return listcl;
     }
- public List<ThanhToan> select() {
-     ArrayList<ThanhToan> listcl = new ArrayList<>();
+
+    public List<ThanhToan> select() {
+        ArrayList<ThanhToan> listcl = new ArrayList<>();
         try {
             Connection con = DBConTextTu.getConnection();
             String sql = "select HoaDon.MaHD ,HoaDon.MaKH, HoaDon.MaND,HoaDon.NgayTao ,HoaDonChiTiet.TongTien ,HoaDon.TrangThai from  HoaDonChiTiet inner join HoaDon on HoaDonChiTiet.MaHD = HoaDon.MaHD   ";
@@ -215,7 +216,7 @@ public class ThemSuaThanhToanHoaDon {
                 String MaND = rs.getString("MaND");
                 String NgayTao = rs.getString("NgayTao");
                 String TongTien = rs.getString("TongTien");
-                 String TrangThai = rs.getString("TrangThai");
+                String TrangThai = rs.getString("TrangThai");
                 ThanhToan cl = new ThanhToan();
                 cl.setMaHDCT(ma);
                 cl.setMaKH(MaKH);
@@ -224,13 +225,14 @@ public class ThemSuaThanhToanHoaDon {
                 cl.setTongTien(TongTien);
                 cl.setTrangThai(TrangThai);
                 listcl.add(cl);
-               
+
             }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, " ko tìm thấy thất bại");
         }
         return listcl;
-     
+
     }
+
 }

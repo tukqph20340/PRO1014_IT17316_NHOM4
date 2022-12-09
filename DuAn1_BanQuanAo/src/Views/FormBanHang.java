@@ -1003,9 +1003,9 @@ public class FormBanHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Hóa Đơn chưa được chọn");
             return;
         }*/
+        String ma = tblHoaDonCho.getValueAt(row, 0).toString();
         int i = 0;
 
-        String ma = tblHoaDonCho.getValueAt(row, 0).toString();
         try {
             loadDataTableGH(ghService.getListGH(ma));
             for (GioHang gioHang : ghService.getListGH(ma)) {
@@ -1035,7 +1035,8 @@ public class FormBanHang extends javax.swing.JFrame {
         for (DangNhapMoDel DangNhapMoDel : NV) {
             txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
         }
-
+        txtTiennKhachDua.setText("");
+        txtTienThua.setText("");
     }//GEN-LAST:event_tblHoaDonChoMouseClicked
 
 
@@ -1067,6 +1068,14 @@ public class FormBanHang extends javax.swing.JFrame {
 
                 BanHang.insert(makh, MaND, NgayTao, TrangThai);
                 fillDataHoaDon();
+                txtMa.setText("");
+                txtMaKH.setText("");
+                txtTenKhachHang.setText("");
+                txtSdt.setText("");
+                txtngayTao.setText("");
+                txtTongTien.setText("");
+                txtTiennKhachDua.setText("");
+                txtTienThua.setText("");
             } catch (Exception e) {
             }
         } catch (Exception e) {
@@ -1077,75 +1086,67 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void btHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHuyActionPerformed
         // TODO add your handling code here:
-        String maHd = txtMa.getText();
-        String trangthai = "Đã Hủy";
-        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-        Date ht = new Date();
-        String ngayHuy = fm.format(ht);
-        if (maHd.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "mã ko đc để trống");
+        int row = tblHoaDonCho.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Chưa Chọn Hóa Đơn");
             return;
-        }
-
-        try {
-            List<ThanhToan> list = BanHang.select();
-            for (ThanhToan thanhToan : list) {
-                if (thanhToan.getTrangThai()== trangthai) {
-                    JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Đc Hủy ");
-                    return;
-                }
-                if (thanhToan.getTrangThai().equalsIgnoreCase("Đã Thanh Toán")) {
-                    JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Thanh Toán Không Thể Hủy ");
-                    return;
-                }
+        } else {
+            String maHd = txtMa.getText();
+            String trangthai = "Đã Hủy";
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            Date ht = new Date();
+            String ngayHuy = fm.format(ht);
+            try {
+                BanHang.HuyHoaDon(maHd, ngayHuy, trangthai);
+                fillDataHoaDon();
+                txtTiennKhachDua.setText("");
+                txtTienThua.setText("");
+            } catch (Exception e) {
             }
-            BanHang.HuyHoaDon(maHd, ngayHuy, trangthai);
-            fillDataHoaDon();
-        } catch (Exception e) {
         }
     }//GEN-LAST:event_btHuyActionPerformed
 
     private void btThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThanhToanActionPerformed
         // TODO add your handling code here:
+        int row = tblHoaDonCho.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Chưa Chọn Hóa Đơn");
+            return;
+        } else {
+            String maHd = txtMa.getText();
+            String trangthai = "Đã Thanh Toán";
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            Date ht = new Date();
+            String NgayThanhToan = fm.format(ht);
+            String TongTien = txtTongTien.getText();
+            String TienKhachDua = txtTiennKhachDua.getText();
+            String TienThua = txtTienThua.getText();
+            try {
+                int tong = Integer.parseInt(TongTien);
+                int dua = Integer.parseInt(TienKhachDua);
+                txtTienThua.setText(String.valueOf(dua - tong));
+                if (tong == 0) {
+                    JOptionPane.showMessageDialog(null, "Giá Sản Phẩm Bằng 0 Không Thể Thanh Toán");
+                    return;
+                }
 
-        String maHd = txtMa.getText();
-        String trangthai = "Đã Thanh Toán";
-        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
-        Date ht = new Date();
-        String NgayThanhToan = fm.format(ht);
-        String TongTien = txtTongTien.getText();
-        String TienKhachDua = txtTiennKhachDua.getText();
-        String TienThua = txtTienThua.getText();
-        try {
-            int tong = Integer.parseInt(TongTien);
-            int dua = Integer.parseInt(TienKhachDua);
-            txtTienThua.setText(String.valueOf(dua - tong));
-            if (dua - tong < 0) {
-                JOptionPane.showMessageDialog(null, "Khách Không Đưa Đủ Tiền Lỗi");
+                if (dua - tong < 0) {
+                    JOptionPane.showMessageDialog(null, "Khách Không Đưa Đủ Tiền Lỗi");
+                    return;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Vui Lòng Nhập Số Ở Tiền Khách Đưa");
                 return;
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Vui Lòng Nhập Số Ở Tiền Khách Đưa");
-            return;
-        }
 
-        try {
-            List<ThanhToan> list = BanHang.select();
-            for (ThanhToan thanhToan : list) {
-                if (thanhToan.getTrangThai().equalsIgnoreCase(trangthai)) {
-                    JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Đc Thanh Toán ");
-                    return;
-                }
-                if (thanhToan.getTrangThai().equalsIgnoreCase("Đã Hủy")) {
-                    JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Hủy Không Thể Thanh Toán ");
-                    return;
-                }
+            try {
+                BanHang.ThanhToanHoa(maHd, NgayThanhToan, trangthai);
+                fillDataHoaDon();
+                txtTiennKhachDua.setText("");
+                txtTienThua.setText("");
+            } catch (Exception e) {
             }
-            BanHang.ThanhToanHoa(maHd, NgayThanhToan, trangthai);
-            fillDataHoaDon();
-        } catch (Exception e) {
         }
-
 
     }//GEN-LAST:event_btThanhToanActionPerformed
 
@@ -1335,12 +1336,27 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void btTimKiemHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemHoaDonActionPerformed
         // TODO add your handling code here:
+        int i = 0;
+
+        try {
+            loadDataTableGH(ghService.getListGH(txtMa.getText()));
+            for (GioHang gioHang : ghService.getListGH(txtMa.getText())) {
+                i = i + gioHang.tinhTong();
+            }
+            txtTongTien.setText(String.valueOf(i));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<ThanhToan> hd = BanHang.select(txtMa.getText());
         for (ThanhToan hoaDonChiTiet : hd) {
-            txtMaKH.setText(hoaDonChiTiet.getMaKH());
-            txtMaNv.setText(hoaDonChiTiet.getMaND());
-            txtngayTao.setText(hoaDonChiTiet.getNgayTao());
-
+            if (hoaDonChiTiet.getTrangThai().equalsIgnoreCase("Chưa Thanh Toán")) {
+                txtMaKH.setText(hoaDonChiTiet.getMaKH());
+                txtMaNv.setText(hoaDonChiTiet.getMaND());
+                txtngayTao.setText(hoaDonChiTiet.getNgayTao());
+            } else {
+                JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Thanh Toán Hoặc Đã Hủy");
+                return;
+            }
         }
         String MaKh = txtMaKH.getText();
         List<KhachHangMode> ListKh = Kh.select1(MaKh);
@@ -1353,6 +1369,8 @@ public class FormBanHang extends javax.swing.JFrame {
         for (DangNhapMoDel DangNhapMoDel : NV) {
             txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
         }
+        txtTiennKhachDua.setText("");
+        txtTienThua.setText("");
     }//GEN-LAST:event_btTimKiemHoaDonActionPerformed
 
     private void btTimKiemMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemMaKHActionPerformed

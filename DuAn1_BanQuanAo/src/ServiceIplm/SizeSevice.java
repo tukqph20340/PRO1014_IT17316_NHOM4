@@ -35,9 +35,9 @@ public class SizeSevice implements SizeITF {
     }
 
     @Override
-    public List<Size> insert(String ma, String ten) {
+    public List<Size> insert( String ten) {
         try {
-            return list.insert(ma, ten);
+            return list.insert(ten);
         } catch (Exception e) {
             return null;
         }

@@ -112,6 +112,8 @@ public class Mau extends javax.swing.JDialog {
             }
         });
 
+        txtMa.setEditable(false);
+
         jLabel1.setText("Mã Màu");
 
         jLabel2.setText("Tên ");
@@ -171,12 +173,9 @@ public class Mau extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String ma = txtMa.getText();
+      
         String Ten = txtten.getText();
-        if (ma.isEmpty() || Ten.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Mã hoặc Tên đang để trống");
-            return;
-        }
+        
         int check = 0;
         for (int i = 0; i < Ten.length(); i++) {
             if (Ten.charAt(i) > '0' && Ten.charAt(i) < '9') {
@@ -187,7 +186,7 @@ public class Mau extends javax.swing.JDialog {
 
         }
         try {
-            list.insert(ma, Ten);
+            list.insert( Ten);
             mode.setRowCount(0);
             loat();
         } catch (Exception e) {
