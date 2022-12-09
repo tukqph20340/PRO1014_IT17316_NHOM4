@@ -32,4 +32,9 @@ public class HoaDonIplm implements HoaDonITFa {
         return x.getListTimHD(ma);
     }
 
+    @Override
+    public ArrayList<HoaDon> getListTimNgayHD(String min, String max) {
+        return x.getListTimNgayHD(min, max);
+    }
+
 }
