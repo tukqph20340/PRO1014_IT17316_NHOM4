@@ -606,11 +606,9 @@ public class FormNhanVien extends javax.swing.JFrame {
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         //Add
         if(check()){
-            if(checkMa(listNV,txtMaNhanVien.getText())){
         JOptionPane.showMessageDialog(this, nv.addNhanVien(fill()));
         filldataNhanVien();
         clear();
-        }
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 

@@ -66,12 +66,12 @@ public class FormDanhMuc extends javax.swing.JDialog {
         }
         return true;
     }
-
+    
     public String getTen() {
         DanhMucViews x = new DanhMucViews();
         x.setTenDM(txttenDm.getText());
         return x.getTenDM();
-    }
+  }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -261,12 +261,11 @@ public class FormDanhMuc extends javax.swing.JDialog {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (check()) {
-            if (checkMa(list, txtMaDM.getText())) {
                 JOptionPane.showMessageDialog(this, ser.addForm(dataFill()));
                 list = ser.getAllform();
                 fill(list);
                 clear();
-            }
+            
         }
     }//GEN-LAST:event_btnThemActionPerformed
 

@@ -273,7 +273,7 @@ public class FormKieuDang extends javax.swing.JDialog {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (check()) {
-            if (checkMa(list, txtMa.getText())) {
+           
                 KieuDang_Model kd = new KieuDang_Model();
                 kd.setMaKD(txtMa.getText());
                 kd.setTenKD(txtTen.getText());
@@ -282,7 +282,7 @@ public class FormKieuDang extends javax.swing.JDialog {
                 fill(list);
                 JOptionPane.showMessageDialog(this, "Thêm Thành Công");
                 clear();
-            }
+            
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
