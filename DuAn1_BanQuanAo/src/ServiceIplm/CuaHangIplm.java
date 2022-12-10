@@ -25,10 +25,10 @@ public class CuaHangIplm implements CuaHangITF {
         return repo.getListCH();
     }
 
-    @Override
-    public boolean them(CuaHang x) {
-        return repo.them(x);
-    }
+//    @Override
+//    public boolean them(CuaHang x) {
+//        return repo.them(x);
+//    }
 
     @Override
     public boolean sua(CuaHang x, String ma) {
@@ -43,6 +43,11 @@ public class CuaHangIplm implements CuaHangITF {
     @Override
     public ArrayList<CuaHang> getListTim(String ma) {
         return repo.getListTim(ma);
+    }
+
+    @Override
+    public boolean thema(CuaHang x) {
+        return repo.thema(x);
     }
 
 }

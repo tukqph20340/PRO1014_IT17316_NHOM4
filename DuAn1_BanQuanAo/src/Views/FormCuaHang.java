@@ -380,19 +380,10 @@ public class FormCuaHang extends javax.swing.JFrame {
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:        
         CuaHang x = new CuaHang();
-        x.setMaCH(txtMaCH.getText());
         x.setTenCH(txtTenCH.getText());
         x.setDiaChi(txtDiaChi.getText());
         x.setThanhPho(txtThanhPho.getText());
         try {
-            if (txtMaCH.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Mã Cửa Hàng không được để trống.");
-                return;
-            }
-            if (checkMa(x.getMaCH())) {
-                JOptionPane.showMessageDialog(this, "Mã Cửa Hàng đã tồn tại.");
-                return;
-            }
             if (txtTenCH.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Tên Cửa Hàng không được để trống.");
                 return;
@@ -405,10 +396,11 @@ public class FormCuaHang extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thành Phố không được để trống.");
                 return;
             }
-            if (service.them(x)) {
-                JOptionPane.showMessageDialog(this, "Thêm Thành Công.");
-                loadTable(service.getListCH());
+            if (service.thema(x)) {
+                
             }
+            JOptionPane.showMessageDialog(this, "Thêm Thành Công");
+            loadTable(service.getListCH());
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Thêm Thất Bại.");

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public interface CuaHangITF {
     public ArrayList<CuaHang> getListCH();
     
-    public boolean them(CuaHang x);
+    public boolean thema(CuaHang x);
     
     public boolean sua(CuaHang x,String ma);
     
