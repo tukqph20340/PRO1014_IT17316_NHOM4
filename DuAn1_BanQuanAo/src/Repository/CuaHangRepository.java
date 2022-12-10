@@ -60,14 +60,25 @@ public class CuaHangRepository {
     }    
     
     public boolean them(CuaHang x) {
-        String sql = "insert CuaHang (MaCH,TenCH,DiaChi,ThanhPho) values (?,?,?,?)";
+        String sql = "insert CuaHang (TenCH,DiaChi,ThanhPho) values (?,?,?)";
         try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setObject(1, x.getMaCH());
-            ps.setObject(2, x.getTenCH());
-            ps.setObject(3, x.getDiaChi());
-            ps.setObject(4, x.getThanhPho());
+            ps.setObject(1, x.getTenCH());
+            ps.setObject(2, x.getDiaChi());
+            ps.setObject(3, x.getThanhPho());
             ps.executeUpdate();
-            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean thema(CuaHang x) {
+        String sql = "insert into CuaHang (TenCH,DiaChi,ThanhPho) values (?,?,?)";
+        try ( Connection con = db.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, x.getTenCH());
+            ps.setObject(2, x.getDiaChi());
+            ps.setObject(3, x.getThanhPho());
+            ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
