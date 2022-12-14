@@ -1019,7 +1019,6 @@ public class FormBanHang extends javax.swing.JFrame {
         for (ThanhToan hoaDonChiTiet : hd) {
             txtMa.setText(tblHoaDonCho.getValueAt(row, 0).toString());
             txtMaKH.setText(hoaDonChiTiet.getMaKH());
-            txtMaNv.setText(hoaDonChiTiet.getMaND());
             txtngayTao.setText(hoaDonChiTiet.getNgayTao());
 
         }
@@ -1028,11 +1027,6 @@ public class FormBanHang extends javax.swing.JFrame {
         for (KhachHangMode khachHangMode : ListKh) {
             txtTenKhachHang.setText(khachHangMode.getHoVaTen());
             txtSdt.setText(khachHangMode.getSdt());
-        }
-        String MaNV = txtMaNv.getText();
-        List<DangNhapMoDel> NV = dn.Loat();
-        for (DangNhapMoDel DangNhapMoDel : NV) {
-            txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
         }
         txtTiennKhachDua.setText("");
         txtTienThua.setText("");
@@ -1285,7 +1279,6 @@ public class FormBanHang extends javax.swing.JFrame {
         for (ThanhToan hoaDonChiTiet : hd) {
             if (hoaDonChiTiet.getTrangThai().equalsIgnoreCase("Chưa Thanh Toán")) {
                 txtMaKH.setText(hoaDonChiTiet.getMaKH());
-                txtMaNv.setText(hoaDonChiTiet.getMaND());
                 txtngayTao.setText(hoaDonChiTiet.getNgayTao());
                 String MaKh = txtMaKH.getText();
                 List<KhachHangMode> ListKh = Kh.select1(MaKh);
@@ -1293,11 +1286,7 @@ public class FormBanHang extends javax.swing.JFrame {
                     txtTenKhachHang.setText(khachHangMode.getHoVaTen());
                     txtSdt.setText(khachHangMode.getSdt());
                 }
-                String MaNV = txtMaNv.getText();
-                List<DangNhapMoDel> NV = dn.Loat();
-                for (DangNhapMoDel DangNhapMoDel : NV) {
-                    txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
-                }
+               
                 txtTiennKhachDua.setText("");
                 txtTienThua.setText("");
             } else {
