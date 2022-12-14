@@ -72,7 +72,7 @@ public class FormBanHang extends javax.swing.JFrame {
     HoaDon_Service sercive_hd = new HoaDon_Service();
     ArrayList<HoaDonViews> listHD = new ArrayList<>();
     private GioHangITF ghService = new GioHangIplm();
-    private SanPhamITFinBanHang sv=new SanPhamInBanHang_Service();
+    private SanPhamITFinBanHang sv = new SanPhamInBanHang_Service();
 
     public void loadCbMau(ArrayList<String> listMau) {
         CbLocMau.removeAllItems();
@@ -137,7 +137,7 @@ public class FormBanHang extends javax.swing.JFrame {
         tblHoaDonCho.setModel(modelSanPham);
 
     }
-    
+
     public void loadSP(ArrayList<SanPham> list) {
         modelSanPham = (DefaultTableModel) tblbangSanPham.getModel();
         modelSanPham.setRowCount(0);
@@ -781,14 +781,15 @@ public class FormBanHang extends javax.swing.JFrame {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CbLocMau, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                    .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(CbLocMau)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTimKiemSP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbChatLieu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbKieuDang, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbLocSizze, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -845,7 +846,7 @@ public class FormBanHang extends javax.swing.JFrame {
         String dm = cbDanhMuc.getSelectedItem().toString();
         String cl = cbChatLieu.getSelectedItem().toString();
         String kd = cbKieuDang.getSelectedItem().toString();
-        SanPhaminBanHang_Repository x=new SanPhaminBanHang_Repository();
+        SanPhaminBanHang_Repository x = new SanPhaminBanHang_Repository();
         try {
             if (ma.isEmpty()) {
                 loadSP(x.getListLoc(mau, size, dm, cl, kd));
@@ -1096,7 +1097,15 @@ public class FormBanHang extends javax.swing.JFrame {
             String ngayHuy = fm.format(ht);
             try {
                 BanHang.HuyHoaDon(maHd, ngayHuy, trangthai);
+                modelSanPham.setRowCount(0);
                 fillDataHoaDon();
+                fillDataSanPham();
+                txtMa.setText("");
+                txtMaKH.setText("");
+                txtTenKhachHang.setText("");
+                txtSdt.setText("");
+                txtngayTao.setText("");
+                txtTongTien.setText("");
                 txtTiennKhachDua.setText("");
                 txtTienThua.setText("");
             } catch (Exception e) {
@@ -1268,24 +1277,36 @@ public class FormBanHang extends javax.swing.JFrame {
                 txtMaKH.setText(hoaDonChiTiet.getMaKH());
                 txtMaNv.setText(hoaDonChiTiet.getMaND());
                 txtngayTao.setText(hoaDonChiTiet.getNgayTao());
+                String MaKh = txtMaKH.getText();
+                List<KhachHangMode> ListKh = Kh.select1(MaKh);
+                for (KhachHangMode khachHangMode : ListKh) {
+                    txtTenKhachHang.setText(khachHangMode.getHoVaTen());
+                    txtSdt.setText(khachHangMode.getSdt());
+                }
+                String MaNV = txtMaNv.getText();
+                List<DangNhapMoDel> NV = dn.Loat();
+                for (DangNhapMoDel DangNhapMoDel : NV) {
+                    txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
+                }
+                txtTiennKhachDua.setText("");
+                txtTienThua.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Hóa Đơn Đã Thanh Toán Hoặc Đã Hủy");
+                modelSanPham.setRowCount(0);
+                fillDataHoaDon();
+                fillDataSanPham();
+                txtMa.setText("");
+                txtMaKH.setText("");
+                txtTenKhachHang.setText("");
+                txtSdt.setText("");
+                txtngayTao.setText("");
+                txtTongTien.setText("");
+                txtTiennKhachDua.setText("");
+                txtTienThua.setText("");
                 return;
             }
         }
-        String MaKh = txtMaKH.getText();
-        List<KhachHangMode> ListKh = Kh.select1(MaKh);
-        for (KhachHangMode khachHangMode : ListKh) {
-            txtTenKhachHang.setText(khachHangMode.getHoVaTen());
-            txtSdt.setText(khachHangMode.getSdt());
-        }
-        String MaNV = txtMaNv.getText();
-        List<DangNhapMoDel> NV = dn.Loat();
-        for (DangNhapMoDel DangNhapMoDel : NV) {
-            txtMaNv1.setText(DangNhapMoDel.getHoVaTen());
-        }
-        txtTiennKhachDua.setText("");
-        txtTienThua.setText("");
+
     }//GEN-LAST:event_btTimKiemHoaDonActionPerformed
 
     private void btTimKiemMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTimKiemMaKHActionPerformed
