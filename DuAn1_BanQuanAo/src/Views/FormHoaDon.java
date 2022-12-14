@@ -212,6 +212,7 @@ public class FormHoaDon extends javax.swing.JFrame {
 
         buttonGroup1.add(rdTatCa);
         rdTatCa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        rdTatCa.setSelected(true);
         rdTatCa.setText("Tất cả");
         rdTatCa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
