@@ -1167,8 +1167,6 @@ public class FormBanHang extends javax.swing.JFrame {
 
     private void tblGioHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGioHangMouseClicked
         // TODO add your handling code here:
-        int row = tblGioHang.getSelectedRow();
-        txtTongTien.setText(tblGioHang.getValueAt(row, 3).toString());
     }//GEN-LAST:event_tblGioHangMouseClicked
 
     private void jButton39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton39ActionPerformed
