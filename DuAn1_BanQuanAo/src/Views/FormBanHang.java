@@ -1148,7 +1148,15 @@ public class FormBanHang extends javax.swing.JFrame {
 
             try {
                 BanHang.ThanhToanHoa(maHd, NgayThanhToan, trangthai);
+                modelSanPham.setRowCount(0);
                 fillDataHoaDon();
+                fillDataSanPham();
+                txtMa.setText("");
+                txtMaKH.setText("");
+                txtTenKhachHang.setText("");
+                txtSdt.setText("");
+                txtngayTao.setText("");
+                txtTongTien.setText("");
                 txtTiennKhachDua.setText("");
                 txtTienThua.setText("");
             } catch (Exception e) {
