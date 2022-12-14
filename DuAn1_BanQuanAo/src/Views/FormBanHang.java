@@ -1272,6 +1272,10 @@ public class FormBanHang extends javax.swing.JFrame {
             e.printStackTrace();
         }
         List<ThanhToan> hd = BanHang.select(txtMa.getText());
+        if (hd.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Hóa đơn không tồn tại");
+            return;
+        }
         for (ThanhToan hoaDonChiTiet : hd) {
             if (hoaDonChiTiet.getTrangThai().equalsIgnoreCase("Chưa Thanh Toán")) {
                 txtMaKH.setText(hoaDonChiTiet.getMaKH());
@@ -1313,6 +1317,10 @@ public class FormBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         String MaKh = txtMaKH.getText();
         List<KhachHangMode> ListKh = Kh.select1(MaKh);
+        if (ListKh.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Khách hàng không tồn tại");
+            return;
+        }
         for (KhachHangMode khachHangMode : ListKh) {
             txtTenKhachHang.setText(khachHangMode.getHoVaTen());
             txtSdt.setText(khachHangMode.getSdt());
@@ -1324,6 +1332,10 @@ public class FormBanHang extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ten = txtTenKhachHang.getText();
         List<KhachHangMode> ListKh = Kh.selectTen(ten);
+        if (ListKh.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Khách hàng không tồn tại");
+            return;
+        }
         for (KhachHangMode khachHangMode : ListKh) {
             txtMaKH.setText(khachHangMode.getMaKH());
             txtSdt.setText(khachHangMode.getSdt());
