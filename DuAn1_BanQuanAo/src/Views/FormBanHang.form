@@ -809,14 +809,16 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnTimKiem" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="txtTimKiemSP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                      <Component id="cbChatLieu" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="cbKieuDang" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="cbDanhMuc" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="CbLocMau" alignment="0" pref="24" max="32767" attributes="0"/>
-                      <Component id="cbLocSizze" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="CbLocMau" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnTimKiem" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="txtTimKiemSP" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="cbChatLieu" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="cbKieuDang" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="cbDanhMuc" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="cbLocSizze" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane4" min="-2" pref="113" max="-2" attributes="0"/>

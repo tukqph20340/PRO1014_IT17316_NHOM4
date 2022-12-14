@@ -49,7 +49,7 @@ public class FormHoaDon extends javax.swing.JFrame {
 
     public boolean validate(String a) {
         try {
-            SimpleDateFormat fm = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
             fm.parse(a);
             return false;
         } catch (Exception e) {
@@ -436,7 +436,7 @@ public class FormHoaDon extends javax.swing.JFrame {
         try {
             if (tim.isEmpty()) {
                 if (validate(max) || validate(min)) {
-                    JOptionPane.showMessageDialog(this, "Bạn đã nhập sai định dạng ngày tháng(dd/mm/yyyy)");
+                    JOptionPane.showMessageDialog(this, "Bạn đã nhập sai định dạng ngày tháng(yyyy-MM-dd)");
                     return;
                 }
                 loadTable(service.getListTimNgayHD(min, max));
