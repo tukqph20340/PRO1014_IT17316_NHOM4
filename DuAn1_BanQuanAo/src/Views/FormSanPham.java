@@ -51,7 +51,7 @@ public class FormSanPham extends javax.swing.JFrame {
                 x.getTenMau(), x.getTenSize(), x.getTenChatLieu(), x.getTenKieuDang(),
                 x.getNgaySX(), x.getGiaNhap(), x.getGiaBan(), x.getSoLuong(), x.htTrangThai()});
         }
-        
+
     }
 
     public void loadCbDM(ArrayList<String> listDM) {
@@ -112,7 +112,7 @@ public class FormSanPham extends javax.swing.JFrame {
         }
         return false;
     }
-    
+
     public boolean validate(String a) {
         try {
             SimpleDateFormat fm = new SimpleDateFormat("yyyy-mm-dd");
@@ -896,6 +896,10 @@ public class FormSanPham extends javax.swing.JFrame {
                 return;
             }
             loadTable(service.tim(ma));
+            if (tbThongTinSanPham.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Không có Sản Phẩm phù hợp");
+                return;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
