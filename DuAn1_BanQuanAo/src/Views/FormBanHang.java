@@ -867,6 +867,7 @@ public class FormBanHang extends javax.swing.JFrame {
         int row = tblbangSanPham.getSelectedRow();
         String ma = tblbangSanPham.getValueAt(row, 0).toString();
         int rowHD = tblHoaDonCho.getSelectedRow();
+        int sl=Integer.parseInt(tblbangSanPham.getValueAt(row, 8).toString());
         if (rowHD == -1) {
             JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn để thêm sản phẩm.");
             return;
@@ -879,6 +880,10 @@ public class FormBanHang extends javax.swing.JFrame {
             int so = Integer.valueOf(JOptionPane.showInputDialog("Nhập Số Lượng bạn cần mua."));
             if (so <= 0) {
                 JOptionPane.showMessageDialog(this, "Bạn phải nhập số lớn hơn 0");
+                return;
+            }
+            if (so > sl) {
+                JOptionPane.showMessageDialog(this, "Số Lượng sản phẩm không đủ");
                 return;
             }
             if (checkMaSP(maHD) == false) {
